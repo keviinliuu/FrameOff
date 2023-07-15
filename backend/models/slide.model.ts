@@ -1,9 +1,9 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
-import { IImage } from './image.model';
+import type IImage from './image.model';
 
 export interface ISlide extends Document {
-  image1: IImage;
-  image2: IImage;
+  image1: typeof IImage;
+  image2: typeof IImage;
   slideTitle: string;
   imageTitle1: string;
   imageTitle2: string;
