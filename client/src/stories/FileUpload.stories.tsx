@@ -11,5 +11,19 @@ export default meta;
 type Story = StoryObj<typeof FileUpload>;
 
 export const Main: Story = {
-    render: () => <FileUpload />,
+    render: () => (
+        <div className='h-screen'>
+            <div className='w-1/2 h-1/2'>
+                <FileUpload />
+            </div>
+        </div>
+    ),
+};
+
+export const Secondary: Story = {
+    render: () => (
+        <div className='h-screen'>
+            <FileUpload />
+        </div>
+    ),
 };
