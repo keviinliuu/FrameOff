@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import path from 'path'
 import fs from 'fs'
 import multer from 'multer'
+import imageSchema from './models/image.model';
+
 dotenv.config();
 
 const app = express();
@@ -14,7 +16,6 @@ const uri: string = process.env.FRAMEOFF_DB_URI!;
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
-
 
 mongoose.connect(uri, { 
     useNewUrlParser: true, 
@@ -26,7 +27,7 @@ mongoose.connect(uri, {
 }).then(() => {
     app.listen(port, () => {
         console.log(`Server is listening port ${port}`);
-    });
+    });ç
 });
 
 const connection = mongoose.connection;
@@ -46,27 +47,20 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 app.post('/', upload.single('image'), (req, res, next) => {
- 
     var obj = {
         name: req.body.name,
-        desc: req.body.desc,
-        img: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+        image: {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file!.filename)),
             contentType: 'image/png'
         }
     }
-    imgSchema.create(obj)
-    .then ((err, item) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            // item.save();
+    imageSchema.create(obj)
+        .then((item) => {
+            item.save()
+                .then(() => res.send("successfully uploaded"));
             res.redirect('/');
-        }
+        })
+        .catch((err) => {
+            console.log(err);
     });
 });
-
-app.post('/', (req, res) => {
-    connection.db
-})
