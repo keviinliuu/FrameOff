@@ -3,17 +3,29 @@
 module.exports = {
     parser: '@typescript-eslint/parser',
     parserOptions: {
-        ecmaVersion: 12,
+        ecmaVersion: 'latest',
         sourceType: 'module',
     },
-    plugins: ['@typescript-eslint'],
-    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+    plugins: ['@typescript-eslint', 'react', 'react-refresh'],
+    extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended',
+        'plugin:react/jsx-runtime',
+        'plugin:storybook/recommended',
+        'plugin:prettier/recommended',
+    ],
     rules: {
         '@typescript-eslint/no-unused-vars': 'error',
-        'semi': ['error', 'always']
     },
     env: {
         browser: true,
         es2021: true,
+    },
+    settings: {
+        react: {
+            version: 'detect',
+        },
     },
 };
