@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-interface IImage extends Document {
+export interface IImage extends Document {
     image: {
       data: Buffer;
       contentType: string;
