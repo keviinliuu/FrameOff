@@ -11,7 +11,7 @@ export interface ISlide extends Document {
   imageDesc2: string;
 }
 
-const slideSchema: Schema<ISlide> = new Schema({
+export const slideSchema: Schema<ISlide> = new Schema({
   image1: {
     type: Schema.Types.ObjectId,
     ref: 'Image',
