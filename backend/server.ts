@@ -2,19 +2,22 @@ import express from 'express';
 import cors from 'cors';
 import mongoose, { ConnectOptions } from 'mongoose';
 import dotenv from 'dotenv';
-import multer from 'multer'
-import ImageModel from './models/image.model';
+
+import multer from 'multer';
+import { uploadImage, getImageUrl } from './s3';
+import crypto from 'crypto';
 
 dotenv.config();
-
 const app = express();
-const port = 6000;
+const port = process.env.PORT;
 const uri: string = process.env.FRAMEOFF_DB_URI!;
 
+// Configure Express server
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 
+// Connect to MongoDB and launch Node.js runtime
 mongoose.connect(uri, {
     useNewUrlParser: true,
     wtimeoutMS: 2500,
@@ -28,34 +31,13 @@ mongoose.connect(uri, {
     });
 });
 
+// Log successful MongoDB connection
 const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("MongoDB database connection established succesfully");
-})
-
-const storage = multer.memoryStorage()
-
-const upload = multer({
-    storage: storage
-}).single('image')
-
-app.post('/upload', (req, res) => {
-    upload(req, res, (err) => {
-        if (err) {
-            console.log(err);
-        } 
-        else {
-            const newImage = new ImageModel({
-                image: {
-                    data: req.file?.buffer,
-                    contentType: 'image/png'
-                },
-            });
-
-            newImage
-                .save()
-                .then(() => res.send('Successfully uploaded'))
-                .catch((err) => console.log(err));
-        }
-    });
 });
+
+// Temporary image set-up, to be moved...
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+const generateImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex');
