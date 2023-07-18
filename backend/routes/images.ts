@@ -19,8 +19,7 @@ router.route('/api/uploadimage').post(upload.single('image'), async(req, res) =>
     );
 
     const url = getImageUrl(imageName);
-    console.log(`This works ${url}`);
-    return url;
+    res.send(url);
 })
 
 export default router;

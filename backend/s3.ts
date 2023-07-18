@@ -17,7 +17,6 @@ const s3 = new S3Client({
 });
 
 export async function uploadImage(fileBuffer: Buffer, fileName: string, mimetype: string) {
-    console.log(s3.config.region)
     const uploadParams = {
         Bucket: bucketName,
         Body: fileBuffer,
