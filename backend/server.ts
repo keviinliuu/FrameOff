@@ -3,12 +3,11 @@ import cors from 'cors';
 import mongoose, { ConnectOptions } from 'mongoose';
 import dotenv from 'dotenv';
 
-import multer from 'multer';
-
 import DuelModel from './models/duel.model';
 import uploadImagesRouter from './routes/images';
 
 dotenv.config();
+
 const app = express();
 const port = process.env.PORT;
 const uri: string = process.env.FRAMEOFF_DB_URI!;
@@ -38,11 +37,6 @@ const connection = mongoose.connection;
 connection.once('open', () => {
     console.log("MongoDB database connection established succesfully");
 });
-
-
-
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
 
 // Endpoint for creating an image
 app.post('/api/createduel', async (req, res) => {
