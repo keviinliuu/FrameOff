@@ -8,6 +8,7 @@ export interface ISlide extends Document {
   imageTitle2: string;
   imageDesc1: string;
   imageDesc2: string;
+  sequenceNo: number;
 }
 
 export const slideSchema: Schema<ISlide> = new Schema({
@@ -38,6 +39,10 @@ export const slideSchema: Schema<ISlide> = new Schema({
   imageDesc2: {
     type: String,
     required: false,
+  },
+  sequenceNo: {
+    type: Number,
+    required: true,
   },
 });
 
