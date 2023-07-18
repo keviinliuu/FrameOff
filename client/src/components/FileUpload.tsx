@@ -13,7 +13,7 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
             <div>Click to upload files</div>
             {image && <div>An image was uploaded with the name {image.name}</div>}
             <input
-                name='uploadedImage'
+                name='image'
                 type='file'
                 hidden
                 accept='image/*'

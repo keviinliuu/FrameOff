@@ -1,16 +1,24 @@
 import FileUpload from '../components/FileUpload';
 
 import { useState, FormEvent } from 'react';
+import axios from 'axios';
 
 export default function CreatePoll() {
     const [image, setImage] = useState<File>();
+    // const [imageMessage, setImageMessage] = useState<string>();
     const handleImage = (image: File) => setImage(image);
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!image) return;
         const imageData = new FormData(e.currentTarget);
-        console.log(imageData);
+        await axios
+            .post('/uploadimage', imageData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            .then(res => console.log(res));
     };
 
     return (
