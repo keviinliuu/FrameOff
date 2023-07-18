@@ -1,9 +1,8 @@
-import mongoose, { Document, Schema, Model, Types } from 'mongoose';
-import { IImage } from './image.model';
+import mongoose, { Document, Schema, Model } from 'mongoose';
 
 export interface ISlide extends Document {
-  image1: Types.ObjectId | IImage;
-  image2: Types.ObjectId | IImage;
+  imageUrl1: string;
+  imageUrl2: string;
   slideTitle: string;
   imageTitle1: string;
   imageTitle2: string;
@@ -12,15 +11,13 @@ export interface ISlide extends Document {
 }
 
 export const slideSchema: Schema<ISlide> = new Schema({
-  image1: {
-    type: Schema.Types.ObjectId,
-    ref: 'Image',
-    required: true,
+  imageUrl1: {
+    type: String,
+    required: true
   },
-  image2: {
-    type: Schema.Types.ObjectId,
-    ref: 'Image',
-    required: true,
+  imageUrl2: {
+    type: String,
+    required: true
   },
   slideTitle: {
     type: String,

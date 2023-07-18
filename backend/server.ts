@@ -7,6 +7,9 @@ import multer from 'multer';
 import { uploadImage, getImageUrl } from './s3';
 import crypto from 'crypto';
 
+import DuelModel from './models/duel.model';
+import uploadImagesRouter from './routes/images';
+
 dotenv.config();
 const app = express();
 const port = process.env.PORT;
@@ -37,7 +40,39 @@ connection.once('open', () => {
     console.log("MongoDB database connection established succesfully");
 });
 
-// Temporary image set-up, to be moved...
+//app.use('/api/uploadimage', uploadImagesRouter);
+
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const generateImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex');
+
+app.post('/api/uploadimage', upload.single('image'), async (req, res) => {
+    const imageName = generateImageName();
+
+    await uploadImage(
+        req.file!.buffer,
+        imageName,
+        req.file!.mimetype
+    );
+
+    const url = getImageUrl(imageName);
+    return url;
+})
+
+// Endpoint for creating an image
+app.post('/api/createduel', async (req, res) => {
+    const title = req.body.title;
+    const description = req.body.description;
+    const slides = req.body.slides;
+
+    const newDuel = new DuelModel({
+        title,
+        description,
+        slides,
+    });
+
+    newDuel.save()
+        .then(() => res.json('Poll created!'))
+        .catch(err => res.status(400).json('Error' + err));
+})

@@ -11,21 +11,21 @@ const s3 = new S3Client({
         secretAccessKey: secretAccessKey,
     },
     region: bucketRegion
-})
+});
 
-export function uploadImage(fileBuffer: Buffer, fileName: string, mimetype: string) {
+export async function uploadImage(fileBuffer: Buffer, fileName: string, mimetype: string) {
     const uploadParams = {
         Bucket: bucketName,
         Body: fileBuffer,
         Key: fileName,
         ContentType: mimetype
-    }
+    };
 
     const command = new PutObjectCommand(uploadParams);
-    return s3.send(command);
-}
+    await s3.send(command);
+};
 
 export function getImageUrl(imageName: string) {
     const url: string = `https://${bucketName}.${bucketRegion}.s3.amazonaws.com/${imageName}`;
     return url;
-}
+};
