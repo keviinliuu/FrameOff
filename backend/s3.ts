@@ -1,4 +1,7 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const bucketName: string = process.env.S3_BUCKET_NAME!;
 const bucketRegion: string = process.env.S3_BUCKET_REGION!;
@@ -14,6 +17,7 @@ const s3 = new S3Client({
 });
 
 export async function uploadImage(fileBuffer: Buffer, fileName: string, mimetype: string) {
+    console.log(s3.config.region)
     const uploadParams = {
         Bucket: bucketName,
         Body: fileBuffer,
@@ -26,6 +30,6 @@ export async function uploadImage(fileBuffer: Buffer, fileName: string, mimetype
 };
 
 export function getImageUrl(imageName: string) {
-    const url: string = `https://${bucketName}.${bucketRegion}.s3.amazonaws.com/${imageName}`;
+    const url: string = `https://${bucketName}.s3.${bucketRegion}.amazonaws.com/${imageName}`;
     return url;
 };
