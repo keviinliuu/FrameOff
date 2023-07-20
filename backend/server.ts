@@ -30,7 +30,7 @@ mongoose.connect(uri, {
 }).then(() => {
     app.listen(port, () => {
         console.log(`Server is listening port ${port}`);
-    });
+    }); 
 });
 
 // Log successful MongoDB connection
