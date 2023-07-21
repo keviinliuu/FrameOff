@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model, Types } from 'mongoose';
+import mongoose, { Document, Schema, Model, model, Types } from 'mongoose';
 import { ISlide, slideSchema } from './slide.model';
 
 export interface IDuel extends Document {
@@ -8,12 +8,12 @@ export interface IDuel extends Document {
     slides: Types.DocumentArray<ISlide>;
 }
 
-type DuelDocumentProps = {
+export type DuelDocumentProps = {
     slides: Types.DocumentArray<ISlide>;
-}
+};
 type DuelModelType = Model<IDuel, {}, DuelDocumentProps>;
 
-const duelSchema : Schema<IDuel> = new Schema<IDuel>({
+const duelSchema = new Schema<IDuel, DuelModelType>({
     title: {
         type: String,
         required: true,
@@ -28,9 +28,8 @@ const duelSchema : Schema<IDuel> = new Schema<IDuel>({
         type: String,
     },
     slides: [slideSchema],
-},
-{ timestamps: true });
+}, { timestamps: true });
 
-const Duel: Model<IDuel> = mongoose.model<IDuel>('Duel', duelSchema);
+const Duel = model<IDuel>('Duel', duelSchema);
 
 export default Duel;

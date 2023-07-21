@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import { ISlide } from '../models/slide.model';
 import crypto from 'crypto';
 
 import DuelModel from '../models/duel.model';
-import SlideModel from '../models/slide.model';
+import SlideModel, { ISlide } from '../models/slide.model';
 import ImageModel from '../models/image.model';
 
 const router = Router();
@@ -46,7 +45,7 @@ router.route('/api/createduel').post(async (req, res) => {
         newDuel.slides.push(newSlide);
     }
 
-    // console.log(newDuel.slides[0].ownerDocument);
+    console.log(newDuel.slides[0].ownerDocument);
 
     await newDuel
         .save()
