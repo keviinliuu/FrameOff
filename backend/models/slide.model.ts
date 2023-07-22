@@ -5,8 +5,8 @@ export interface ISlide extends Document {
     slideTitle: string;
     slideDescription: string;
     index: number;
-    image1: Types.Subdocument<IImage>;
-    image2: Types.Subdocument<IImage>;
+    image1: IImage;
+    image2: IImage;
 };
 
 type SlideDocumentOverrides = {
@@ -42,6 +42,5 @@ export const slideSchema = new Schema<ISlide, SlideModelType>({
 });
 
 const Slide = model<ISlide, SlideModelType>('Slide', slideSchema);
-
 
 export default Slide;

@@ -45,12 +45,31 @@ router.route('/api/createduel').post(async (req, res) => {
         newDuel.slides.push(newSlide);
     }
 
-    console.log(newDuel.slides[0].ownerDocument);
-
     await newDuel
         .save()
         .then(() => res.json('Duel created!'))
         .catch(err => res.status(400).json('Error' + err));
+});
+
+router.route('/api/vote/:id').post(async (req, res) => {
+    DuelModel.findById(req.params.id)
+        .then(duel => {
+            const slideToUpdate: ISlide = duel!.slides[req.body.index];
+            var image = null;
+            
+            if(req.body.imageSelection == "image1") {
+                image = slideToUpdate.image1;
+            }
+            else {
+                image = slideToUpdate.image2;
+            }
+
+            image.votes = image.votes + 1;
+
+            duel!.save()
+                .then(() => res.json('Updated!'))
+                .catch(err => res.status(400).json('Error') + err)
+        });
 });
 
 export default router;

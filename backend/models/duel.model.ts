@@ -30,6 +30,6 @@ const duelSchema = new Schema<IDuel, DuelModelType>({
     slides: [slideSchema],
 }, { timestamps: true });
 
-const Duel = model<IDuel>('Duel', duelSchema);
+const Duel = model<IDuel, DuelModelType>('Duel', duelSchema);
 
 export default Duel;
