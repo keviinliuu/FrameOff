@@ -51,6 +51,12 @@ router.route('/api/createduel').post(async (req, res) => {
         .catch(err => res.status(400).json('Error' + err));
 });
 
+router.route('/api/:id').get(async (req, res) => {
+    DuelModel.findById(req.params.id)
+        .then(duel => res.json(duel))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/api/vote/:id').post(async (req, res) => {
     DuelModel.findById(req.params.id)
         .then(duel => {
@@ -71,5 +77,9 @@ router.route('/api/vote/:id').post(async (req, res) => {
                 .catch(err => res.status(400).json('Error') + err)
         });
 });
+
+router.route('/api/voteall/:id').post(async (req, res) => {
+    // to be implemented....
+})
 
 export default router;
