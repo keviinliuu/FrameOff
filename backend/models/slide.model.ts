@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Model, model, Types } from 'mongoose';
+import { Document, Schema, Model, model, Types } from 'mongoose';
 import { IImage, imageSchema } from './image.model';
 
 export interface ISlide extends Document {
@@ -10,8 +10,8 @@ export interface ISlide extends Document {
 };
 
 type SlideDocumentOverrides = {
-    image1: Types.Subdocument<IImage>;
-    image2: Types.Subdocument<IImage>;
+    image1: IImage & Types.Subdocument<IImage>;
+    image2: IImage & Types.Subdocument<IImage>;
 }
 type SlideModelType = Model<ISlide, {}, SlideDocumentOverrides>;
 
