@@ -13,7 +13,6 @@ The backend is implemented using the following key languages/technologies/framew
 - AWS S3
 - Multer
 
-
 ## Routes
 ### Creating a Duel
 
@@ -23,7 +22,6 @@ The backend is implemented using the following key languages/technologies/framew
 **Example Request Body:** 
 
 ```json
-
 {
   "title": "Sample Duel",
   "description": "This is a test duel",
@@ -119,7 +117,7 @@ The backend is implemented using the following key languages/technologies/framew
 }
 ```
 
-The `_id`s have been blurred out for security purposes.
+The `_id`s have been blurred out.
 
 ### Voting on an Individual Slide
 
@@ -134,23 +132,25 @@ The `_id`s have been blurred out for security purposes.
     "votedFor": "IMAGE1"
 }
 ```
+
 **Relevant Enums:**
 
 ```typescript
-
 const VotedEnum = {
     IMAGE1: 'IMAGE1',
     IMAGE2: 'IMAGE2',
 };
 ```
 
-**Response:** Returns the current votes of the images. 
+**Response:** Returns the current votes and their relevant percentages of the images. 
 **Example Response Body:**
 
 ```json
 {
-    "votesImage1": 4,
-    "votesImage2": 1
+    "votesImage1": 9,
+    "votesPercent1": 69,
+    "votesImage2": 4,
+    "votesPercent2": 31
 }
 ```
 
@@ -175,20 +175,23 @@ const VotedEnum = {
   ]
 }
 ```
+
 **Response:** `OK` or returns an error.
 
 ### Get Results of a Slide
 
 **Method:** `GET`
 **Endpoint:** `/api/getvotes/:id`
-**Description:** Gets the votes of the two images of a specific slide.
+**Description:** Gets the votes and relevant percentages of the two images of a specific slide.
 **URL Parameters:** `:id` - the ID of the slide.
 **Example Response Body:**
 
 ```json
 {
-    "votesImage1": 6,
-    "votesImage2": 1
+    "votesImage1": 13,
+    "votesPercent1": 76,
+    "votesImage2": 4,
+    "votesPercent2": 24
 }
 ```
 

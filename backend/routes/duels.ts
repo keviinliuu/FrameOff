@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createId, VotedEnum } from '../utils/dbUtils';
+import { calculatePercentages, createId, VotedEnum } from '../utils/dbUtils';
 
 import DuelModel from '../models/duel.model';
 import SlideModel from '../models/slide.model';
@@ -20,7 +20,7 @@ router.route('/api/createduel').post(async (req, res) => {
         slides: slides,
     });
 
-    for(const slide of req.body.slides) {
+    for (const slide of req.body.slides) {
         const newImage1 = new ImageModel({
             url: slide.image1.url,
             caption: slide.image1.caption,
@@ -59,7 +59,7 @@ router.route('/api/:id').get(async (req, res) => {
         model: SlideModel,
     }).exec();
 
-    if(!populatedDuel) {
+    if (!populatedDuel) {
         return res.status(404).json({ error: 'Duel not found!' });
     }
 
@@ -76,13 +76,14 @@ router.route('/api/voteslide').patch(async (req, res) => {
 
     const slide = await SlideModel.findById(_id).exec();
 
-    if(!slide) {
+    if (!slide) {
         return res.status(404).json({ error: 'Slide not found.' });
     }
 
     if (votedFor === VotedEnum.IMAGE1) {
         slide.image1.votes += 1;
-    } else if (votedFor === VotedEnum.IMAGE2) {
+    } 
+    else if (votedFor === VotedEnum.IMAGE2) {
         slide.image2.votes += 1;
     }
 
@@ -90,12 +91,13 @@ router.route('/api/voteslide').patch(async (req, res) => {
 
     const votesImage1 = slide.image1.votes;
     const votesImage2 = slide.image2.votes;
+    const [votesPercent1, votesPercent2] = calculatePercentages(votesImage1, votesImage2);
 
-    return res.json({ votesImage1, votesImage2 });
+    return res.json({ votesImage1, votesPercent1, votesImage2, votesPercent2 });
 });
 
 router.route('/api/voteall').patch(async (req, res) => {
-    for(const votedSlide of req.body.votedSlides) {
+    for (const votedSlide of req.body.votedSlides) {
         const _id = votedSlide._id;
         const votedFor = votedSlide.votedFor;
 
@@ -126,14 +128,15 @@ router.route('/api/getvotes/:id').get(async (req, res) => {
     const slideId = req.params.id;
     const slide = await SlideModel.findById(slideId).exec();
 
-    if(!slide) {
+    if (!slide) {
         return res.status(404).json({ error: 'Slide not found.' });
     }
 
     const votesImage1 = slide.image1.votes;
     const votesImage2 = slide.image2.votes;
+    const [votesPercent1, votesPercent2] = calculatePercentages(votesImage1, votesImage2);
 
-    return res.json({ votesImage1, votesImage2 });
+    return res.json({ votesImage1, votesPercent1, votesImage2, votesPercent2 });
 });
 
 export default router;
