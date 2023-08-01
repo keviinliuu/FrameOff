@@ -1,46 +1,46 @@
-import mongoose, { Document, Schema, Model } from 'mongoose';
+import { Document, Schema, Model, model, Types } from 'mongoose';
+import { IImage, imageSchema } from './image.model';
 
 export interface ISlide extends Document {
-  imageUrl1: string;
-  imageUrl2: string;
-  slideTitle: string;
-  imageTitle1: string;
-  imageTitle2: string;
-  imageDesc1: string;
-  imageDesc2: string;
-}
+    slideTitle: string;
+    slideDescription: string;
+    index: number;
+    image1: IImage;
+    image2: IImage;
+};
 
-export const slideSchema: Schema<ISlide> = new Schema({
-  imageUrl1: {
-    type: String,
-    required: true
-  },
-  imageUrl2: {
-    type: String,
-    required: true
-  },
-  slideTitle: {
-    type: String,
-    required: false,
-  },
-  imageTitle1: {
-    type: String,
-    required: false,
-  },
-  imageTitle2: {
-    type: String,
-    required: false,
-  },
-  imageDesc1: {
-    type: String,
-    required: false,
-  },
-  imageDesc2: {
-    type: String,
-    required: false,
-  },
+type SlideDocumentOverrides = {
+    image1: IImage & Types.Subdocument<IImage>;
+    image2: IImage & Types.Subdocument<IImage>;
+}
+type SlideModelType = Model<ISlide, {}, SlideDocumentOverrides>;
+
+export const slideSchema = new Schema<ISlide, SlideModelType>({
+    slideTitle: {
+        type: String,
+        required: false,
+        trim: true,
+        default: "",
+    },
+    slideDescription: {
+        type: String,
+        required: false,
+        default: "",
+    },
+    index: {
+        type: Number,
+        required: true,
+    },
+    image1: {
+        type: imageSchema,
+        required: true,
+    },
+    image2: {
+        type: imageSchema,
+        required: true,
+    },
 });
 
-const Slide: Model<ISlide> = mongoose.model<ISlide>('Slide', slideSchema);
+const Slide = model<ISlide, SlideModelType>('Slide', slideSchema);
 
 export default Slide;
