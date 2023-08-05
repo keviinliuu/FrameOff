@@ -60,7 +60,14 @@ The backend is implemented using the following key languages/technologies/framew
 }
 ```
 
-**Response:** Returns the randomly generated ID of the poll.
+**Example Response Body:** 
+
+```json
+{
+    "title": "Sample Duel",
+    "_id": "VqbNGKec"
+}
+```
 
 ### Getting a Duel
 
