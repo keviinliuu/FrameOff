@@ -1,46 +1,44 @@
 import FileUpload from '../components/FileUpload';
 
-import { useState, FormEvent } from 'react';
-import axios from 'axios';
+import { ChangeEvent } from 'react';
 
-export interface ImageData {
-    url: string;
-    caption?: string;
-    votes?: number;
+import { useSlideStore } from '../stores/useSlideStore';
+
+export interface SlideProps {
+    handleTitle(e: ChangeEvent<HTMLInputElement>): void;
+    handleDescription(e: ChangeEvent<HTMLInputElement>): void;
+    imageOne: File;
+    handleImageOne(): void;
+    imageTwo: File;
+    handleImageTwo(): void;
 }
 
-export interface SlideData {
-    slideTitle?: string;
-    slideDescription?: string;
-    imageOne: ImageData;
-    imageTwo: ImageData;
-}
-
-function CreateSlide() {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [imageOne, setImageOne] = useState<File>();
-    const [imageTwo, setImageTwo] = useState<File>();
-    
+function Slide({
+    handleTitle,
+    handleDescription,
+    imageOne,
+    handleImageOne,
+    imageTwo,
+    handleImageTwo,
+}: SlideProps) {
     return (
         <div className='flex flex-col gap-y-4'>
+            <input onChange={handleTitle} placeholder='Enter a title...' />
+            <input onChange={handleDescription} placeholder='Enter a description...' />
             <div className='flex gap-x-4'>
-                <FileUpload image={imageOne} onChange={(image: File) => setImageOne(image)}/>
-                <FileUpload image={imageTwo} onChange={(image: File) => setImageTwo(image)}/>
+                <FileUpload image={imageOne} onChange={handleImageOne} />
+                <FileUpload image={imageTwo} onChange={handleImageTwo} />
             </div>
         </div>
-    )
+    );
 }
 
 export default function CreatePoll() {
-    const slides: {
-        display: JSX.Element;
-        data: SlideData;
-    }[] = [];
-
     const handleSubmit = () => {
         console.log('submitted, for now.');
     };
+
+    useSlideStore(state => state.loadSlides());
 
     return (
         <div className='flex flex-col gap-y-4 items-center'>
@@ -48,10 +46,10 @@ export default function CreatePoll() {
                 className='flex flex-col gap-y-8 h-full items-center'
                 onSubmit={handleSubmit}
                 encType='multipart/form-data'>
-                <div className='flex gap-x-8 h-full'>{slides.map(slide => slide.display)}</div>
+                <div className='flex gap-x-8 h-full'></div>
                 <button>Create Poll</button>
             </form>
-            <button onClick={addSlide}>Add Slide</button>
+            <button>Add Slide</button>
         </div>
     );
 }
