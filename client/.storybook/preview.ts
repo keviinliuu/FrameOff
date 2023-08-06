@@ -1,10 +1,13 @@
+import type { Preview } from '@storybook/react';
 import '../src/index.css';
 import axios from 'axios';
+import dotenv from 'dotenv';
 
-axios.defaults.baseURL = import.meta.env.STORYBOOK_PORT ? `http://localhost:${import.meta.env.STORYBOOK_PORT}/api` : 'http://localhost:8080/api';
+dotenv.config();
 
-/** @type { import('@storybook/react').Preview } */
-const preview = {
+axios.defaults.baseURL = process.env.STORYBOOK_PORT ? `http://localhost:${process.env.STORYBOOK_PORT}/api` : 'http://localhost:8080/api';
+
+const preview: Preview = {
     parameters: {
         actions: { argTypesRegex: '^on[A-Z].*' },
         controls: {
