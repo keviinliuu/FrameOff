@@ -17,7 +17,7 @@ export default function GeneralButton({
 }: GeneralButtonProps) {
     return (
         <button
-            className={`flex items-center rounded bg-${bgColor} font-main text-${textColor}`}
+            className={`items-center inline-flex rounded-sm ${bgColor} w-24 h-8 px-3 py-0.5 pt-1.5 font-main ${textColor}`}
             onClick={onClick}>
             {icon && <span className='mr-2'>{icon}</span>}
             {children}

@@ -12,9 +12,9 @@ type Story = StoryObj<typeof GeneralButton>;
 
 export const Main: Story = {
     args: {
-        children: "Hello",
-        textColor: "midnight",
-        bgColor: "blush",
+        children: "Hello there",
+        textColor: "text-midnight",
+        bgColor: "bg-blush",
         onClick: () => console.log('clicked'),
     }
 }

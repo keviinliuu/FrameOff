@@ -21,6 +21,9 @@ export default {
             },
             fontFamily: {
                 main: ['League Spartan'],
+            },
+            spacing: {
+                'logocustom': '13%'
             }
         },
     },
