@@ -1,4 +1,5 @@
 export interface ImageData {
+    _id?: string;
     url: string;
     caption?: string;
     votes?: number;
@@ -6,8 +7,10 @@ export interface ImageData {
 
 export interface SlideData {
     id?: string;
-    title?: string;
-    description?: string;
-    imageOne: ImageData;
-    imageTwo: ImageData;
+    slideTitle?: string;
+    slideDescription?: string;
+    index?: number;
+    image1: ImageData;
+    image2: ImageData;
+    __v: number;
 }
