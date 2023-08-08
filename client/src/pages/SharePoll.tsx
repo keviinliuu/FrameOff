@@ -11,7 +11,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 export default function SharePoll() {
     const pollTitle = 'My Awesome Poll';
     const pollId = 'dkOwsMq';
-    const pollUrl = 'https://frameoff.com/' + pollId;
+    const pollUrl = 'https://frameoff.me/' + pollId;
 
     const [isCopied, setIsCopied] = useState(false);
 
@@ -79,7 +79,7 @@ export default function SharePoll() {
                     bgColor='bg-[#1DA1F2]'
                     onClick={() => {
                         window.open(
-                            'https://www.twitter.com/share?text=' + pollTitle + '$url=' + pollUrl,
+                            'https://www.twitter.com/share?text=' + pollTitle + '&url=' + pollUrl,
                             '_blank',
                         );
                     }}>
