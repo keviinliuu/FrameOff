@@ -9,14 +9,22 @@ export interface FileUploadProps {
 export default function FileUpload({ image, onChange }: FileUploadProps) {
     return (
         <label className='flex flex-col gap-y-4 items-center justify-center border-dashed border-gray-200 border-2 h-full text-gray-300 cursor-pointer p-4'>
-            <FontAwesomeIcon icon={faArrowUpFromBracket} size='2x' />
-            <div>Click to upload files</div>
-            {image && <div>An image was uploaded with the name {image.name}</div>}
+            {image ? (
+                <img
+                    className='max-w-full aspect-square object-cover'
+                    src={URL.createObjectURL(image)}
+                />
+            ) : (
+                <>
+                    <FontAwesomeIcon icon={faArrowUpFromBracket} size='2x' />
+                    <div>Click to upload files</div>
+                </>
+            )}
             <input
                 name='image'
                 type='file'
                 hidden
-                accept='image/*'
+                accept='image/png,image/jpeg'
                 onChange={e => onChange(e.target.files![0])}
             />
         </label>
