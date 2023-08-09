@@ -15,15 +15,19 @@ export default function ViewPoll({ _id }: ViewPollProps) {
     }, []);
     return (
         <div className='flex flex-col gap-y-6'>
-            {slides.map(slide => (
-                <SlideView
-                    key={slide.id}
-                    title={slide.slideTitle}
-                    description={slide.slideDescription}
-                    imageOne={slide.image1}
-                    imageTwo={slide.image2}
-                />
-            ))}
+            {slides.length ? (
+                slides.map(slide => (
+                    <SlideView
+                        key={slide._id}
+                        title={slide.slideTitle}
+                        description={slide.slideDescription}
+                        imageOne={slide.image1}
+                        imageTwo={slide.image2}
+                    />
+                ))
+            ) : (
+                <div>If you are not seeing anything here make sure the server is started.</div>
+            )}
         </div>
     );
 }
