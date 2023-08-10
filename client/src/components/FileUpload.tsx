@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 export interface FileUploadProps {
-    image?: File;
+    image?: File | string;
     onChange(image: File): void;
 }
 
@@ -12,7 +12,7 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
             {image ? (
                 <img
                     className='max-w-full aspect-square object-cover'
-                    src={URL.createObjectURL(image)}
+                    src={image instanceof File ? URL.createObjectURL(image as File) : image}
                 />
             ) : (
                 <>
