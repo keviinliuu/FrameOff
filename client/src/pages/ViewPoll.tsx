@@ -23,6 +23,7 @@ export default function ViewPoll({ _id }: ViewPollProps) {
                         description={slide.slideDescription}
                         imageOne={slide.image1}
                         imageTwo={slide.image2}
+                        _id={slide._id}
                     />
                 ))
             ) : (
