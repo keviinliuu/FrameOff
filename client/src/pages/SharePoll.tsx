@@ -26,7 +26,7 @@ export default function SharePoll() {
             </div>
 
             <div className='flex flex-col items-center pt-16'>
-                <Heading textColor='text-moonbeam' fontSize='text-3xl'  textAlign='text-center'>
+                <Heading textColor='text-moonbeam' fontSize='text-3xl' textAlign='text-center'>
                     Thanks for using FrameOff! Now go share your poll with the world 🌎
                 </Heading>
             </div>

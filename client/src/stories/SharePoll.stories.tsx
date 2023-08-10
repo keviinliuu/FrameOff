@@ -12,7 +12,7 @@ type Story = StoryObj<typeof SharePoll>;
 
 export const Main: Story = {
     render: () => (
-        <div className='h-screen'>
+        <div className='flex h-screen'>
             <SharePoll />
         </div>
     ),
