@@ -8,10 +8,13 @@ import { useState } from 'react';
 export default function CreatePoll() {
     const [slidesDisplay, setSlidesDisplay] = useState<JSX.Element[]>([]);
     const slides = useSlideStore(state => state.slides);
+    const slidesAreValid = useSlideStore(state => state.slidesAreValid);
     const addSlide = useSlideStore(state => state.addSlide);
     const editSlide = useSlideStore(state => state.editSlide);
     const getSlide = useSlideStore(state => state.getSlide);
     const validateSlides = useSlideStore(state => state.validateSlides);
+    const generateSlideImages = useSlideStore(state => state.generateSlideImages);
+    const uploadPoll = useSlideStore(state => state.uploadPoll);
 
     const printSlides = () => {
         console.log(slides);
@@ -68,17 +71,17 @@ export default function CreatePoll() {
         <div className='flex flex-col gap-y-8'>
             <button onClick={handleCreateSlide}>Create Slide</button>
             <button onClick={printSlides}>Print Current Slides</button>
-            <button
-                onClick={() =>
-                    validateSlides() ? console.log('Validated!') : console.log('Invalid!')
-                }>
-                Validate Slides
+            <button onClick={validateSlides}>Validate Slides</button>
+            <button onClick={generateSlideImages}>Generate URLs</button>
+            <button className='p-4 bg-cyan-100 drop-shadow' onClick={uploadPoll}>
+                CREATE POLL!!!
             </button>
             {slidesDisplay ? (
                 slidesDisplay
             ) : (
                 <div>You have no slides! Press the button to create your first slide!</div>
             )}
+            {slidesAreValid && <div>Slides have been validated!</div>}
         </div>
     );
 }
