@@ -20,3 +20,8 @@ export interface SlideData {
     image2: ImageData;
     __v?: number;
 }
+
+export enum VotedEnum {
+    IMAGE1 = 'IMAGE1',
+    IMAGE2 = 'IMAGE2',
+};
