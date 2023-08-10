@@ -23,18 +23,18 @@ export default function SlideEdit({
     handleImageTwo,
     handleImageTwoCaption,
 }: SlideEditProps) {
-    const [imageOne, setImageOne] = useState<File>();
-    const [imageTwo, setImageTwo] = useState<File>();
+    const [imageOne, setImageOne] = useState<File | string>();
+    const [imageTwo, setImageTwo] = useState<File | string>();
 
     useEffect(
         () =>
             useSlideStore.subscribe(
                 state => state.slides.find(slide => slide._id === _id),
                 newState => {
-                    const newURLOne = newState!.image1.url as File;
-                    const newURLTwo = newState!.image2.url as File;
-                    if (imageOne !== newURLOne) setImageOne(newURLOne);
-                    if (imageTwo !== newURLTwo) setImageTwo(newURLTwo);
+                    const newURLOne = newState!.image1.url;
+                    const newURLTwo = newState!.image2.url;
+                    if (imageOne !== newURLOne) setImageOne(newURLOne!);
+                    if (imageTwo !== newURLTwo) setImageTwo(newURLTwo!);
                 },
             ),
         // eslint-disable-next-line react-hooks/exhaustive-deps -- Need to only subscribe one upon mount.
