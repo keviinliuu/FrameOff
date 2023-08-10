@@ -13,7 +13,7 @@ type Story = StoryObj<typeof ViewPoll>;
 export const Main: Story = {
     render: () => (
         <div className='h-screen'>
-            <ViewPoll _id='ZR0SbDuB' />
+            <ViewPoll _id='5zoYNE' />
         </div>
     ),
 };

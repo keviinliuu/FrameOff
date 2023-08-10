@@ -20,13 +20,13 @@ export default function SharePoll() {
     };
 
     return (
-        <div className='static h-screen w-screen bg-midnight'>
+        <div className='h-full bg-midnight'>
             <div className='flex'>
                 <Logo />
             </div>
 
             <div className='flex flex-col items-center pt-16'>
-                <Heading textColor='text-moonbeam' fontSize='text-3xl'>
+                <Heading textColor='text-moonbeam' fontSize='text-3xl' textAlign='text-center'>
                     Thanks for using FrameOff! Now go share your poll with the world 🌎
                 </Heading>
             </div>
@@ -43,16 +43,18 @@ export default function SharePoll() {
                         {pollUrl}
                     </Heading>
 
-                    <CopyToClipboard text={pollUrl} onCopy={handleCopy}>
-                        <button className='ml-56'>
-                            <FontAwesomeIcon
-                                icon={faCopy}
-                                beat
-                                size='lg'
-                                style={{ color: '#FFADE7' }}
-                            />
-                        </button>
-                    </CopyToClipboard>
+                    <div className='flex grow'>
+                        <CopyToClipboard text={pollUrl} onCopy={handleCopy}>
+                            <button className='ml-56'>
+                                <FontAwesomeIcon
+                                    icon={faCopy}
+                                    beat
+                                    size='lg'
+                                    style={{ color: '#FFADE7' }}
+                                />
+                            </button>
+                        </CopyToClipboard>
+                    </div>
                 </div>
             </div>
 
