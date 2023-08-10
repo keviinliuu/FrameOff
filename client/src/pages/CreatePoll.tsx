@@ -1,55 +1,84 @@
-import FileUpload from '../components/FileUpload';
-
-import { ChangeEvent } from 'react';
-
 import { useSlideStore } from '../stores/useSlideStore';
-
-export interface SlideProps {
-    handleTitle(e: ChangeEvent<HTMLInputElement>): void;
-    handleDescription(e: ChangeEvent<HTMLInputElement>): void;
-    imageOne: File;
-    handleImageOne(): void;
-    imageTwo: File;
-    handleImageTwo(): void;
-}
-
-function Slide({
-    handleTitle,
-    handleDescription,
-    imageOne,
-    handleImageOne,
-    imageTwo,
-    handleImageTwo,
-}: SlideProps) {
-    return (
-        <div className='flex flex-col gap-y-4'>
-            <input onChange={handleTitle} placeholder='Enter a title...' />
-            <input onChange={handleDescription} placeholder='Enter a description...' />
-            <div className='flex gap-x-4'>
-                <FileUpload image={imageOne} onChange={handleImageOne} />
-                <FileUpload image={imageTwo} onChange={handleImageTwo} />
-            </div>
-        </div>
-    );
-}
+import { SlideData } from '../data/types';
+import SlideEdit from '../components/SlideEdit';
+import { CE } from '../data/types';
+import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
 
 export default function CreatePoll() {
-    const handleSubmit = () => {
-        console.log('submitted, for now.');
+    const [slidesDisplay, setSlidesDisplay] = useState<JSX.Element[]>([]);
+    const slides = useSlideStore(state => state.slides);
+    const addSlide = useSlideStore(state => state.addSlide);
+    const editSlide = useSlideStore(state => state.editSlide);
+    const getSlide = useSlideStore(state => state.getSlide);
+    const validateSlides = useSlideStore(state => state.validateSlides);
+
+    const printSlides = () => {
+        console.log(slides);
     };
 
-    useSlideStore(state => state.loadSlides());
-
+    const handleCreateSlide = () => {
+        // TODO: Handle indeces (slides are displayed in order of index.)
+        const newSlide: SlideData = {
+            _id: uuidv4(),
+            slideTitle: '',
+            slideDescription: '',
+            image1: {
+                url: null,
+                caption: '',
+            },
+            image2: {
+                url: null,
+                caption: '',
+            },
+        };
+        addSlide(newSlide);
+        const newSlideDisplay: JSX.Element = (
+            <SlideEdit
+                key={newSlide._id}
+                _id={newSlide._id}
+                handleTitle={(e: CE) => editSlide(newSlide._id!, { slideTitle: e.target.value })}
+                handleDescription={(e: CE) =>
+                    editSlide(newSlide._id!, { slideDescription: e.target.value })
+                }
+                handleImageOne={(image: File) => {
+                    // TODO: Implement a better way of only updating "url" key.
+                    // Currently fetching caption of slide and passing it along to editSlide.
+                    const caption = getSlide(newSlide._id!)?.image1.caption;
+                    editSlide(newSlide._id!, { image1: { url: image, caption: caption } });
+                }}
+                // TODO: Implement better way of updating only "caption" key.
+                handleImageOneCaption={(e: CE) => {
+                    const image = getSlide(newSlide._id!)?.image1.url as File;
+                    editSlide(newSlide._id!, { image1: { url: image, caption: e.target.value } });
+                }}
+                handleImageTwo={(image: File) => {
+                    const caption = getSlide(newSlide._id!)?.image2.caption;
+                    editSlide(newSlide._id!, { image2: { url: image, caption: caption } });
+                }}
+                handleImageTwoCaption={(e: CE) => {
+                    const image = getSlide(newSlide._id!)?.image2.url as File;
+                    editSlide(newSlide._id!, { image2: { url: image, caption: e.target.value } });
+                }}
+            />
+        );
+        setSlidesDisplay(slidesDisplay.concat([newSlideDisplay]));
+    };
     return (
-        <div className='flex flex-col gap-y-4 items-center'>
-            <form
-                className='flex flex-col gap-y-8 h-full items-center'
-                onSubmit={handleSubmit}
-                encType='multipart/form-data'>
-                <div className='flex gap-x-8 h-full'></div>
-                <button>Create Poll</button>
-            </form>
-            <button>Add Slide</button>
+        <div className='flex flex-col gap-y-8'>
+            <button onClick={handleCreateSlide}>Create Slide</button>
+            <button onClick={printSlides}>Print Current Slides</button>
+            <button
+                onClick={() =>
+                    validateSlides() ? console.log('Validated!') : console.log('Invalid!')
+                }>
+                Validate Slides
+            </button>
+            {slidesDisplay ? (
+                slidesDisplay
+            ) : (
+                <div>You have no slides! Press the button to create your first slide!</div>
+            )}
         </div>
     );
 }

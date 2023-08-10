@@ -1,9 +1,9 @@
 import DuelModel from '../models/duel.model';
 import crypto from 'crypto';
 
-export const VotedEnum = {
-    IMAGE1: 'IMAGE1',
-    IMAGE2: 'IMAGE2',
+export enum VotedEnum {
+    IMAGE1 = 'IMAGE1',
+    IMAGE2 = 'IMAGE2',
 };
 
 export function calculatePercentages(votes1: number, votes2: number): [number, number] {

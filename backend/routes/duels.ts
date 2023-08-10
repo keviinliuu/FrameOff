@@ -70,7 +70,7 @@ router.route('/api/:id').get(async (req, res) => {
 router.route('/api/voteslide').patch(async (req, res) => {
     const { _id, votedFor } = req.body;
 
-    if (!Object.values(VotedEnum).includes(votedFor)) {
+    if (!(votedFor in VotedEnum)) {
         return res.status(400).json({ error: 'Invalid votedFor value.' });
     }
 
