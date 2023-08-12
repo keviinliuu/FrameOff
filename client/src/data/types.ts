@@ -24,4 +24,5 @@ export interface SlideData {
 export enum VotedEnum {
     IMAGE1 = 'IMAGE1',
     IMAGE2 = 'IMAGE2',
+    NOT_VOTED = 'NOT_VOTED',
 };
