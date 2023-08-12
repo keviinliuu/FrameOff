@@ -216,4 +216,4 @@ const VotedEnum = {
 - `500 INTERNAL ERROR` - For any internal server error.
 
 ## Rate Limiting
-Requests are limited to 1000 requests per hour per IP address.
+Requests are limited to 1000 requests per minute per IP address.

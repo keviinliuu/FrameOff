@@ -15,8 +15,8 @@ const uri: string = process.env.FRAMEOFF_DB_URI!;
 
 // Configure rate limit middleware
 const limiter = rateLimit({
-    windowMs: 60 * 60 * 1000, // 1 hour
-    max: 1000, // Maximum 1000 requests per hour per IP address
+    windowMs: 60 * 1000, // 1 minute
+    max: 1000, // Maximum 1000 requests per minute per IP address
 });
 
 // Configure Express server
