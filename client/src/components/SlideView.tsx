@@ -13,36 +13,33 @@ export interface SlideViewProps {
 }
 
 export default function SlideView({ title, description, imageOne, imageTwo, _id }: SlideViewProps) {
-    const totalBarSize = 96;
-    
     const [voted, didVote] = useState(false);
     const [votedFor, setVote] = useState('NOT_VOTED');
-    
+
     const [votesImage1, setVotesImage1] = useState<number | null>(null);
     const [votesPercent1, setVotesPercent1] = useState<number | null>(null);
     const [votesImage2, setVotesImage2] = useState<number | null>(null);
     const [votesPercent2, setVotesPercent2] = useState<number | null>(null);
-    
-    const [image1BarSize, setImage1BarSize] = useState('h-[100%]');
-    const [image2BarSize, setImage2BarSize] = useState('h-[100%]');
-    
-    const voteStatus = localStorage.getItem(_id!)
-    console.log("Vote status: " + voteStatus)
-    
+
+    const voteStatus = localStorage.getItem(_id!);
+    console.log('Vote status: ' + voteStatus);
 
     useEffect(() => {
         if (voteStatus != null && voted == false) {
-            didVote(true)
-            setVote(voteStatus)
+            didVote(true);
+            setVote(voteStatus);
             const requestData = async () => {
-                const res = await axios.get('/getvotes/'+_id!)
-                const { votesImage1, votesPercent1, votesImage2, votesPercent2 } = res.data;
-                setSlideData(votesImage1, votesPercent1, votesImage2, votesPercent2)
-            }
-            requestData()
+                try {
+                    const res = await axios.get('/getvotes/' + _id!);
+                    const { votesImage1, votesPercent1, votesImage2, votesPercent2 } = res.data;
+                    setSlideData(votesImage1, votesPercent1, votesImage2, votesPercent2);
+                } catch (error) {
+                    console.error('Error fetching votes:', error);
+                }
+            };
+            requestData();
         }
-
-    })
+    });
 
     async function onVote(imageEnum: VotedEnum) {
         setVote(imageEnum);
@@ -54,22 +51,24 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
             });
 
             const { votesImage1, votesPercent1, votesImage2, votesPercent2 } = res.data;
-            setSlideData(votesImage1, votesPercent1, votesImage2, votesPercent2)
+            setSlideData(votesImage1, votesPercent1, votesImage2, votesPercent2);
             didVote(true);
-            localStorage.setItem(_id!, imageEnum)
+            localStorage.setItem(_id!, imageEnum);
         } catch (error) {
             console.error('Error voting:', error);
-        }
+        };
     }
 
-    function setSlideData(votesImage1: number, votesPercent1: number, votesImage2: number, votesPercent2: number) {
+    function setSlideData(
+        votesImage1: number,
+        votesPercent1: number,
+        votesImage2: number,
+        votesPercent2: number,
+    ) {
         setVotesImage1(votesImage1);
         setVotesPercent1(votesPercent1);
         setVotesImage2(votesImage2);
         setVotesPercent2(votesPercent2);
-
-        setImage1BarSize(`${votesPercent1}%`);
-        setImage2BarSize(`${votesPercent2}%`);
     }
 
     return (
@@ -96,7 +95,7 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
 
                                         <div
                                             className={`w-6 bg-fushcia`}
-                                            style={{ height: image1BarSize }}></div>
+                                            style={{ height: `${votesPercent1}%` }}></div>
                                     </div>
                                 ) : (
                                     <div className='flex h-96 items-end'>
@@ -108,7 +107,7 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
 
                                         <div
                                             className={`h-1/2 w-6 bg-slate`}
-                                            style={{ height: image1BarSize }}></div>
+                                            style={{ height: `${votesPercent1}%` }}></div>
                                     </div>
                                 )}
                             </div>
@@ -118,16 +117,16 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                     {imageOne.caption && <div className='text-sm'>{imageOne.caption}</div>}
                 </div>
                 <div className='relative flex flex-col items-center gap-y-4'>
-                    <div className='relative flex flex-row items-end space-x-2'>           
+                    <div className='relative flex flex-row items-end space-x-2'>
                         {voted && (
                             <div>
                                 {votedFor === 'IMAGE2' ? (
                                     <div className='flex h-96 items-end'>
                                         <div
                                             className={`w-6 bg-fushcia`}
-                                            style={{ height: image2BarSize }}></div>
-                                            
-                                        <div className='absolute top-0 right-0 flex h-96 w-96 items-center justify-center border-4 border-fushcia bg-fuchsia-500 bg-opacity-50'>
+                                            style={{ height: `${votesPercent2}%` }}></div>
+
+                                        <div className='absolute right-0 top-0 flex h-96 w-96 items-center justify-center border-4 border-fushcia bg-fuchsia-500 bg-opacity-50'>
                                             <p className='text-main text-xl text-moonbeam'>
                                                 {votesImage2} votes, {votesPercent2}%
                                             </p>
@@ -137,16 +136,15 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                                     <div className='flex h-96 items-end'>
                                         <div
                                             className={`w-6 bg-slate`}
-                                            style={{ height: image2BarSize }}></div>
+                                            style={{ height: `${votesPercent2}%` }}></div>
 
-                                        <div className='absolute top-0 right-0 flex h-96 w-96 items-center justify-center bg-slate bg-opacity-50'>
+                                        <div className='absolute right-0 top-0 flex h-96 w-96 items-center justify-center bg-slate bg-opacity-50'>
                                             <p className='text-main text-xl text-moonbeam'>
                                                 {votesImage2} votes, {votesPercent2}%
                                             </p>
                                         </div>
                                     </div>
                                 )}
-
                             </div>
                         )}
                         <VoteImage
