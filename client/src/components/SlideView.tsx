@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ImageData, VotedEnum } from '../data/types';
 import Slide from './Slide';
 import VoteImage from './VoteImage';
@@ -14,17 +14,35 @@ export interface SlideViewProps {
 
 export default function SlideView({ title, description, imageOne, imageTwo, _id }: SlideViewProps) {
     const totalBarSize = 96;
-
+    
     const [voted, didVote] = useState(false);
     const [votedFor, setVote] = useState('NOT_VOTED');
-
-    const [votesImage1, setVotesImage1] = useState(null);
-    const [votesPercent1, setVotesPercent1] = useState(null);
-    const [votesImage2, setVotesImage2] = useState(null);
-    const [votesPercent2, setVotesPercent2] = useState(null);
-
+    
+    const [votesImage1, setVotesImage1] = useState<number | null>(null);
+    const [votesPercent1, setVotesPercent1] = useState<number | null>(null);
+    const [votesImage2, setVotesImage2] = useState<number | null>(null);
+    const [votesPercent2, setVotesPercent2] = useState<number | null>(null);
+    
     const [image1BarSize, setImage1BarSize] = useState('h-[100%]');
     const [image2BarSize, setImage2BarSize] = useState('h-[100%]');
+    
+    const voteStatus = localStorage.getItem(_id!)
+    console.log("Vote status: " + voteStatus)
+    
+
+    useEffect(() => {
+        if (voteStatus != null && voted == false) {
+            didVote(true)
+            setVote(voteStatus)
+            const requestData = async () => {
+                const res = await axios.get('/getvotes/'+_id!)
+                const { votesImage1, votesPercent1, votesImage2, votesPercent2 } = res.data;
+                setSlideData(votesImage1, votesPercent1, votesImage2, votesPercent2)
+            }
+            requestData()
+        }
+
+    })
 
     async function onVote(imageEnum: VotedEnum) {
         setVote(imageEnum);
@@ -36,19 +54,22 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
             });
 
             const { votesImage1, votesPercent1, votesImage2, votesPercent2 } = res.data;
-
-            setVotesImage1(votesImage1);
-            setVotesPercent1(votesPercent1);
-            setVotesImage2(votesImage2);
-            setVotesPercent2(votesPercent2);
-
-            setImage1BarSize(`${votesPercent1}%`);
-            setImage2BarSize(`${votesPercent2}%`);
-
+            setSlideData(votesImage1, votesPercent1, votesImage2, votesPercent2)
             didVote(true);
+            localStorage.setItem(_id!, imageEnum)
         } catch (error) {
             console.error('Error voting:', error);
         }
+    }
+
+    function setSlideData(votesImage1: number, votesPercent1: number, votesImage2: number, votesPercent2: number) {
+        setVotesImage1(votesImage1);
+        setVotesPercent1(votesPercent1);
+        setVotesImage2(votesImage2);
+        setVotesPercent2(votesPercent2);
+
+        setImage1BarSize(`${votesPercent1}%`);
+        setImage2BarSize(`${votesPercent2}%`);
     }
 
     return (
