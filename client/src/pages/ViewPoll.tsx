@@ -12,14 +12,14 @@ export default function ViewPoll() {
     const loadSlides = useSlideStore(state => state.loadSlides);
     const slides = useSlideStore(state => state.slides);
     useEffect(() => {
-        console.log(_id);
+        console.log(`${_id}`);
         if (_id !== undefined) {
             loadSlides(_id);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps -- only execute once on mount
     }, []);
     return (
-        <div className='flex flex-col gap-y-6'>
+        <div className='flex flex-col h-screen w-screen scroll-auto gap-y-6 overflow-scroll snap-y snap-mandatory'>
             {slides.map(slide => (
                 <SlideView
                     key={slide._id}
