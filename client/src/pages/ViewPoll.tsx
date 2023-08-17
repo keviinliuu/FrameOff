@@ -1,16 +1,21 @@
 import { useSlideStore } from '../stores/useSlideStore';
 import { useEffect } from 'react';
 import SlideView from '../components/SlideView';
+import { useParams } from 'react-router-dom';
 
 export interface ViewPollProps {
     _id: string;
 }
 
-export default function ViewPoll({ _id }: ViewPollProps) {
+export default function ViewPoll() {
+    const { _id } = useParams<{_id: string}>();
     const loadSlides = useSlideStore(state => state.loadSlides);
     const slides = useSlideStore(state => state.slides);
     useEffect(() => {
-        loadSlides(_id);
+        console.log(_id);
+        if (_id !== undefined) {
+            loadSlides(_id);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps -- only execute once on mount
     }, []);
     return (
