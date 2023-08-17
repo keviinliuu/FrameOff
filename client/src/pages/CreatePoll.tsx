@@ -1,33 +1,95 @@
-import FileUpload from '../components/FileUpload';
-
-import { useState, FormEvent } from 'react';
-import axios from 'axios';
+import { useSlideStore } from '../stores/useSlideStore';
+import { SlideData } from '../data/types';
+import SlideEdit from '../components/SlideEdit';
+import { CE } from '../data/types';
+import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
 
 export default function CreatePoll() {
-    const [image, setImage] = useState<File>();
-    // const [imageMessage, setImageMessage] = useState<string>();
-    const handleImage = (image: File) => setImage(image);
+    const [slidesDisplay, setSlidesDisplay] = useState<JSX.Element[]>([]);
+    const slides = useSlideStore(state => state.slides);
+    const slidesAreValid = useSlideStore(state => state.slidesAreValid);
+    const addSlide = useSlideStore(state => state.addSlide);
+    const editSlide = useSlideStore(state => state.editSlide);
+    const getSlide = useSlideStore(state => state.getSlide);
+    const validateSlides = useSlideStore(state => state.validateSlides);
+    const generateSlideImages = useSlideStore(state => state.generateSlideImages);
+    const uploadPoll = useSlideStore(state => state.uploadPoll);
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (!image) return;
-        const imageData = new FormData(e.currentTarget);
-        await axios
-            .post('/uploadimage', imageData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            })
-            .then(res => console.log(res));
+    const printSlides = () => {
+        console.log(slides);
     };
 
+    const handleCreateSlide = () => {
+        // TODO: Handle indeces (slides are displayed in order of index.)
+        const newSlide: SlideData = {
+            _id: uuidv4(),
+            slideTitle: '',
+            slideDescription: '',
+            image1: {
+                url: null,
+                caption: '',
+            },
+            image2: {
+                url: null,
+                caption: '',
+            },
+        };
+        addSlide(newSlide);
+        const newSlideDisplay: JSX.Element = (
+            <SlideEdit
+                key={newSlide._id}
+                _id={newSlide._id}
+                handleTitle={(e: CE) => editSlide(newSlide._id!, { slideTitle: e.target.value })}
+                handleDescription={(e: CE) =>
+                    editSlide(newSlide._id!, { slideDescription: e.target.value })
+                }
+                handleImageOne={(image: File) => {
+                    // TODO: Implement a better way of only updating "url" key.
+                    // Currently fetching caption of slide and passing it along to editSlide.
+                    const caption = getSlide(newSlide._id!)?.image1.caption;
+                    editSlide(newSlide._id!, { image1: { url: image, caption: caption } });
+                }}
+                // TODO: Implement better way of updating only "caption" key.
+                handleImageOneCaption={(e: CE) => {
+                    const image = getSlide(newSlide._id!)?.image1.url as File;
+                    editSlide(newSlide._id!, { image1: { url: image, caption: e.target.value } });
+                }}
+                handleImageTwo={(image: File) => {
+                    const caption = getSlide(newSlide._id!)?.image2.caption;
+                    editSlide(newSlide._id!, { image2: { url: image, caption: caption } });
+                }}
+                handleImageTwoCaption={(e: CE) => {
+                    const image = getSlide(newSlide._id!)?.image2.url as File;
+                    editSlide(newSlide._id!, { image2: { url: image, caption: e.target.value } });
+                }}
+            />
+        );
+        setSlidesDisplay(slidesDisplay.concat([newSlideDisplay]));
+    };
     return (
-        <form
-            className='flex flex-col gap-y-8 h-full'
-            onSubmit={handleSubmit}
-            encType='multipart/form-data'>
-            <FileUpload image={image} onChange={handleImage} />
-            <button>Create Poll</button>
-        </form>
+        <div className='flex flex-col gap-y-8'>
+            <button onClick={handleCreateSlide} className='text-blush'>
+                Create Slide
+            </button>
+            <button onClick={printSlides} className='text-blush'>
+                Print Current Slides
+            </button>
+            <button onClick={validateSlides} className='text-blush'>
+                Validate Slides
+            </button>
+            <button onClick={generateSlideImages} className='text-blush'>
+                Generate URLs
+            </button>
+            <button className='p-4 bg-cyan-100 drop-shadow' onClick={uploadPoll}>
+                CREATE POLL!!!
+            </button>
+            {slidesDisplay ? (
+                slidesDisplay
+            ) : (
+                <div>You have no slides! Press the button to create your first slide!</div>
+            )}
+            {slidesAreValid && <div>Slides have been validated!</div>}
+        </div>
     );
 }

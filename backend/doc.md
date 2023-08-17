@@ -60,7 +60,14 @@ The backend is implemented using the following key languages/technologies/framew
 }
 ```
 
-**Response:** Returns the randomly generated ID of the poll.
+**Example Response Body:** 
+
+```json
+{
+    "title": "Sample Duel",
+    "_id": "VqbNGKec"
+}
+```
 
 ### Getting a Duel
 
@@ -209,4 +216,4 @@ const VotedEnum = {
 - `500 INTERNAL ERROR` - For any internal server error.
 
 ## Rate Limiting
-Requests are limited to 1000 requests per hour per IP address.
+Requests are limited to 1000 requests per minute per IP address.

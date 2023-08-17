@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import CreatePoll from '../pages/CreatePoll';
+import ViewPoll from '../pages/ViewPoll';
 
-const meta: Meta<typeof CreatePoll> = {
-    component: CreatePoll,
+const meta: Meta<typeof ViewPoll> = {
+    component: ViewPoll,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof CreatePoll>;
+type Story = StoryObj<typeof ViewPoll>;
 
 export const Main: Story = {
     render: () => (
         <div className='h-screen'>
-            <CreatePoll />
+            <ViewPoll _id='JPNvoVRn' />
         </div>
     ),
 };

@@ -1,9 +1,9 @@
 import DuelModel from '../models/duel.model';
 import crypto from 'crypto';
 
-export const VotedEnum = {
-    IMAGE1: 'IMAGE1',
-    IMAGE2: 'IMAGE2',
+export enum VotedEnum {
+    IMAGE1 = 'IMAGE1',
+    IMAGE2 = 'IMAGE2',
 };
 
 export function calculatePercentages(votes1: number, votes2: number): [number, number] {
@@ -13,8 +13,16 @@ export function calculatePercentages(votes1: number, votes2: number): [number, n
     return [percent1, percent2];
 }
 
+const alphaNumericChars = '0123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ'
+
 export async function createId() {
-    const generateId = (bytes = 6) => crypto.randomBytes(bytes).toString('base64');
+    const generateId = (bytes = 6) => {
+        var s = "";
+        for (let i = 0; i < bytes; i++) {
+            s += alphaNumericChars[crypto.randomInt(alphaNumericChars.length)];
+        }
+        return s;
+    }
     let id = generateId();
 
     while (await doesDuelExist(id)) {
