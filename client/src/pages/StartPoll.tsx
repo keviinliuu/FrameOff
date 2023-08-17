@@ -1,11 +1,6 @@
-import ShareButton from '../components/ShareButton';
 import Heading from '../components/Heading';
 import Logo from '../components/Logo';
 import '../index.css';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCopy } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
 
 export default function StartPoll() {
     return (

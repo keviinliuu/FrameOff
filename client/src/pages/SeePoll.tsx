@@ -9,8 +9,6 @@ export default function ViewPoll() {
     const [author, setAuthor] = useState('');
 
     const handleSubmit = () => {
-        // e.preventDefault();
-        const blog = { captionTitle, body, author };
 
         axios.get('/ZR0SbDuB').then(res => {
             setPollName(res.data.title);

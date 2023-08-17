@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { VotedEnum } from '../data/types';
 
 export interface VoteImageProps {
