@@ -24,7 +24,13 @@ export default {
             },
             spacing: {
                 'logocustom': '13%'
-            }
+            },
+            fontSize: {
+                '1.5xl': ['1.35rem', {
+                  lineHeight: '2rem',
+                  letterSpacing: '-0.01em',
+                }],
+              }
         },
     },
     plugins: [],

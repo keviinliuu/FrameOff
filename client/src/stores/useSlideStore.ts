@@ -37,7 +37,7 @@ export const useSlideStore = create<State & Action>()(
         },
         loadSlides: (id: string) => {
             axios
-                .get(`/api/${id}`)
+                .get(`/${id}`)
                 .then(res => res.data.slides.forEach((slide: SlideData) => get().addSlide(slide)));
         },
         getSlide: (id: string) => get().slides.find(slide => slide._id === id),
