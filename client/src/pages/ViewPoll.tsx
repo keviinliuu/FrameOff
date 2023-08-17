@@ -20,20 +20,16 @@ export default function ViewPoll() {
     }, []);
     return (
         <div className='flex flex-col gap-y-6'>
-            {slides.length ? (
-                slides.map(slide => (
-                    <SlideView
-                        key={slide._id}
-                        title={slide.slideTitle}
-                        description={slide.slideDescription}
-                        imageOne={slide.image1}
-                        imageTwo={slide.image2}
-                        _id={slide._id}
-                    />
-                ))
-            ) : (
-                <div>If you are not seeing anything here make sure the server is started.</div>
-            )}
+            {slides.map(slide => (
+                <SlideView
+                    key={slide._id}
+                    title={slide.slideTitle}
+                    description={slide.slideDescription}
+                    imageOne={slide.image1}
+                    imageTwo={slide.image2}
+                    _id={slide._id}
+                />
+            ))}
         </div>
     );
 }
