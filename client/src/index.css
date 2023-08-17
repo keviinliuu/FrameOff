@@ -5,6 +5,7 @@
 @tailwind utilities;
 
 #root {
-    width: 100vw;
+    font-family: 'League Spartan', sans-serif;
+    background-color: #00031d;
     height: 100vh;
 }

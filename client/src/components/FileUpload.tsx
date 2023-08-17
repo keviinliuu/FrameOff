@@ -8,7 +8,7 @@ export interface FileUploadProps {
 
 export default function FileUpload({ image, onChange }: FileUploadProps) {
     return (
-        <label className='flex flex-col gap-y-4 items-center justify-center border-dashed border-gray-200 border-2 h-full text-gray-300 cursor-pointer p-4'>
+        <label className='flex flex-col gap-y-4 items-center justify-center border-dashed border-blush border-2 h-full text-blush cursor-pointer p-4 bg-nocturne rounded-md'>
             {image ? (
                 <img
                     className='max-w-full aspect-square object-cover'
@@ -17,7 +17,7 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
             ) : (
                 <>
                     <FontAwesomeIcon icon={faArrowUpFromBracket} size='2x' />
-                    <div>Click to upload files</div>
+                    {/* <div>Click to upload files</div> */}
                 </>
             )}
             <input

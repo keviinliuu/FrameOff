@@ -69,10 +69,18 @@ export default function CreatePoll() {
     };
     return (
         <div className='flex flex-col gap-y-8'>
-            <button onClick={handleCreateSlide}>Create Slide</button>
-            <button onClick={printSlides}>Print Current Slides</button>
-            <button onClick={validateSlides}>Validate Slides</button>
-            <button onClick={generateSlideImages}>Generate URLs</button>
+            <button onClick={handleCreateSlide} className='text-blush'>
+                Create Slide
+            </button>
+            <button onClick={printSlides} className='text-blush'>
+                Print Current Slides
+            </button>
+            <button onClick={validateSlides} className='text-blush'>
+                Validate Slides
+            </button>
+            <button onClick={generateSlideImages} className='text-blush'>
+                Generate URLs
+            </button>
             <button className='p-4 bg-cyan-100 drop-shadow' onClick={uploadPoll}>
                 CREATE POLL!!!
             </button>

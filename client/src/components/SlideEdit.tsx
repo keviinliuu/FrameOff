@@ -17,7 +17,6 @@ export interface SlideEditProps {
 export default function SlideEdit({
     _id,
     handleTitle,
-    handleDescription,
     handleImageOne,
     handleImageOneCaption,
     handleImageTwo,
@@ -25,6 +24,8 @@ export default function SlideEdit({
 }: SlideEditProps) {
     const [imageOne, setImageOne] = useState<File | string>();
     const [imageTwo, setImageTwo] = useState<File | string>();
+    const commonInputClass =
+        'placeholder:text-center text-center text-blush placeholder:text-plum bg-transparent border border-transparent focus:outline-none focus:border-transparent';
 
     useEffect(
         () =>
@@ -43,35 +44,38 @@ export default function SlideEdit({
     return (
         <Slide>
             <input
-                className='w-1/3 placeholder:text-center text-center'
+                className={`w-1/3 ${commonInputClass}`}
                 onChange={handleTitle}
-                placeholder='Enter a title...'
+                placeholder='Slide Title (optional)'
             />
-            <input
+            {/* <input
                 className='text-sm w-1/3 placeholder:text-center text-center'
                 onChange={handleDescription}
                 placeholder='Enter a description...'
-            />
-            <div className='flex gap-x-8 justify-center'>
+            /> */}
+            <div className='flex gap-x-24 justify-between items-center'>
                 <div className='flex flex-col gap-y-4 items-center'>
                     <div className='aspect-square w-96'>
                         <FileUpload image={imageOne} onChange={handleImageOne} />
                     </div>
                     <input
-                        className='placeholder:text-center text-center text-sm'
+                        className={`text-sm' ${commonInputClass}`}
                         onChange={handleImageOneCaption}
-                        placeholder='Enter a caption...'
+                        placeholder='Caption (optional)'
                     />
                 </div>
-                <div className='flex text-xs items-center'>VS</div>
+                <div className='flex flex-col gap-y-4 items-center'>
+                    <div className='flex text-xs items-center text-blush'>VS</div>
+                    <input className={`${commonInputClass} invisible`} />
+                </div>
                 <div className='flex flex-col gap-y-4 items-center'>
                     <div className='aspect-square w-96'>
                         <FileUpload image={imageTwo} onChange={handleImageTwo} />
                     </div>
                     <input
-                        className='placeholder:text-center text-center text-sm'
+                        className={`text-sm' ${commonInputClass}`}
                         onChange={handleImageTwoCaption}
-                        placeholder='Enter a caption...'
+                        placeholder='Caption (optional)'
                     />
                 </div>
             </div>
