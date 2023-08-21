@@ -8,7 +8,7 @@ export interface ViewPollProps {
 }
 
 export default function ViewPoll() {
-    const { _id } = useParams<{_id: string}>();
+    const { _id } = useParams<{ _id: string }>();
     const loadSlides = useSlideStore(state => state.loadSlides);
     const slides = useSlideStore(state => state.slides);
     useEffect(() => {
@@ -16,7 +16,7 @@ export default function ViewPoll() {
         if (_id !== undefined) {
             loadSlides(_id);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps -- only execute once on mount
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- #FIX ME: exhaustive deps
     }, []);
     return (
         <div className='flex flex-col h-screen w-screen scroll-auto gap-y-6 overflow-scroll snap-y snap-mandatory'>

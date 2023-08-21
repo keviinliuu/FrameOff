@@ -38,42 +38,37 @@ export default function SlideEdit({
                     if (imageTwo !== newURLTwo) setImageTwo(newURLTwo!);
                 },
             ),
-        // eslint-disable-next-line react-hooks/exhaustive-deps -- Need to only subscribe one upon mount.
+        // eslint-disable-next-line react-hooks/exhaustive-deps -- #FIX ME: exhaustive deps
         [],
     );
     return (
         <Slide>
             <input
-                className={`w-1/3 ${commonInputClass}`}
+                className={`w-1/3 ${commonInputClass} placeholder:text-3xl text-3xl`}
                 onChange={handleTitle}
-                placeholder='Slide Title (optional)'
+                placeholder='Title (optional)'
             />
-            {/* <input
-                className='text-sm w-1/3 placeholder:text-center text-center'
-                onChange={handleDescription}
-                placeholder='Enter a description...'
-            /> */}
-            <div className='flex gap-x-24 justify-between items-center'>
-                <div className='flex flex-col gap-y-4 items-center'>
-                    <div className='aspect-square w-96'>
+            <div className='flex w-full gap-x-36 justify-center items-center'>
+                <div className='flex w-1/4 flex-col gap-y-8 items-center'>
+                    <div className='aspect-square w-full'>
                         <FileUpload image={imageOne} onChange={handleImageOne} />
                     </div>
                     <input
-                        className={`text-sm' ${commonInputClass}`}
+                        className={`text-sm' ${commonInputClass} placeholder:text-3xl text-3xl`}
                         onChange={handleImageOneCaption}
                         placeholder='Caption (optional)'
                     />
                 </div>
                 <div className='flex flex-col gap-y-4 items-center'>
-                    <div className='flex text-xs items-center text-blush'>VS</div>
-                    <input className={`${commonInputClass} invisible`} />
+                    <div className='flex text-3xl items-center text-blush'>VS</div>
+                    <input className={`${commonInputClass} invisible w-0`} />
                 </div>
-                <div className='flex flex-col gap-y-4 items-center'>
-                    <div className='aspect-square w-96'>
+                <div className='flex w-1/4 flex-col gap-y-4 items-center'>
+                    <div className='aspect-square w-full'>
                         <FileUpload image={imageTwo} onChange={handleImageTwo} />
                     </div>
                     <input
-                        className={`text-sm' ${commonInputClass}`}
+                        className={`text-sm' ${commonInputClass} placeholder:text-3xl text-3xl`}
                         onChange={handleImageTwoCaption}
                         placeholder='Caption (optional)'
                     />
