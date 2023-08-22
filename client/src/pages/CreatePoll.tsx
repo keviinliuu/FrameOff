@@ -2,7 +2,7 @@ import { useSlideStore } from '../stores/useSlideStore';
 import { SlideData } from '../data/types';
 import SlideEdit from '../components/SlideEdit';
 import { CE } from '../data/types';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4, validate } from 'uuid';
 import { useState, useEffect } from 'react';
 
 import Logo from '../assets/frameoff-logo.svg';
@@ -17,7 +17,6 @@ import {
 export default function CreatePoll() {
     // VARIABLES FOR SLIDE CREATION
     const [slidesDisplay, setSlidesDisplay] = useState<JSX.Element[]>([]);
-    const slides = useSlideStore(state => state.slides);
     const slidesAreValid = useSlideStore(state => state.slidesAreValid);
     const addSlide = useSlideStore(state => state.addSlide);
     const editSlide = useSlideStore(state => state.editSlide);
@@ -25,9 +24,11 @@ export default function CreatePoll() {
     const validateSlides = useSlideStore(state => state.validateSlides);
     const generateSlideImages = useSlideStore(state => state.generateSlideImages);
     const uploadPoll = useSlideStore(state => state.uploadPoll);
+    const clearSlides = useSlideStore(state => state.clearSlides);
     const [pollTitle, setPollTitle] = useState('My Awesome Image Duel');
 
     useEffect(() => {
+        clearSlides();
         handleCreateSlide();
         // eslint-disable-next-line react-hooks/exhaustive-deps -- #FIXME exhaustive deps
     }, []);
@@ -65,6 +66,7 @@ export default function CreatePoll() {
                         // Currently fetching caption of slide and passing it along to editSlide.
                         const caption = getSlide(newSlide._id!)?.image1.caption;
                         editSlide(newSlide._id!, { image1: { url: image, caption: caption } });
+                        validateSlides();
                     }}
                     // TODO: Implement better way of updating only "caption" key.
                     handleImageOneCaption={(e: CE) => {
@@ -76,6 +78,7 @@ export default function CreatePoll() {
                     handleImageTwo={(image: File) => {
                         const caption = getSlide(newSlide._id!)?.image2.caption;
                         editSlide(newSlide._id!, { image2: { url: image, caption: caption } });
+                        validateSlides();
                     }}
                     handleImageTwoCaption={(e: CE) => {
                         const image = getSlide(newSlide._id!)?.image2.url as File;
@@ -98,9 +101,11 @@ export default function CreatePoll() {
                     <div className='text-white text-xl'>Cooking up</div>
                     <div className='text-5xl text-blush'>{pollTitle}</div>
                 </div>
-                <button className='flex h-fit p-4 bg-blush gap-x-3 items-center rounded-lg font-semibold'>
+                <button
+                    className='flex h-fit p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg font-semibold disabled:opacity-30'
+                    disabled={!slidesAreValid}>
                     <FontAwesomeIcon icon={faCheck} size='xl' />
-                    <p className='flex items-center text-midnight text-xl align-middle'>Finished</p>
+                    <p className='flex items-center text-xl align-middle'>Finished</p>
                 </button>
             </div>
             <div className='snap-start snap-y flex flex-col snap-mandatory h-screen w-screen overflow-x-hidden scrollbar-none'>

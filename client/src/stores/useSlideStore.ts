@@ -17,6 +17,7 @@ export type Action = {
     validateSlides: () => void;
     generateSlideImages: () => void;
     uploadPoll: () => void;
+    clearSlides: () => void;
 };
 
 export const useSlideStore = create<State & Action>()(
@@ -41,7 +42,18 @@ export const useSlideStore = create<State & Action>()(
                 .then(res => res.data.slides.forEach((slide: SlideData) => get().addSlide(slide)));
         },
         getSlide: (id: string) => get().slides.find(slide => slide._id === id),
-        validateSlides: () =>
+        validateSlides: () => {
+            console.log(get().slides);
+            console.log(
+                !!get().slides.length &&
+                    get().slides.every(
+                        slide =>
+                            slide.image1.url !== null &&
+                            MIMES.includes((slide.image1.url as File).type) &&
+                            slide.image2.url !== null &&
+                            MIMES.includes((slide.image2.url as File).type),
+                    ),
+            );
             set({
                 slidesAreValid:
                     !!get().slides.length &&
@@ -52,7 +64,8 @@ export const useSlideStore = create<State & Action>()(
                             slide.image2.url !== null &&
                             MIMES.includes((slide.image2.url as File).type),
                     ),
-            }),
+            });
+        },
         generateSlideImages: async () => {
             if (!get().slidesAreValid) return;
             const newSlides = await Promise.all(
@@ -91,5 +104,6 @@ export const useSlideStore = create<State & Action>()(
                 })
                 .then(res => console.log(res));
         },
+        clearSlides: () => set({ slides: [] }),
     })),
 );
