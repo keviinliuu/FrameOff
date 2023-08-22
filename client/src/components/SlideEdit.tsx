@@ -61,7 +61,10 @@ export default function SlideEdit({
                 </div>
                 <div className='flex flex-col gap-y-4 items-center'>
                     <div className='flex text-3xl items-center text-blush'>VS</div>
-                    <input className={`${commonInputClass} invisible w-0`} />
+                    <input
+                        className='placeholder:text-3xl text-3xl w-0 invisible'
+                        placeholder='X'
+                    />
                 </div>
                 <div className='flex w-1/4 flex-col gap-y-4 items-center'>
                     <div className='aspect-square w-full'>
