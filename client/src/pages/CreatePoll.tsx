@@ -2,8 +2,8 @@ import { useSlideStore } from '../stores/useSlideStore';
 import { SlideData } from '../data/types';
 import SlideEdit from '../components/SlideEdit';
 import { CE } from '../data/types';
-import { v4 as uuidv4, validate } from 'uuid';
-import { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 import Logo from '../assets/frameoff-logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,6 +14,12 @@ import {
     faCirclePlus,
 } from '@fortawesome/free-solid-svg-icons';
 
+const intersectionOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 1.0,
+};
+
 export default function CreatePoll() {
     // VARIABLES FOR SLIDE CREATION
     const [slidesDisplay, setSlidesDisplay] = useState<JSX.Element[]>([]);
@@ -21,15 +27,43 @@ export default function CreatePoll() {
     const addSlide = useSlideStore(state => state.addSlide);
     const editSlide = useSlideStore(state => state.editSlide);
     const getSlide = useSlideStore(state => state.getSlide);
+    const getSlideCount = useSlideStore(state => state.getSlideCount);
+    const getSlideFromIndex = useSlideStore(state => state.getSlideFromIndex);
     const validateSlides = useSlideStore(state => state.validateSlides);
     const generateSlideImages = useSlideStore(state => state.generateSlideImages);
     const uploadPoll = useSlideStore(state => state.uploadPoll);
     const clearSlides = useSlideStore(state => state.clearSlides);
     const [pollTitle, setPollTitle] = useState('My Awesome Image Duel');
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeCount, setActiveCount] = useState(0);
+
+    const slideRefs = useRef<HTMLDivElement[]>([]);
+    const observer = useRef<IntersectionObserver | null>(null);
+    const addNode = useCallback((node: HTMLDivElement) => {
+        slideRefs.current.push(node);
+        observer.current?.observe(node);
+    }, []);
+    const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
+        entries.forEach(entry => {
+            if (!entry.intersectionRatio) entry.target.scrollIntoView();
+            if (entry.intersectionRatio >= 1.0) {
+                setActiveIndex(getSlide(entry.target.id)?.index ?? 0);
+                setActiveCount(getSlideCount());
+            }
+        });
+    };
+    const scrollTo = (i: number) => {
+        const id = getSlideFromIndex(i)?._id;
+        slideRefs.current.find(slideRef => slideRef.id === id)?.scrollIntoView();
+    };
 
     useEffect(() => {
         clearSlides();
         handleCreateSlide();
+        if (!observer.current)
+            observer.current = new IntersectionObserver(intersectionHandler, intersectionOptions);
+
+        return () => observer.current?.disconnect();
         // eslint-disable-next-line react-hooks/exhaustive-deps -- #FIXME exhaustive deps
     }, []);
 
@@ -49,10 +83,12 @@ export default function CreatePoll() {
             },
         };
         addSlide(newSlide);
-        const newSlideDisplay: JSX.Element = (
+        const display: JSX.Element = (
             <div
                 key={newSlide._id}
-                className='snap-start snap-alway grid min-h-full w-screen place-items-center'>
+                id={newSlide._id}
+                ref={addNode}
+                className='snap-start snap-always grid min-h-full w-screen place-items-center'>
                 <SlideEdit
                     _id={newSlide._id}
                     handleTitle={(e: CE) =>
@@ -89,7 +125,7 @@ export default function CreatePoll() {
                 />
             </div>
         );
-        setSlidesDisplay(slidesDisplay.concat([newSlideDisplay]));
+        setSlidesDisplay(slidesDisplay.concat([display]));
     };
     return (
         <div className='flex h-full justify-center'>
@@ -98,7 +134,7 @@ export default function CreatePoll() {
                     <img className='h-10 aspect-{25/6}' src={Logo} />
                 </div>
                 <div className='flex flex-col gap-y-4 items-center'>
-                    <div className='text-white text-xl'>Cooking up</div>
+                    <div className='text-moonbeam text-xl'>Cooking up</div>
                     <div className='text-5xl text-blush'>{pollTitle}</div>
                 </div>
                 <button
@@ -108,7 +144,7 @@ export default function CreatePoll() {
                     <p className='flex items-center text-xl align-middle'>Finished</p>
                 </button>
             </div>
-            <div className='snap-start snap-y flex flex-col snap-mandatory h-screen w-screen overflow-x-hidden scrollbar-none'>
+            <div className='snap-start snap-y flex flex-col snap-mandatory h-screen w-screen overflow-x-hidden scroll-smooth'>
                 {slidesDisplay ? (
                     slidesDisplay
                 ) : (
@@ -122,6 +158,25 @@ export default function CreatePoll() {
                     size='3x'
                     onClick={handleCreateSlide}
                 />
+            </div>
+            <div className='flex flex-col fixed top-1/2 left-0 gap-y-4 items-center -translate-y-1/2'>
+                <div className='flex flex-col gap-y-3 items-center p-32'>
+                    <FontAwesomeIcon
+                        className='text-neutral-400 cursor-pointer'
+                        icon={faChevronUp}
+                        size='2xl'
+                        onClick={() => scrollTo(activeIndex - 1)}
+                    />
+                    <div className='text-blush text-3xl'>
+                        {activeIndex + 1}/{activeCount}
+                    </div>
+                    <FontAwesomeIcon
+                        className='text-neutral-400 cursor-pointer'
+                        icon={faChevronDown}
+                        size='2xl'
+                        onClick={() => scrollTo(activeIndex + 1)}
+                    />
+                </div>
             </div>
         </div>
     );

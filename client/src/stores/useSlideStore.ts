@@ -13,6 +13,8 @@ export type Action = {
     editSlide: (id: string, property: Partial<SlideData>) => void;
     loadSlides: (id: string) => void;
     getSlide: (id: string) => SlideData | undefined;
+    getSlideCount: () => number;
+    getSlideFromIndex: (i: number) => SlideData | undefined;
     // FIXME: Currently validating image file extension client-side.
     validateSlides: () => void;
     generateSlideImages: () => void;
@@ -24,24 +26,26 @@ export const useSlideStore = create<State & Action>()(
     subscribeWithSelector((set, get) => ({
         slides: [],
         slidesAreValid: false,
-        addSlide: (slide: SlideData) => {
+        addSlide: slide => {
             set(state => ({
-                slides: [...state.slides, slide],
+                slides: [...state.slides, { ...slide, index: get().slides.length }],
             }));
         },
-        editSlide: (id: string, property: Partial<SlideData>) => {
+        editSlide: (id, property) => {
             set(state => ({
                 slides: state.slides.map(slide =>
                     slide._id === id ? { ...slide, ...property } : slide,
                 ),
             }));
         },
-        loadSlides: (id: string) => {
+        loadSlides: id => {
             axios
                 .get(`/${id}`)
                 .then(res => res.data.slides.forEach((slide: SlideData) => get().addSlide(slide)));
         },
-        getSlide: (id: string) => get().slides.find(slide => slide._id === id),
+        getSlide: id => get().slides.find(slide => slide._id === id),
+        getSlideCount: () => get().slides.length,
+        getSlideFromIndex: i => get().slides.find(slide => slide.index === i),
         validateSlides: () => {
             console.log(get().slides);
             console.log(
