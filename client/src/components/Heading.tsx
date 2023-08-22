@@ -6,8 +6,9 @@ interface HeadingProps {
     fontSize: string;
     padding?: string;
     textAlign?: string;
+    fontWeight?: string;
 }
 
-export default function Heading({ children, textColor, fontSize, padding = '', textAlign = '', }: HeadingProps) {
-    return <h1 className={`${textColor} font-main ${fontSize} ${padding} ${textAlign}`}>{children}</h1>;
+export default function Heading({ children, textColor, fontSize, padding = '', textAlign = '', fontWeight =''}: HeadingProps) {
+    return <h1 className={`${textColor} font-main ${fontSize} ${padding} ${textAlign} ${fontWeight}`}>{children}</h1>;
 }
