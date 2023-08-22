@@ -12,10 +12,10 @@ export interface ImageData {
 }
 
 export interface SlideData {
-    _id?: string;
+    _id: string;
     slideTitle?: string;
     slideDescription?: string;
-    index?: number;
+    index: number;
     image1: ImageData;
     image2: ImageData;
     __v?: number;

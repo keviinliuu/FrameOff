@@ -12,6 +12,7 @@ import {
     faChevronUp,
     faChevronDown,
     faCirclePlus,
+    faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 
 const intersectionOptions = {
@@ -33,6 +34,7 @@ export default function CreatePoll() {
     const generateSlideImages = useSlideStore(state => state.generateSlideImages);
     const uploadPoll = useSlideStore(state => state.uploadPoll);
     const clearSlides = useSlideStore(state => state.clearSlides);
+    const deleteSlideByIndex = useSlideStore(state => state.deleteSlideByIndex);
     const [pollTitle, setPollTitle] = useState('My Awesome Image Duel');
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeCount, setActiveCount] = useState(0);
@@ -56,6 +58,11 @@ export default function CreatePoll() {
         const id = getSlideFromIndex(i)?._id;
         slideRefs.current.find(slideRef => slideRef.id === id)?.scrollIntoView();
     };
+    const handleDeleteSlide = (i: number) => {
+        const id = getSlideFromIndex(i)?._id;
+        observer.current!.unobserve(slideRefs.current!.find(slideRef => slideRef.id !== id)!);
+        setSlidesDisplay(slidesDisplay.filter(slide => slide.key !== id));
+    };
 
     useEffect(() => {
         clearSlides();
@@ -70,6 +77,7 @@ export default function CreatePoll() {
     const handleCreateSlide = () => {
         // TODO: Handle indeces (slides are displayed in order of index.)
         const newSlide: SlideData = {
+            index: 0,
             _id: uuidv4(),
             slideTitle: '',
             slideDescription: '',
@@ -159,15 +167,15 @@ export default function CreatePoll() {
                     onClick={handleCreateSlide}
                 />
             </div>
-            <div className='flex flex-col fixed top-1/2 left-0 gap-y-4 items-center -translate-y-1/2'>
-                <div className='flex flex-col gap-y-3 items-center p-32'>
+            <div className='flex flex-col fixed top-1/2 left-0 items-center -translate-y-1/2'>
+                <div className='flex flex-col gap-y-3 items-center p-24'>
                     <FontAwesomeIcon
                         className='text-neutral-400 cursor-pointer'
                         icon={faChevronUp}
                         size='2xl'
                         onClick={() => scrollTo(activeIndex - 1)}
                     />
-                    <div className='text-blush text-3xl'>
+                    <div className='text-blush text-3xl tracking-widest'>
                         {activeIndex + 1}/{activeCount}
                     </div>
                     <FontAwesomeIcon
@@ -177,6 +185,14 @@ export default function CreatePoll() {
                         onClick={() => scrollTo(activeIndex + 1)}
                     />
                 </div>
+            </div>
+            <div className='flex fixed bottom-0 left-0 p-8'>
+                <FontAwesomeIcon
+                    className='text-blush cursor-pointer'
+                    icon={faTrashCan}
+                    size='3x'
+                    onClick={() => handleDeleteSlide(activeIndex)}
+                />
             </div>
         </div>
     );

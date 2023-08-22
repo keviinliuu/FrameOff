@@ -15,6 +15,7 @@ export type Action = {
     getSlide: (id: string) => SlideData | undefined;
     getSlideCount: () => number;
     getSlideFromIndex: (i: number) => SlideData | undefined;
+    deleteSlideByIndex: (i: number) => void;
     // FIXME: Currently validating image file extension client-side.
     validateSlides: () => void;
     generateSlideImages: () => void;
@@ -109,5 +110,11 @@ export const useSlideStore = create<State & Action>()(
                 .then(res => console.log(res));
         },
         clearSlides: () => set({ slides: [] }),
+        deleteSlideByIndex: i =>
+            set({
+                slides: get()
+                    .slides.filter(slide => slide.index !== i)
+                    .map(slide => (slide.index > i ? { ...slide, index: slide.index - 1 } : slide)),
+            }),
     })),
 );
