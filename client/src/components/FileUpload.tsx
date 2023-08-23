@@ -8,7 +8,7 @@ export interface FileUploadProps {
 
 export default function FileUpload({ image, onChange }: FileUploadProps) {
     return (
-        <label className='flex flex-col gap-y-4 items-center justify-center border-dashed border-blush border-2 h-full text-blush cursor-pointer p-4 bg-nocturne rounded-md'>
+        <label className='flex flex-col gap-y-4 items-center justify-center border-dashed border-blush border-2 h-full text-blush cursor-pointer p-4 bg-nocturne rounded-lg'>
             {image ? (
                 <img
                     className='max-w-full aspect-square object-cover'

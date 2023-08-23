@@ -29,8 +29,8 @@ export const useSlideStore = create<State & Action>()(
     subscribeWithSelector((set, get) => ({
         slides: [],
         slidesAreValid: false,
-        pollTitle: "",
-        pollDescription: "",
+        pollTitle: '',
+        pollDescription: '',
         addSlide: (slide: SlideData) => {
             set(state => ({
                 slides: [...state.slides, { ...slide, index: get().slides.length }],
@@ -44,15 +44,13 @@ export const useSlideStore = create<State & Action>()(
             }));
         },
         loadSlides: id => {
-            axios
-                .get(`/${id}`)
-                .then(res => {
-                    res.data.slides.forEach((slide: SlideData) => get().addSlide(slide));
-                    set({
-                        pollTitle: res.data.title,
-                        pollDescription: res.data.description,
-                    })
+            axios.get(`/${id}`).then(res => {
+                res.data.slides.forEach((slide: SlideData) => get().addSlide(slide));
+                set({
+                    pollTitle: res.data.title,
+                    pollDescription: res.data.description,
                 });
+            });
         },
         getSlide: id => get().slides.find(slide => slide._id === id),
         getSlideCount: () => get().slides.length,

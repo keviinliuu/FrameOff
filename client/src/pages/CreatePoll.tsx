@@ -66,14 +66,6 @@ export default function CreatePoll() {
         }
     };
 
-    useEffect(() => {
-        console.log(activeIndex);
-    }, [activeIndex]);
-
-    useEffect(() => {
-        console.log(activeCount);
-    }, [activeCount]);
-
     useLayoutEffect(() => {
         slidesDisplay.forEach(
             slide => observer.current?.observe(document.getElementById(slide.key as string)!),
@@ -91,7 +83,6 @@ export default function CreatePoll() {
     }, []);
 
     const handleCreateSlide = () => {
-        // TODO: Handle indeces (slides are displayed in order of index.)
         const newSlide: SlideData = {
             index: 0,
             _id: uuidv4(),
