@@ -3,7 +3,7 @@ import { SlideData } from '../data/types';
 import SlideEdit from '../components/SlideEdit';
 import { CE } from '../data/types';
 import { v4 as uuidv4 } from 'uuid';
-import { useState, useEffect, useRef, useCallback, useLayoutEffect } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 
 import Logo from '../assets/frameoff-logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -38,7 +38,6 @@ export default function CreatePoll() {
     const [pollTitle, setPollTitle] = useState('My Awesome Image Duel');
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeCount, setActiveCount] = useState(1);
-    const [deleteActive, setDeleteActive] = useState(false);
 
     const observer = useRef<IntersectionObserver | null>(null);
     const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
@@ -58,7 +57,6 @@ export default function CreatePoll() {
         }
     };
     const handleDeleteSlide = (i: number) => {
-        if (!deleteActive) return;
         const target = document.getElementById(getSlideFromIndex(i)!._id);
         if (target) {
             observer.current?.unobserve(target);
@@ -68,7 +66,13 @@ export default function CreatePoll() {
         }
     };
 
-    useEffect(() => setDeleteActive(!!(activeCount - 1)), [activeCount]);
+    useEffect(() => {
+        console.log(activeIndex);
+    }, [activeIndex]);
+
+    useEffect(() => {
+        console.log(activeCount);
+    }, [activeCount]);
 
     useLayoutEffect(() => {
         slidesDisplay.forEach(
@@ -157,7 +161,7 @@ export default function CreatePoll() {
                     <div className='text-5xl text-blush'>{pollTitle}</div>
                 </div>
                 <button
-                    className='flex h-fit p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg font-semibold disabled:opacity-30'
+                    className='flex h-fit p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg font-semibold disabled:opacity-30 select-none'
                     disabled={!slidesAreValid}>
                     <FontAwesomeIcon icon={faCheck} size='xl' />
                     <p className='flex items-center text-xl align-middle'>Finished</p>
@@ -178,31 +182,41 @@ export default function CreatePoll() {
                     onClick={handleCreateSlide}
                 />
             </div>
-            <div className='flex flex-col fixed top-1/2 left-0 items-center -translate-y-1/2'>
+            <div className='flex flex-col fixed top-1/2 left-0 items-center -translate-y-1/2 select-none'>
                 <div className='flex flex-col gap-y-3 items-center p-24'>
                     <FontAwesomeIcon
-                        className='text-neutral-400 cursor-pointer'
+                        className={`text-neutral-400 ${
+                            activeIndex >= 1 ? 'cursor-pointer' : 'opacity-30'
+                        }`}
                         icon={faChevronUp}
                         size='2xl'
-                        onClick={() => scrollTo(activeIndex - 1)}
+                        onClick={() => {
+                            if (activeIndex >= 1) scrollTo(activeIndex - 1);
+                        }}
                     />
                     <div className='text-blush text-3xl tracking-widest'>
                         {activeIndex + 1}/{activeCount}
                     </div>
                     <FontAwesomeIcon
-                        className='text-neutral-400 cursor-pointer'
+                        className={`text-neutral-400 cursor-pointer ${
+                            activeIndex < activeCount - 1 ? 'cursor-pointer' : 'opacity-30'
+                        }`}
                         icon={faChevronDown}
                         size='2xl'
-                        onClick={() => scrollTo(activeIndex + 1)}
+                        onClick={() => {
+                            if (activeIndex < activeCount - 1) scrollTo(activeIndex + 1);
+                        }}
                     />
                 </div>
             </div>
             <div className='flex fixed bottom-0 left-0 p-8'>
                 <FontAwesomeIcon
-                    className={`text-blush ${deleteActive ? 'cursor-pointer' : 'opacity-30'}`}
+                    className={`text-blush ${activeCount > 1 ? 'cursor-pointer' : 'opacity-30'}`}
                     icon={faTrashCan}
                     size='3x'
-                    onClick={() => handleDeleteSlide(activeIndex)}
+                    onClick={() => {
+                        if (activeCount > 1) handleDeleteSlide(activeIndex);
+                    }}
                 />
             </div>
         </div>
