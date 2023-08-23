@@ -3,7 +3,7 @@ import { SlideData } from '../data/types';
 import SlideEdit from '../components/SlideEdit';
 import { CE } from '../data/types';
 import { v4 as uuidv4 } from 'uuid';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useLayoutEffect } from 'react';
 
 import Logo from '../assets/frameoff-logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -37,14 +37,10 @@ export default function CreatePoll() {
     const deleteSlideByIndex = useSlideStore(state => state.deleteSlideByIndex);
     const [pollTitle, setPollTitle] = useState('My Awesome Image Duel');
     const [activeIndex, setActiveIndex] = useState(0);
-    const [activeCount, setActiveCount] = useState(0);
+    const [activeCount, setActiveCount] = useState(1);
+    const [deleteActive, setDeleteActive] = useState(false);
 
-    const slideRefs = useRef<HTMLDivElement[]>([]);
     const observer = useRef<IntersectionObserver | null>(null);
-    const addNode = useCallback((node: HTMLDivElement) => {
-        slideRefs.current.push(node);
-        observer.current?.observe(node);
-    }, []);
     const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
         entries.forEach(entry => {
             if (!entry.intersectionRatio) entry.target.scrollIntoView();
@@ -56,13 +52,29 @@ export default function CreatePoll() {
     };
     const scrollTo = (i: number) => {
         const id = getSlideFromIndex(i)?._id;
-        slideRefs.current.find(slideRef => slideRef.id === id)?.scrollIntoView();
+        if (id) {
+            setActiveIndex(i);
+            document.getElementById(id!)?.scrollIntoView();
+        }
     };
     const handleDeleteSlide = (i: number) => {
-        const id = getSlideFromIndex(i)?._id;
-        observer.current!.unobserve(slideRefs.current!.find(slideRef => slideRef.id !== id)!);
-        setSlidesDisplay(slidesDisplay.filter(slide => slide.key !== id));
+        if (!deleteActive) return;
+        const target = document.getElementById(getSlideFromIndex(i)!._id);
+        if (target) {
+            observer.current?.unobserve(target);
+            setSlidesDisplay(slidesDisplay.filter(slide => slide.key !== target.id));
+            deleteSlideByIndex(i);
+            setActiveIndex(i === 0 ? i + 1 : i - 1);
+        }
     };
+
+    useEffect(() => setDeleteActive(!!(activeCount - 1)), [activeCount]);
+
+    useLayoutEffect(() => {
+        slidesDisplay.forEach(
+            slide => observer.current?.observe(document.getElementById(slide.key as string)!),
+        );
+    }, [slidesDisplay]);
 
     useEffect(() => {
         clearSlides();
@@ -95,7 +107,6 @@ export default function CreatePoll() {
             <div
                 key={newSlide._id}
                 id={newSlide._id}
-                ref={addNode}
                 className='snap-start snap-always grid min-h-full w-screen place-items-center'>
                 <SlideEdit
                     _id={newSlide._id}
@@ -188,7 +199,7 @@ export default function CreatePoll() {
             </div>
             <div className='flex fixed bottom-0 left-0 p-8'>
                 <FontAwesomeIcon
-                    className='text-blush cursor-pointer'
+                    className={`text-blush ${deleteActive ? 'cursor-pointer' : 'opacity-30'}`}
                     icon={faTrashCan}
                     size='3x'
                     onClick={() => handleDeleteSlide(activeIndex)}
