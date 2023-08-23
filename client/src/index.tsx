@@ -9,6 +9,8 @@ import Error from './pages/Error';
 import axios from 'axios';
 import './index.css';
 
+axios.defaults.baseURL = `http://localhost:${import.meta.env.VITE_PORT}/api/`;
+
 const router = createBrowserRouter([
     {
         path: '/',

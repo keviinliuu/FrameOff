@@ -2,12 +2,10 @@ import FrameOffLogo from '../assets/frameoff-logo.svg';
 
 export default function Logo({}) {
     return (
-        <a href='https://www.frameoff.com'>
-            <img
-                src={FrameOffLogo}
-                className='h-auto w-logocustom pl-14 pt-12'
-                alt='FrameOff Logo'
-            />
-        </a>
+        <div className='p-8 inline-flex position: absolute top-0 left-0'>
+            <a className='z-10' href='https://www.frameoff.com'>
+                <img className='h-10 aspect-{25/6}' src={FrameOffLogo} />
+            </a>
+        </div>
     );
 }

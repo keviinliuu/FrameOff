@@ -73,88 +73,74 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
 
     return (
         <Slide>
-            {title && <div className='text-lg'>{title}</div>}
-            {description && <div className='text-sm'>{description}</div>}
-            <div className='flex justify-between space-x-20'>
-                <div className='relative flex flex-col items-center gap-y-4'>
-                    <div className='relative flex flex-row items-end space-x-2'>
+            {title && <div className='text-3xl text-blush'>{title}</div>}
+            {description && <div className='text-sm text-blush'>{description}</div>}
+            <div className='flex w-full items-center justify-center gap-x-16'>
+                <div className='flex flex-col items-center gap-y-8' style={{ width: `30%` }}>
+                    <div className='relative flex w-full flex-row gap-x-4'>
                         <VoteImage
                             imgUrl={imageOne.url as string}
                             voteEnum={VotedEnum.IMAGE1}
                             onVote={onVote}
                         />
                         {voted && (
-                            <div>
-                                {votedFor === 'IMAGE1' ? (
-                                    <div className='flex h-96 items-end'>
-                                        <div className='absolute inset-0 flex h-96 w-96 items-center justify-center border-4 border-fushcia bg-fuchsia-500 bg-opacity-50'>
-                                            <p className='text-main text-xl text-moonbeam'>
-                                                {votesImage1} votes, {votesPercent1}%
-                                            </p>
-                                        </div>
-
-                                        <div
-                                            className={`w-6 bg-fushcia`}
-                                            style={{ height: `${votesPercent1}%` }}></div>
-                                    </div>
-                                ) : (
-                                    <div className='flex h-96 items-end'>
-                                        <div className='absolute inset-0 flex h-96 w-96 items-center justify-center bg-slate bg-opacity-50'>
-                                            <p className='text-main text-xl text-moonbeam'>
-                                                {votesImage1} votes, {votesPercent1}%
-                                            </p>
-                                        </div>
-
-                                        <div
-                                            className={`h-1/2 w-6 bg-slate`}
-                                            style={{ height: `${votesPercent1}%` }}></div>
-                                    </div>
-                                )}
+                            <div
+                                className={`absolute left-0 flex aspect-square h-full items-center justify-center rounded-lg bg-opacity-50 ${
+                                    votedFor == VotedEnum.IMAGE1
+                                        ? 'border-4 border-fushcia bg-fuchsia-900'
+                                        : 'bg-midnight'
+                                }`}>
+                                <p className='text-main text-xl text-moonbeam'>
+                                    {votesImage1} votes, {votesPercent1}%
+                                </p>
                             </div>
                         )}
+                        <div className='flex flex-col justify-end'>
+                            <div
+                                className={`w-8 ${
+                                    votedFor == VotedEnum.IMAGE1 ? 'bg-fushcia' : 'bg-slate'
+                                }`}
+                                style={{ height: `${votesPercent1}%` }}></div>
+                        </div>
                     </div>
-
-                    {imageOne.caption && <div className='text-sm'>{imageOne.caption}</div>}
+                    {imageOne.caption && (
+                        <div className='text-3xl text-blush'>{imageOne.caption}</div>
+                    )}
                 </div>
-                <div className='relative flex flex-col items-center gap-y-4'>
-                    <div className='relative flex flex-row items-end space-x-2'>
-                        {voted && (
-                            <div>
-                                {votedFor === 'IMAGE2' ? (
-                                    <div className='flex h-96 items-end'>
-                                        <div
-                                            className={`w-6 bg-fushcia`}
-                                            style={{ height: `${votesPercent2}%` }}></div>
-
-                                        <div className='absolute right-0 top-0 flex h-96 w-96 items-center justify-center border-4 border-fushcia bg-fuchsia-500 bg-opacity-50'>
-                                            <p className='text-main text-xl text-moonbeam'>
-                                                {votesImage2} votes, {votesPercent2}%
-                                            </p>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className='flex h-96 items-end'>
-                                        <div
-                                            className={`w-6 bg-slate`}
-                                            style={{ height: `${votesPercent2}%` }}></div>
-
-                                        <div className='absolute right-0 top-0 flex h-96 w-96 items-center justify-center bg-slate bg-opacity-50'>
-                                            <p className='text-main text-xl text-moonbeam'>
-                                                {votesImage2} votes, {votesPercent2}%
-                                            </p>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        )}
+                <div className='flex flex-col items-center gap-y-4'>
+                    <div className='flex items-center text-3xl text-blush'>VS</div>
+                </div>
+                <div className='flex w-1/4 flex-col items-center gap-y-8' style={{ width: `30%` }}>
+                    <div className='relative flex flex-row gap-x-4'>
+                        <div className='flex flex-col justify-end'>
+                            <div
+                                className={`w-8 ${
+                                    votedFor == VotedEnum.IMAGE2 ? 'bg-fushcia' : 'bg-slate'
+                                }`}
+                                style={{ height: `${votesPercent2}%` }}></div>
+                        </div>
                         <VoteImage
                             imgUrl={imageTwo.url as string}
                             voteEnum={VotedEnum.IMAGE2}
                             onVote={onVote}
                         />
+                        {voted && (
+                            <div
+                                className={`absolute right-0 top-0 flex aspect-square h-full items-center justify-center rounded-lg bg-opacity-50 ${
+                                    votedFor == VotedEnum.IMAGE2
+                                        ? 'border-4 border-fushcia bg-fuchsia-500'
+                                        : 'bg-midnight'
+                                }`}>
+                                <p className='text-main text-xl text-moonbeam'>
+                                    {votesImage2} votes, {votesPercent2}%
+                                </p>
+                            </div>
+                        )}
                     </div>
 
-                    {imageTwo.caption && <div className='text-sm'>{imageTwo.caption}</div>}
+                    {imageTwo.caption && (
+                        <div className='text-3xl text-blush'>{imageTwo.caption}</div>
+                    )}
                 </div>
             </div>
         </Slide>
