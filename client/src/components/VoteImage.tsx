@@ -26,7 +26,7 @@ export default function VoteImage({ imgUrl, voteEnum, onVote }: VoteImageProps) 
                 className='m-auto aspect-square max-w-full rounded-lg object-cover'
             />
             {mouseOver && (
-                <div className='absolute flex aspect-square h-full items-center justify-center rounded-lg bg-fuchsia-900 bg-opacity-50' />
+                <div className='absolute flex aspect-square h-full items-center justify-center rounded-lg bg-plum bg-opacity-50' />
             )}
         </div>
     );

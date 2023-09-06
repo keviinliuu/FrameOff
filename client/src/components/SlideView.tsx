@@ -3,6 +3,11 @@ import { ImageData, VotedEnum } from '../data/types';
 import Slide from './Slide';
 import VoteImage from './VoteImage';
 import axios from 'axios';
+import Checkmark from '../assets/checkmark.svg'
+import EmptyCircle from '../assets/empty-circle.svg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import {faCircle} from '@fortawesome/free-regular-svg-icons';
 
 export interface SlideViewProps {
     title: string | undefined;
@@ -22,7 +27,6 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
     const [votesPercent2, setVotesPercent2] = useState<number | null>(null);
 
     const voteStatus = localStorage.getItem(_id!);
-    console.log('Vote status: ' + voteStatus);
 
     useEffect(() => {
         if (voteStatus != null && voted == false) {
@@ -85,20 +89,33 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                         />
                         {voted && (
                             <div
-                                className={`absolute left-0 flex aspect-square h-full items-center justify-center rounded-lg bg-opacity-50 ${
+                                className={`absolute left-0 flex aspect-square h-full items-end justify-center rounded-lg bg-opacity-50 ${
                                     votedFor == VotedEnum.IMAGE1
-                                        ? 'border-4 border-fushcia bg-fuchsia-900'
+                                        ? 'border-4 border-fushcia bg-plum'
                                         : 'bg-midnight'
                                 }`}>
-                                <p className='text-main text-xl text-moonbeam'>
-                                    {votesImage1} votes, {votesPercent1}%
-                                </p>
+                                <div className='w-5/6 m-4 flex flex-row justify-evenly space-between items-center rounded-lg bg-midnight' style={{height:'30%'}}>
+                                    <div className='flex flex-col right-0 justify-center mt-2 gap-2 items-center'>
+                                        <p className='text-main text-xl text-moonbeam'>
+                                            {`${votesImage1} votes`}
+                                        </p>
+                                        <p className={`text-main text-7xl ${votedFor == VotedEnum.IMAGE1 ? 'text-fushcia' : 'text-charcoal'}`}>
+                                            {`${votesPercent1}%`}
+                                        </p>
+                                    </div>
+                                    {votedFor == VotedEnum.IMAGE1 ? (
+                                        <FontAwesomeIcon icon={faCheck} className={`text-fushcia h-3/4`}/>
+                                    ) : (
+                                        <FontAwesomeIcon icon={faCircle} className={`text-slate h-3/4`}/>
+
+                                    )}
+                                </div>
                             </div>
                         )}
                         <div className='flex flex-col justify-end'>
                             <div
                                 className={`w-8 ${
-                                    votedFor == VotedEnum.IMAGE1 ? 'bg-fushcia' : 'bg-slate'
+                                    votedFor == VotedEnum.IMAGE1 ? 'bg-fushcia' : 'bg-charcoal'
                                 }`}
                                 style={{ height: `${votesPercent1}%` }}></div>
                         </div>
@@ -115,7 +132,7 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                         <div className='flex flex-col justify-end'>
                             <div
                                 className={`w-8 ${
-                                    votedFor == VotedEnum.IMAGE2 ? 'bg-fushcia' : 'bg-slate'
+                                    votedFor == VotedEnum.IMAGE2 ? 'bg-fushcia' : 'bg-charcoal'
                                 }`}
                                 style={{ height: `${votesPercent2}%` }}></div>
                         </div>
@@ -126,14 +143,27 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                         />
                         {voted && (
                             <div
-                                className={`absolute right-0 top-0 flex aspect-square h-full items-center justify-center rounded-lg bg-opacity-50 ${
+                                className={`absolute right-0 top-0 flex aspect-square h-full items-end justify-center rounded-lg bg-opacity-50 ${
                                     votedFor == VotedEnum.IMAGE2
-                                        ? 'border-4 border-fushcia bg-fuchsia-500'
+                                        ? 'border-4 border-fushcia bg-plum'
                                         : 'bg-midnight'
                                 }`}>
-                                <p className='text-main text-xl text-moonbeam'>
-                                    {votesImage2} votes, {votesPercent2}%
-                                </p>
+                                <div className='w-5/6 m-4 flex flex-row justify-evenly space-between items-center rounded-lg bg-midnight' style={{height:'30%'}}>
+                                    {votedFor == VotedEnum.IMAGE2 ? (
+                                        <FontAwesomeIcon icon={faCheck} className={`text-fushcia h-3/4`}/>
+                                    ) : (
+                                        <FontAwesomeIcon icon={faCircle} className={`text-slate h-3/4`}/>
+
+                                    )}                                    
+                                    <div className='flex flex-col right-0 justify-center mt-2 gap-2 items-center'>
+                                        <p className='text-main text-xl text-moonbeam'>
+                                            {`${votesImage2} votes`}
+                                        </p>
+                                        <p className={`text-main text-7xl ${votedFor == VotedEnum.IMAGE2 ? 'text-fushcia' : 'text-charcoal'}`}>
+                                            {`${votesPercent2}%`}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </div>
