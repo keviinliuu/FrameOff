@@ -95,6 +95,12 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                                         : 'bg-midnight'
                                 }`}>
                                 <div className='w-5/6 m-4 flex flex-row justify-evenly space-between items-center rounded-lg bg-midnight' style={{height:'30%'}}>
+                                    {votedFor == VotedEnum.IMAGE1 ? (
+                                        <FontAwesomeIcon icon={faCheck} className={`text-fushcia h-3/4`}/>
+                                    ) : (
+                                        <FontAwesomeIcon icon={faCircle} className={`text-slate h-3/4`}/>
+
+                                    )}
                                     <div className='flex flex-col right-0 justify-center mt-2 gap-2 items-center'>
                                         <p className='text-main text-xl text-moonbeam'>
                                             {`${votesImage1} votes`}
@@ -103,12 +109,6 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                                             {`${votesPercent1}%`}
                                         </p>
                                     </div>
-                                    {votedFor == VotedEnum.IMAGE1 ? (
-                                        <FontAwesomeIcon icon={faCheck} className={`text-fushcia h-3/4`}/>
-                                    ) : (
-                                        <FontAwesomeIcon icon={faCircle} className={`text-slate h-3/4`}/>
-
-                                    )}
                                 </div>
                             </div>
                         )}
@@ -149,12 +149,6 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                                         : 'bg-midnight'
                                 }`}>
                                 <div className='w-5/6 m-4 flex flex-row justify-evenly space-between items-center rounded-lg bg-midnight' style={{height:'30%'}}>
-                                    {votedFor == VotedEnum.IMAGE2 ? (
-                                        <FontAwesomeIcon icon={faCheck} className={`text-fushcia h-3/4`}/>
-                                    ) : (
-                                        <FontAwesomeIcon icon={faCircle} className={`text-slate h-3/4`}/>
-
-                                    )}                                    
                                     <div className='flex flex-col right-0 justify-center mt-2 gap-2 items-center'>
                                         <p className='text-main text-xl text-moonbeam'>
                                             {`${votesImage2} votes`}
@@ -163,6 +157,12 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                                             {`${votesPercent2}%`}
                                         </p>
                                     </div>
+                                    {votedFor == VotedEnum.IMAGE2 ? (
+                                        <FontAwesomeIcon icon={faCheck} className={`text-fushcia h-3/4`}/>
+                                    ) : (
+                                        <FontAwesomeIcon icon={faCircle} className={`text-slate h-3/4`}/>
+
+                                    )}                                    
                                 </div>
                             </div>
                         )}
