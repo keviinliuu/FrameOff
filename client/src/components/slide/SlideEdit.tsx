@@ -1,8 +1,8 @@
 import Slide from './Slide';
-import FileUpload from './FileUpload';
-import { CE } from '../data/types';
+import FileUpload from '../atoms/FileUpload';
+import { CE } from '../../data/types';
 import { useEffect, useState } from 'react';
-import { useSlideStore } from '../stores/useSlideStore';
+import { useSlideStore } from '../../stores/useSlideStore';
 
 export interface SlideEditProps {
     _id?: string;

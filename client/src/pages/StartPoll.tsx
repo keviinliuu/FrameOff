@@ -1,5 +1,5 @@
-import Heading from '../components/Heading';
-import Logo from '../components/Logo';
+import Heading from '../components/atoms/Heading';
+import Logo from '../components/atoms/Logo';
 import '../index.css';
 
 export default function StartPoll() {
@@ -28,7 +28,11 @@ export default function StartPoll() {
             </div>
             <div className='flex justify-center pt-12'>
                 <button className='flex items-center rounded border-2 border-blush'>
-                    <Heading textColor='text-blush' fontSize='text-2xl' padding='py-1/2 px-6' textAlign='text-center'>
+                    <Heading
+                        textColor='text-blush'
+                        fontSize='text-2xl'
+                        padding='py-1/2 px-6'
+                        textAlign='text-center'>
                         Start
                     </Heading>
                 </button>

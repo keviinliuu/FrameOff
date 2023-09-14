@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { ImageData, VotedEnum } from '../data/types';
+import { ImageData, VotedEnum } from '../../data/types';
 import Slide from './Slide';
-import VoteImage from './VoteImage';
+import VoteImage from '../images/VoteImage';
+import Modal from '../atoms/Modal';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +17,9 @@ export interface SlideViewProps {
 }
 
 export default function SlideView({ title, description, imageOne, imageTwo, _id }: SlideViewProps) {
+    const [expand, setExpand] = useState(false);
+    const [expandedImage, setExpandedImage] = useState<ImageData | null>(null);
+
     const [voted, didVote] = useState(false);
     const [votedFor, setVote] = useState('NOT_VOTED');
 
@@ -75,13 +79,29 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
 
     return (
         <Slide>
+            <Modal open={expand} onClose={() => setExpand(false)}>
+                <img
+                    src={expandedImage?.url as string}
+                    className='m-auto max-w-full max-h-full rounded-lg object-contain'
+                    style={{ maxHeight: '90vh', maxWidth: '90vh' }}></img>
+            </Modal>
+
             {title && <div className='text-3xl text-raspberry'>{title}</div>}
             {description && <div className='text-sm text-blush'>{description}</div>}
             <div className='flex w-full items-center justify-center gap-x-16'>
                 <div className='flex flex-col items-center gap-y-8' style={{ width: `30%` }}>
                     <div className='relative flex w-full flex-row gap-x-4'>
                         <div className='relative flex w-full flex-col items-center'>
-                            <div className='text-graphite'>Expand</div>
+                            <div>
+                                <button
+                                    onClick={() => {
+                                        setExpand(true);
+                                        setExpandedImage(imageOne);
+                                    }}
+                                    className='font-main text-graphite hover:text-slate duration-150'>
+                                    Expand
+                                </button>
+                            </div>
                             <div className='relative flex w-full flex-col items-center'>
                                 <VoteImage
                                     imgUrl={imageOne.url as string}
@@ -146,7 +166,6 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                 </div>
                 <div className='flex w-1/4 flex-col items-center gap-y-8' style={{ width: `30%` }}>
                     <div className='relative flex flex-row gap-x-4'>
-
                         <div className='flex flex-col justify-end'>
                             <div
                                 className={`w-8 ${
@@ -155,9 +174,17 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                                 style={{ height: `${votesPercent2}%` }}></div>
                         </div>
 
-
                         <div className='relative flex w-full flex-col items-center'>
-                            <div className='text-graphite'>Expand</div>
+                            <div>
+                                <button
+                                    onClick={() => {
+                                        setExpand(true);
+                                        setExpandedImage(imageTwo);
+                                    }}
+                                    className='font-main text-graphite hover:text-slate duration-150'>
+                                    Expand
+                                </button>
+                            </div>
                             <div className='relative flex w-full flex-col items-center'>
                                 <VoteImage
                                     imgUrl={imageTwo.url as string}
@@ -204,9 +231,6 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                             </div>
                         </div>
                     </div>
-
-
-
 
                     {imageTwo.caption && (
                         <div className='text-3xl text-blush'>{imageTwo.caption}</div>

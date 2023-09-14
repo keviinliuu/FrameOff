@@ -1,6 +1,6 @@
 import { useSlideStore } from '../stores/useSlideStore';
 import { SlideData } from '../data/types';
-import SlideEdit from '../components/SlideEdit';
+import SlideEdit from '../components/slide/SlideEdit';
 import { CE } from '../data/types';
 import { v4 as uuidv4 } from 'uuid';
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';

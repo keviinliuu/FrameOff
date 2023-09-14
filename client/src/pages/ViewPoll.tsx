@@ -1,8 +1,8 @@
 import { useSlideStore } from '../stores/useSlideStore';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import SlideView from '../components/SlideView';
+import SlideView from '../components/slide/SlideView.tsx';
 import { useParams } from 'react-router-dom';
-import Logo from '../components/Logo.tsx';
+import Logo from '../components/atoms/Logo.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 export interface ViewPollProps {

@@ -1,4 +1,4 @@
-import Heading from '../components/Heading';
+import Heading from '../components/atoms/Heading';
 import Logo from '../assets/frameoff-logo.svg';
 import '../index.css';
 
@@ -15,7 +15,11 @@ export default function LandingPoll() {
                 </Heading>
             </div>
             <div className='flex flex-col items-center pt-8'>
-                <Heading textColor='text-white' fontSize='text-1.5xl' textAlign='text-center' fontWeight='font-light'>
+                <Heading
+                    textColor='text-white'
+                    fontSize='text-1.5xl'
+                    textAlign='text-center'
+                    fontWeight='font-light'>
                     Create and share image polls in seconds.
                 </Heading>
             </div>

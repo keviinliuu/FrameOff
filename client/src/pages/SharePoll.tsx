@@ -1,6 +1,6 @@
-import ShareButton from '../components/ShareButton';
-import Heading from '../components/Heading';
-import Logo from '../components/Logo';
+import ShareButton from '../components/atoms/ShareButton';
+import Heading from '../components/atoms/Heading';
+import Logo from '../components/atoms/Logo';
 import '../index.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
