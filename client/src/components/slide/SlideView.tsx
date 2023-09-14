@@ -83,7 +83,7 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                 <img
                     src={expandedImage?.url as string}
                     className='m-auto max-w-full max-h-full rounded-lg object-contain'
-                    style={{ maxHeight: '90vh', maxWidth: '90vh' }}></img>
+                    style={{ maxHeight: '90vh', maxWidth: '95vh' }}></img>
             </Modal>
 
             {title && <div className='text-3xl text-raspberry'>{title}</div>}
