@@ -1,17 +1,13 @@
 import { useSlideStore } from '../stores/useSlideStore';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import SlideView from '../components/SlideView';
+import SlideView from '../components/slide/SlideView.tsx';
 import { useParams } from 'react-router-dom';
-import Logo from '../components/Logo.tsx';
+import Logo from '../components/atoms/Logo.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faChevronUp,
-    faChevronDown,
-} from '@fortawesome/free-solid-svg-icons';
+import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 export interface ViewPollProps {
     _id: string;
     title: string;
-    
 }
 
 const intersectionOptions = {
@@ -21,7 +17,7 @@ const intersectionOptions = {
 };
 
 export default function ViewPoll() {
-    const { _id } = useParams<{_id: string}>();
+    const { _id } = useParams<{ _id: string }>();
     const loadSlides = useSlideStore(state => state.loadSlides);
     const slides = useSlideStore(state => state.slides);
     const pollTitle = useSlideStore(state => state.pollTitle);
@@ -39,19 +35,19 @@ export default function ViewPoll() {
         setActiveCount(getSlideCount());
     }, []);
     const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
-        console.log(`len ${entries.length}`)
-        var entry = entries[entries.length-1]
-        console.log(`ratio ${entry.intersectionRatio}`)
-        //if (!entry.intersectionRatio) entry.target.scrollIntoView();
+        const entry = entries[entries.length - 1];
         if (entry.intersectionRatio >= 1.0) {
-            console.log(getSlide(entry.target.id)?.index)
+            console.log(getSlide(entry.target.id)?.index);
             setActiveIndex(getSlide(entry.target.id)?.index ?? 0);
             setActiveCount(getSlideCount());
         }
     };
     const scrollTo = (i: number) => {
         const id = getSlideFromIndex(i)?._id;
-        slideRefs.current.find(slideRef => slideRef.id === id)?.scrollIntoView();
+        if (id) {
+            setActiveIndex(i);
+            slideRefs.current.find(slideRef => slideRef.id === id)?.scrollIntoView();
+        }
     };
     useEffect(() => {
         console.log(`${_id}`);
@@ -66,16 +62,17 @@ export default function ViewPoll() {
     }, []);
     return (
         <div className='flex h-full justify-center'>
-            <Logo/>
+            <Logo />
             <div className='p-8 flex flex-col w-screen positon: absolute gap-y-4 items-center object-center'>
                 <div className='text-5xl text-blush'>{pollTitle}</div>
             </div>
-            <div className='snap-start snap-y flex flex-col snap-mandatory h-screen w-screen overflow-x-hidden scrollbar-none'>
+            <div className='snap-start snap-y flex flex-col snap-mandatory h-screen w-screen overflow-x-hidden scrollbar-none scroll-smooth'>
                 {slides.map(slide => (
-                    <div className='snap-start snap-always grid min-h-full w-screen place-items-center'
-                    ref={addNode}
-                    key={slide._id}
-                    id={slide._id}>
+                    <div
+                        className='snap-start snap-always grid min-h-full w-screen place-items-center'
+                        ref={addNode}
+                        key={slide._id}
+                        id={slide._id}>
                         <SlideView
                             key={slide._id}
                             title={slide.slideTitle}

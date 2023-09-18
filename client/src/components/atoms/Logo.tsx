@@ -1,4 +1,4 @@
-import FrameOffLogo from '../assets/frameoff-logo.svg';
+import FrameOffLogo from '../../assets/frameoff-logo.svg';
 
 export default function Logo({}) {
     return (
