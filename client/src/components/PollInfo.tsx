@@ -1,5 +1,5 @@
 import { CE } from '../data/types';
-import Logo from '../components/Logo';
+import Logo from '../assets/frameoff-logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,7 +12,9 @@ export default function PollInfo({ handleTitle, handleDescription }: PollInfoPro
     return (
         <div className='min-h-screen: space-y-20 bg-midnight'>
             <div className='flex'>
-                <Logo />
+                <div className='inline-flex'>
+                    <img className='h-10 aspect-{25/6}' src={Logo} />
+                </div>
             </div>
             <div className='space-y-4'>
                 <div className='flex justify-center gap-y-4 text-white'>
@@ -38,7 +40,7 @@ export default function PollInfo({ handleTitle, handleDescription }: PollInfoPro
                     />
                 </div>
             </div>
-            <div className = 'space-y-30 flex justify-center gap-y-4'>
+            <div className='space-y-30 flex justify-center gap-y-4'>
                 <FontAwesomeIcon icon={faArrowDown} className='cursor-pointer text-blush fa-3x' />
             </div>
         </div>
