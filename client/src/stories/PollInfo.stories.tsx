@@ -13,7 +13,7 @@ type Story = StoryObj<typeof PollInfo>;
 export const Main: Story = {
     render: () => (
         <div className='flex h-screen'>
-            <PollInfo />
+            <PollInfo handleTitle={() => ''} handleDescription={() => ''} />
         </div>
     ),
 };
