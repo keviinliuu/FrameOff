@@ -2,6 +2,7 @@ import { CE } from '../data/types';
 import Logo from '../assets/frameoff-logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 export interface PollInfoProps {
     handleTitle: (e: CE) => string;
@@ -9,6 +10,13 @@ export interface PollInfoProps {
 }
 
 export default function PollInfo({ handleTitle, handleDescription }: PollInfoProps) {
+    const [hasTitleInput, setHasTitleInput] = useState(false);
+
+    const handleTitleChange = (e: CE) => {
+        const title = handleTitle(e);
+        setHasTitleInput(!!title);
+    };
+
     return (
         <div className='min-h-screen: space-y-20 bg-midnight'>
             <div className='flex'>
@@ -24,7 +32,10 @@ export default function PollInfo({ handleTitle, handleDescription }: PollInfoPro
                     <input
                         className=' sm:text-md w-3/5 rounded-lg border-2 border-blush bg-nocturne p-4 text-center text-plum placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0'
                         placeholder='enter title'
-                        onChange={handleTitle}
+                        onChange={(e: CE) => {
+                            handleTitleChange(e);
+                            handleTitle(e);
+                        }}
                     />
                 </div>
             </div>
@@ -41,7 +52,12 @@ export default function PollInfo({ handleTitle, handleDescription }: PollInfoPro
                 </div>
             </div>
             <div className='space-y-30 flex justify-center gap-y-4'>
-                <FontAwesomeIcon icon={faArrowDown} className='cursor-pointer text-blush fa-3x' />
+                {hasTitleInput && (
+                    <FontAwesomeIcon
+                        icon={faArrowDown}
+                        className='cursor-pointer text-blush fa-3x'
+                    />
+                )}
             </div>
         </div>
     );
