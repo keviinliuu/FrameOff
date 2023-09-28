@@ -12,11 +12,10 @@ export interface PollInfoProps {
 export default function PollInfo({ handleTitle, handleDescription }: PollInfoProps) {
     const [hasTitleInput, setHasTitleInput] = useState(false);
 
-    const handleTitleChange = (e: CE) => {
-        const title = handleTitle(e);
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const title = e.target.value;
         setHasTitleInput(!!title);
     };
-
     return (
         <div className='min-h-screen: space-y-20 bg-midnight'>
             <div className='flex'>
