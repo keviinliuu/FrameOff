@@ -17,7 +17,7 @@ export default function PollInfo({ handleTitle, handleDescription }: PollInfoPro
         setHasTitleInput(!!title);
     };
     return (
-        <div className='min-h-screen: space-y-20 bg-midnight'>
+        <div className='min-h-screen space-y-20 bg-midnight snap-start'>
             <div className='flex'>
                 <div className='inline-flex'>
                     <img className='h-10 aspect-{25/6}' src={Logo} />
