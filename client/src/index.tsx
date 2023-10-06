@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home';
 import CreatePoll from './pages/CreatePoll';
 import ViewPoll from './pages/ViewPoll';
-import Error from './pages/Error';
+import Error from './components/Error';
 import axios from 'axios';
 import './index.css';
 
@@ -26,6 +26,4 @@ const router = createBrowserRouter([
     },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-    <RouterProvider router={router} />
-);
+ReactDOM.createRoot(document.getElementById('root')!).render(<RouterProvider router={router} />);
