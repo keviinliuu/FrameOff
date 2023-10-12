@@ -25,7 +25,7 @@ export default function SlideEdit({
     const [imageOne, setImageOne] = useState<File | string>();
     const [imageTwo, setImageTwo] = useState<File | string>();
     const commonInputClass =
-        'placeholder:text-center text-center text-blush placeholder:text-plum bg-transparent border border-transparent focus:outline-none focus:border-transparent';
+        'placeholder:text-center text-center text-blush placeholder:text-plum bg-transparent border-transparent border-b border-transparent focus:border-blush focus:border-b focus:outline-none focus:ring-0 placeholder:text-2xl text-2xl py-1';
 
     useEffect(
         () =>
@@ -44,9 +44,10 @@ export default function SlideEdit({
     return (
         <Slide>
             <input
-                className={`w-1/3 ${commonInputClass} placeholder:text-3xl text-3xl`}
+                className={`w-1/3 ${commonInputClass}`}
                 onChange={handleTitle}
-                placeholder='Title (optional)'
+                placeholder='Enter title... (optional)'
+                maxLength={50}
             />
             <div className='flex w-full gap-x-36 justify-center items-center'>
                 <div className='flex w-1/4 flex-col gap-y-8 items-center'>
@@ -54,15 +55,16 @@ export default function SlideEdit({
                         <FileUpload image={imageOne} onChange={handleImageOne} />
                     </div>
                     <input
-                        className={`text-sm' ${commonInputClass} placeholder:text-3xl text-3xl`}
+                        className={`text-sm' ${commonInputClass}`}
                         onChange={handleImageOneCaption}
-                        placeholder='Caption (optional)'
+                        placeholder='Enter caption... (optional)'
+                        maxLength={30}
                     />
                 </div>
                 <div className='flex flex-col gap-y-4 items-center'>
                     <div className='flex text-3xl items-center text-blush'>VS</div>
                     <input
-                        className='placeholder:text-3xl text-3xl w-0 invisible'
+                        className='placeholder:text-2xl text-2xl w-0 invisible'
                         placeholder='X'
                     />
                 </div>
@@ -71,9 +73,10 @@ export default function SlideEdit({
                         <FileUpload image={imageTwo} onChange={handleImageTwo} />
                     </div>
                     <input
-                        className={`text-sm' ${commonInputClass} placeholder:text-3xl text-3xl`}
+                        className={`text-sm' ${commonInputClass}`}
                         onChange={handleImageTwoCaption}
-                        placeholder='Caption (optional)'
+                        placeholder='Enter caption... (optional)'
+                        maxLength={30}
                     />
                 </div>
             </div>

@@ -4,7 +4,7 @@ import '../index.css';
 
 export default function LandingPoll() {
     return (
-        <div className='flex flex-col justify-center items-center gap-y-10 h-screen snap-start snap-always '>
+        <div className='flex flex-col justify-center items-center gap-y-10 min-h-screen snap-start snap-always '>
             <div className='flex justify-center'>
                 <img className='aspect-{25/6} h-10' src={Logo} />
             </div>
@@ -22,14 +22,7 @@ export default function LandingPoll() {
             </Heading>
             <div className='pt-12'>
                 <button className='flex items-center rounded border-2 border-aqua bg-aqua'>
-                    <Heading
-                        textColor='text-black'
-                        fontSize='text-4xl'
-                        padding='py-6 px-14'
-                        textAlign='text-center'
-                        fontWeight='font-normal'>
-                        Create Poll
-                    </Heading>
+                    <p className='text-3xl py-6 px-14 font-medium'>Create Poll</p>
                 </button>
             </div>
         </div>

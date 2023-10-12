@@ -142,8 +142,8 @@ export default function CreateSlides() {
         setSlidesDisplay(slidesDisplay.concat([display]));
     };
     return (
-        <div className='flex h-full justify-center'>
-            <div className='flex fixed top-0 left-0 right-0 justify-between p-8 pb-0'>
+        <div className='relative flex min-h-screen justify-center'>
+            <div className='flex absolute top-0 left-0 right-0 justify-between p-8 pb-0'>
                 <div className='inline-flex'>
                     <img className='h-10 aspect-{25/6}' src={Logo} />
                 </div>
@@ -165,7 +165,7 @@ export default function CreateSlides() {
                     <div>You have no slides! Press the button to create your first slide!</div>
                 )}
             </div>
-            <div className='fixed flex bottom-0 left-0 right-0 justify-center p-8 pt-0'>
+            <div className='absolute flex bottom-0 left-0 right-0 justify-center p-8 pt-0'>
                 <FontAwesomeIcon
                     className='text-blush cursor-pointer'
                     icon={faCirclePlus}
@@ -173,7 +173,7 @@ export default function CreateSlides() {
                     onClick={handleCreateSlide}
                 />
             </div>
-            <div className='flex flex-col fixed top-1/2 left-0 items-center -translate-y-1/2 select-none'>
+            <div className='flex flex-col absolute top-1/2 left-0 items-center -translate-y-1/2 select-none'>
                 <div className='flex flex-col gap-y-3 items-center p-24'>
                     <FontAwesomeIcon
                         className={`text-neutral-400 ${
@@ -200,7 +200,7 @@ export default function CreateSlides() {
                     />
                 </div>
             </div>
-            <div className='flex fixed bottom-0 left-0 p-8'>
+            <div className='flex absolute bottom-0 left-0 p-8'>
                 <FontAwesomeIcon
                     className={`text-blush ${activeCount > 1 ? 'cursor-pointer' : 'opacity-30'}`}
                     icon={faTrashCan}

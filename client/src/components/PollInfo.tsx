@@ -5,52 +5,36 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 export interface PollInfoProps {
-    handleTitle: (e: CE) => string;
-    handleDescription: (e: CE) => string;
+    handleTitle: (e: CE) => void;
+    handleDescription: (e: CE) => void;
 }
 
 export default function PollInfo({ handleTitle, handleDescription }: PollInfoProps) {
     const [hasTitleInput, setHasTitleInput] = useState(false);
 
-    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleTitleChange = (e: CE) => {
         const title = e.target.value;
         setHasTitleInput(!!title);
     };
+
     return (
-        <div className='min-h-screen space-y-20 bg-midnight snap-start'>
-            <div className='flex'>
-                <div className='inline-flex'>
-                    <img className='h-10 aspect-{25/6}' src={Logo} />
-                </div>
-            </div>
-            <div className='space-y-4'>
-                <div className='flex justify-center gap-y-4 text-white'>
-                    Give your duel a title!
-                </div>
-                <div className='flex justify-center gap-x-8'>
-                    <input
-                        className=' sm:text-md w-3/5 rounded-lg border-2 border-blush bg-nocturne p-4 text-center text-plum placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0'
-                        placeholder='enter title'
-                        onChange={(e: CE) => {
-                            handleTitleChange(e);
-                            handleTitle(e);
-                        }}
-                    />
-                </div>
-            </div>
-            <div className='space-y-4'>
-                <div className='flex justify-center gap-y-4 text-plum'>
-                    and a description too! (if you want...)
-                </div>
-                <div className='flex justify-center gap-x-8'>
-                    <input
-                        className=' sm:text-md w-3/5 rounded-lg border-2 border-blush bg-nocturne p-4 text-center text-plum placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0'
-                        placeholder='enter description'
-                        onChange={handleDescription}
-                    />
-                </div>
-            </div>
-            <div className='space-y-30 flex justify-center gap-y-4'>
+        <div className='relative flex flex-col justify-center items-center gap-y-4 min-h-screen w-fit bg-midnight snap-start'>
+            <div className='text-white text-2xl'>Give your duel a title!</div>
+            <input
+                className='w-[150%] placeholder:text-2xl text-2xl rounded-lg border-2 border-plum bg-nocturne py-3 text-center text-blush placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0'
+                placeholder='Enter title...'
+                onChange={(e: CE) => {z
+                    handleTitleChange(e);
+                    handleTitle(e);
+                }}
+            />
+            <div className='text-white text-2xl pt-16'>and a description too! (if you want...)</div>
+            <input
+                className='w-[150%] placeholder:text-2xl text-2xl rounded-lg border-2 border-plum bg-nocturne py-3 text-center text-blush placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0'
+                placeholder='Enter description...'
+                onChange={handleDescription}
+            />
+            <div className='absolute bottom-6'>
                 {hasTitleInput && (
                     <FontAwesomeIcon
                         icon={faArrowDown}
