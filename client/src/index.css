@@ -14,6 +14,7 @@
     width: 100vw;
 }
 
-button {
-    font-family: 'Noto Sans', sans-serif;
-}
+.hover\:transform-gpu:hover {
+    transform: scale(1.05) translateZ(0);
+  }
+  

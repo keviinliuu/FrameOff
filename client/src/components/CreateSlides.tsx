@@ -152,10 +152,12 @@ export default function CreateSlides() {
                     <div className='text-5xl text-blush'>{pollTitle}</div>
                 </div>
                 <button
-                    className='flex h-fit p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg font-semibold disabled:opacity-30 select-none'
+                    className='flex h-12 p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg disabled:opacity-30 select-none'
                     disabled={!slidesAreValid}>
-                    <FontAwesomeIcon icon={faCheck} size='xl' />
-                    <p className='flex items-center text-xl align-middle'>Finished</p>
+                    <FontAwesomeIcon icon={faCheck} size='xl' className='self-center' />
+                    <p className='flex items-center text-2xl align-middle translate-y-0.5'>
+                        Finish
+                    </p>
                 </button>
             </div>
             <div className='snap-start snap-y flex flex-col snap-mandatory h-screen w-screen overflow-x-hidden scroll-smooth'>
@@ -185,9 +187,17 @@ export default function CreateSlides() {
                             if (activeIndex >= 1) scrollTo(activeIndex - 1);
                         }}
                     />
-                    <div className='text-blush text-3xl tracking-widest'>
-                        {activeIndex + 1}/{activeCount}
+                    
+                    <div className='flex text-blush text-3xl space-x-2 w-12'>
+                        <div className='flex-none w-3'>
+                            <span className={`${activeIndex > 8 ? 'ml-[-10px]' : ''}`}>
+                                {activeIndex + 1}
+                            </span>
+                        </div>
+                        <div className='flex justify-center w-3'>/</div>
+                        <div className='flex-none w-3'>{activeCount}</div>
                     </div>
+
                     <FontAwesomeIcon
                         className={`text-neutral-400 cursor-pointer ${
                             activeIndex < activeCount - 1 ? 'cursor-pointer' : 'opacity-30'

@@ -1,6 +1,6 @@
-import ShareButton from '../components/atoms/ShareButton';
-import Heading from '../components/atoms/Heading';
-import Logo from '../components/atoms/Logo';
+import ShareButton from '../components/elements/ShareButton';
+import Heading from '../components/elements/Heading';
+import Logo from '../components/elements/Logo';
 import '../index.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +13,7 @@ export default function SharePoll() {
     const pollId = 'dkOwsMq';
     const pollUrl = 'https://frameoff.me/' + pollId;
 
-    const [isCopied, setIsCopied] = useState(false);
+    const [_, setIsCopied] = useState(false);
 
     const handleCopy = () => {
         setIsCopied(true);

@@ -1,5 +1,5 @@
 import Slide from './Slide';
-import FileUpload from '../atoms/FileUpload';
+import FileUpload from '../elements/FileUpload';
 import { CE } from '../../data/types';
 import { useEffect, useState } from 'react';
 import { useSlideStore } from '../../stores/useSlideStore';

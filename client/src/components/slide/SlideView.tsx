@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { ImageData, VotedEnum } from '../../data/types';
 import Slide from './Slide';
 import VoteImage from '../images/VoteImage';
-import Modal from '../atoms/Modal';
+import ExpandedImage from '../elements/ExpandedImage';
 import axios from 'axios';
 import anime from 'animejs';
 
@@ -194,12 +194,12 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
 
     return (
         <Slide>
-            <Modal open={expand} onClose={() => setExpand(false)}>
+            <ExpandedImage open={expand} onClose={() => setExpand(false)}>
                 <img
                     src={expandedImage?.url as string}
                     className='m-auto max-w-full max-h-full rounded-lg object-contain'
                     style={{ maxHeight: '90vh', maxWidth: '95vh' }}></img>
-            </Modal>
+            </ExpandedImage>
 
             {title && <div className='text-3xl text-raspberry'>{title}</div>}
             {description && <div className='text-sm text-blush'>{description}</div>}

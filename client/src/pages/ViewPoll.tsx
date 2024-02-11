@@ -2,7 +2,7 @@ import { useSlideStore } from '../stores/useSlideStore';
 import { useRef, useState, useEffect, useCallback } from 'react';
 import SlideView from '../components/slide/SlideView.tsx';
 import { useParams } from 'react-router-dom';
-import Logo from '../components/atoms/Logo.tsx';
+import Logo from '../components/elements/Logo.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 export interface ViewPollProps {
@@ -92,9 +92,17 @@ export default function ViewPoll() {
                         size='2xl'
                         onClick={() => scrollTo(activeIndex - 1)}
                     />
-                    <div className='text-blush text-3xl tracking-widest'>
-                        {activeIndex + 1}/{activeCount}
+
+                    <div className='flex text-blush text-3xl space-x-2 w-12'>
+                        <div className='flex-none w-3'>
+                            <span className={`${activeIndex > 8 ? 'ml-[-10px]' : ''}`}>
+                                {activeIndex + 1}
+                            </span>
+                        </div>
+                        <div className='flex justify-center w-3'>/</div>
+                        <div className='flex-none w-3'>{activeCount}</div>
                     </div>
+
                     <FontAwesomeIcon
                         className='text-neutral-400 cursor-pointer'
                         icon={faChevronDown}

@@ -1,5 +1,5 @@
-import Heading from '../components/atoms/Heading';
-import Logo from '../components/atoms/Logo';
+import Heading from '../components/elements/Heading';
+import Logo from '../components/elements/Logo';
 import '../index.css';
 
 export default function StartPoll() {

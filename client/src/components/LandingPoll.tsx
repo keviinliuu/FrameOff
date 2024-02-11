@@ -1,4 +1,4 @@
-import Heading from '../components/atoms/Heading';
+import Heading from './elements/Heading';
 import Logo from '../assets/frameoff-logo.svg';
 import '../index.css';
 

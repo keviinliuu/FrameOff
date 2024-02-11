@@ -1,12 +1,12 @@
 import { MouseEventHandler, ReactNode } from 'react';
 
-interface ModalProps {
+interface ExpandedImageProps {
     children: ReactNode;
     open: boolean;
     onClose: MouseEventHandler<HTMLDivElement>;
 }
 
-export default function Modal({ children, open, onClose }: ModalProps) {
+export default function ExpandedImage({ children, open, onClose }: ExpandedImageProps) {
     return (
         <div
             onClick={onClose}
