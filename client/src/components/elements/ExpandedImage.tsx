@@ -15,7 +15,7 @@ export default function ExpandedImage({ children, open, onClose }: ExpandedImage
             } z-50`}>
             <div
                 className={`p-48 w-auto h-auto rounded shadow transition-all ${
-                    open ? 'scale-100 opacity-100' : 'scale-125 opacity-0'
+                    open ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
                 }`}>
                 {children}
             </div>

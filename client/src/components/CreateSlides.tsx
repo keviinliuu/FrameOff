@@ -1,6 +1,7 @@
 import { useSlideStore } from '../stores/useSlideStore';
 import { SlideData } from '../data/types';
 import SlideEdit from '../components/slide/SlideEdit';
+import FinishPopup from "./elements/FinishPopup"
 import { CE } from '../data/types';
 import { v4 as uuidv4 } from 'uuid';
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
@@ -38,6 +39,7 @@ export default function CreateSlides() {
     const [pollTitle, setPollTitle] = useState('My Awesome Image Duel');
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeCount, setActiveCount] = useState(1);
+    const [finish, setFinish] = useState(false)
 
     const observer = useRef<IntersectionObserver | null>(null);
     const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
@@ -143,6 +145,10 @@ export default function CreateSlides() {
     };
     return (
         <div className='relative flex min-h-screen justify-center'>
+            <FinishPopup open={finish} onClose={() => setFinish(false)}>
+
+            </FinishPopup>
+
             <div className='flex absolute top-0 left-0 right-0 justify-between p-8 pb-0'>
                 <div className='inline-flex'>
                     <img className='h-10 aspect-{25/6}' src={Logo} />
@@ -152,7 +158,10 @@ export default function CreateSlides() {
                     <div className='text-5xl text-blush'>{pollTitle}</div>
                 </div>
                 <button
-                    className='flex h-12 p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg disabled:opacity-30 select-none'
+                    onClick={() => {
+                        setFinish(true);
+                    }}
+                    className='transition ease-in-out delay-150 duration-300 enabled:hover:scale-105 flex h-12 p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg disabled:opacity-30 select-none'
                     disabled={!slidesAreValid}>
                     <FontAwesomeIcon icon={faCheck} size='xl' className='self-center' />
                     <p className='flex items-center text-2xl align-middle translate-y-0.5'>
