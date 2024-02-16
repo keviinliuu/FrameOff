@@ -1,7 +1,6 @@
 import ShareButton from '../components/elements/ShareButton';
 import Heading from '../components/elements/Heading';
 import Logo from '../components/elements/Logo';
-import '../index.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
@@ -20,12 +19,12 @@ export default function SharePoll() {
     };
 
     return (
-        <div className='h-full bg-midnight'>
+        <div className='flex flex-col justify-center'>
             <div className='flex'>
                 <Logo />
             </div>
 
-            <div className='flex flex-col items-center pt-16'>
+            <div className='flex flex-col items-center pt-20'>
                 <Heading textColor='text-moonbeam' fontSize='text-3xl' textAlign='text-center'>
                     Thanks for using FrameOff! Now go share your poll with the world 🌎
                 </Heading>

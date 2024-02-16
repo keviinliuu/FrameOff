@@ -21,7 +21,6 @@ export default function ViewPoll() {
     const loadSlides = useSlideStore(state => state.loadSlides);
     const slides = useSlideStore(state => state.slides);
     const pollTitle = useSlideStore(state => state.pollTitle);
-    const pollDescription = useSlideStore(state => state.pollDescription);
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeCount, setActiveCount] = useState(0);
     const getSlide = useSlideStore(state => state.getSlide);

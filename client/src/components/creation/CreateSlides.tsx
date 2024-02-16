@@ -1,12 +1,12 @@
-import { useSlideStore } from '../stores/useSlideStore';
-import { SlideData } from '../data/types';
-import SlideEdit from '../components/slide/SlideEdit';
-import FinishPopup from "./elements/FinishPopup"
-import { CE } from '../data/types';
+import { useSlideStore } from '../../stores/useSlideStore';
+import { SlideData } from '../../data/types';
+import SlideEdit from '../slide/SlideEdit';
+import FinishPopup from '../elements/FinishPopup';
+import { CE } from '../../data/types';
 import { v4 as uuidv4 } from 'uuid';
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 
-import Logo from '../assets/frameoff-logo.svg';
+import Logo from '../../assets/frameoff-logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCheck,
@@ -16,13 +16,18 @@ import {
     faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 
+interface CreateSlidesProps {
+    pollTitle: string;
+    pollDescription: string;
+}
+
 const intersectionOptions = {
     root: null,
     rootMargin: '0px',
     threshold: 1.0,
 };
 
-export default function CreateSlides() {
+export default function CreateSlides({ pollTitle }: CreateSlidesProps) {
     // VARIABLES FOR SLIDE CREATION
     const [slidesDisplay, setSlidesDisplay] = useState<JSX.Element[]>([]);
     const slidesAreValid = useSlideStore(state => state.slidesAreValid);
@@ -36,15 +41,16 @@ export default function CreateSlides() {
     const uploadPoll = useSlideStore(state => state.uploadPoll);
     const clearSlides = useSlideStore(state => state.clearSlides);
     const deleteSlideByIndex = useSlideStore(state => state.deleteSlideByIndex);
-    const [pollTitle, setPollTitle] = useState('My Awesome Image Duel');
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeCount, setActiveCount] = useState(1);
-    const [finish, setFinish] = useState(false)
+    const [finish, setFinish] = useState(false);
 
     const observer = useRef<IntersectionObserver | null>(null);
     const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
         entries.forEach(entry => {
-            if (!entry.intersectionRatio) entry.target.scrollIntoView();
+            if (!entry.intersectionRatio) {
+                entry.target.scrollIntoView({ behavior: 'smooth' });
+            }
             if (entry.intersectionRatio >= 1.0) {
                 setActiveIndex(getSlide(entry.target.id)?.index ?? 0);
                 setActiveCount(getSlideCount());
@@ -80,7 +86,7 @@ export default function CreateSlides() {
         if (!observer.current)
             observer.current = new IntersectionObserver(intersectionHandler, intersectionOptions);
 
-        return () => observer.current?.disconnect();
+        return () => observer.current?.disconnect();;
         // eslint-disable-next-line react-hooks/exhaustive-deps -- #FIXME exhaustive deps
     }, []);
 
@@ -145,9 +151,7 @@ export default function CreateSlides() {
     };
     return (
         <div className='relative flex min-h-screen justify-center'>
-            <FinishPopup open={finish} onClose={() => setFinish(false)}>
-
-            </FinishPopup>
+            <FinishPopup open={finish} onClose={() => setFinish(false)}></FinishPopup>
 
             <div className='flex absolute top-0 left-0 right-0 justify-between p-8 pb-0'>
                 <div className='inline-flex'>
@@ -196,7 +200,7 @@ export default function CreateSlides() {
                             if (activeIndex >= 1) scrollTo(activeIndex - 1);
                         }}
                     />
-                    
+
                     <div className='flex text-blush text-3xl space-x-2 w-12'>
                         <div className='flex-none w-3'>
                             <span className={`${activeIndex > 8 ? 'ml-[-10px]' : ''}`}>

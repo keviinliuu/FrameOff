@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import PollInfo from '../components/PollInfo';
+import PollInfo from '../components/creation/PollInfo';
 
 const meta: Meta<typeof PollInfo> = {
     component: PollInfo,
