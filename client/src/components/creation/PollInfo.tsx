@@ -39,7 +39,9 @@ export default function PollInfo({ handleFinish }: PollInfoProps) {
                 {title && (
                     <button
                         style={title.length !== 0 ? mountedStyle : unmountedStyle}
-                        onClick={() => handleFinish(title, description, true)}>
+                        onClick={() => {
+                            handleFinish(title, description, true);
+                        }}>
                         <FontAwesomeIcon
                             icon={faArrowDown}
                             className='cursor-pointer text-blush fa-3x animate-bounce'

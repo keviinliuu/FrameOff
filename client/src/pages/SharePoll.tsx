@@ -2,15 +2,17 @@ import ShareButton from '../components/elements/ShareButton';
 import Heading from '../components/elements/Heading';
 import Logo from '../components/elements/Logo';
 
+import { useSlideStore } from '../stores/useSlideStore'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default function SharePoll() {
+    const pollId = useSlideStore(state => state.pollId)
     const pollTitle = 'My Awesome Poll';
-    const pollId = 'dkOwsMq';
-    const pollUrl = 'https://frameoff.me/' + pollId;
+    const pollUrl = `https://frameoff.me/${pollId}`;
 
     const [_, setIsCopied] = useState(false);
 

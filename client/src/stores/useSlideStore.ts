@@ -6,8 +6,9 @@ import axios from 'axios';
 export type State = {
     slides: SlideData[];
     slidesAreValid: boolean;
-    pollTitle: string;
-    pollDescription: string;
+    pollTitle: string | null;
+    pollDescription: string | null;
+    pollId: string | null;
 };
 
 export type Action = {
@@ -23,14 +24,17 @@ export type Action = {
     generateSlideImages: () => void;
     uploadPoll: () => void;
     clearSlides: () => void;
+    setTitleAndDesc: (title: string, description: string) => void;
 };
 
 export const useSlideStore = create<State & Action>()(
     subscribeWithSelector((set, get) => ({
         slides: [],
         slidesAreValid: false,
-        pollTitle: '',
-        pollDescription: '',
+        pollTitle: null,
+        pollDescription: null,
+        pollId: null,
+        setTitleAndDesc: (title: string, description: string) => set({ pollTitle: title, pollDescription: description }),
         addSlide: (slide: SlideData) => {
             set(state => ({
                 slides: [...state.slides, { ...slide, index: get().slides.length }],
@@ -111,11 +115,16 @@ export const useSlideStore = create<State & Action>()(
         uploadPoll: () => {
             axios
                 .post('/createduel', {
-                    title: 'Sample Title',
-                    description: 'Sample Description',
+                    title: get().pollTitle,
+                    description: get().pollDescription,
                     slides: get().slides,
                 })
-                .then(res => console.log(res));
+                .then(res => {
+                    const pollId = res.data._id;
+                    console.log("Poll ID: ", pollId);
+                    set({ pollId: pollId });
+                })
+                .catch(error => console.error("Error uploading poll: ", error));
         },
         clearSlides: () => set({ slides: [] }),
         deleteSlideByIndex: i =>

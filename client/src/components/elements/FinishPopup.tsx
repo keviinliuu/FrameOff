@@ -5,9 +5,10 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 interface FinishPopupProps {
     open: boolean;
     onClose: MouseEventHandler<HTMLButtonElement>;
+    onFinish: MouseEventHandler<HTMLButtonElement>;
 }
 
-export default function FinishPopup({ open, onClose }: FinishPopupProps) {
+export default function FinishPopup({ open, onClose, onFinish }: FinishPopupProps) {
     return (
         <div
             className={`fixed inset-0 flex justify-center items-center transition-colors ${
@@ -27,13 +28,15 @@ export default function FinishPopup({ open, onClose }: FinishPopupProps) {
                     Finished?
                 </div>
 
-                <div className='text-xl text-center text-white font-main px-20'>
+                <div className='text-2xl text-center text-white font-main px-20'>
                     NOTE: Once you create this poll, you won't be able to go back and make any more
                     changes!
                 </div>
 
                 <div className='flex justify-between mt-6 h-auto flex-grow text-2xl'>
-                    <button className='transition ease-in-out delay-150 duration-300 hover:scale-105 bg-blush text-midnight rounded w-1/2 mr-2 pt-1'>
+                    <button
+                        onClick={onFinish}
+                        className='transition ease-in-out delay-150 duration-300 hover:scale-105 bg-blush text-midnight rounded w-1/2 mr-2 pt-1'>
                         I'm done!
                     </button>
 

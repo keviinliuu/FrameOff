@@ -5,6 +5,7 @@ import FinishPopup from '../elements/FinishPopup';
 import { CE } from '../../data/types';
 import { v4 as uuidv4 } from 'uuid';
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Logo from '../../assets/frameoff-logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,9 +28,10 @@ const intersectionOptions = {
     threshold: 1.0,
 };
 
-export default function CreateSlides({ pollTitle }: CreateSlidesProps) {
+export default function CreateSlides({ pollTitle, pollDescription }: CreateSlidesProps) {
     // VARIABLES FOR SLIDE CREATION
     const [slidesDisplay, setSlidesDisplay] = useState<JSX.Element[]>([]);
+    const setTitleAndDesc = useSlideStore(state => state.setTitleAndDesc);
     const slidesAreValid = useSlideStore(state => state.slidesAreValid);
     const addSlide = useSlideStore(state => state.addSlide);
     const editSlide = useSlideStore(state => state.editSlide);
@@ -44,6 +46,7 @@ export default function CreateSlides({ pollTitle }: CreateSlidesProps) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeCount, setActiveCount] = useState(1);
     const [finish, setFinish] = useState(false);
+    const navigate = useNavigate();
 
     const observer = useRef<IntersectionObserver | null>(null);
     const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
@@ -73,6 +76,11 @@ export default function CreateSlides({ pollTitle }: CreateSlidesProps) {
             setActiveIndex(i === 0 ? i + 1 : i - 1);
         }
     };
+    const handleFinish = async () => {
+        await generateSlideImages();
+        await uploadPoll();
+        navigate('/share');
+    };
 
     useLayoutEffect(() => {
         slidesDisplay.forEach(
@@ -81,12 +89,13 @@ export default function CreateSlides({ pollTitle }: CreateSlidesProps) {
     }, [slidesDisplay]);
 
     useEffect(() => {
+        setTitleAndDesc(pollTitle, pollDescription);
         clearSlides();
         handleCreateSlide();
         if (!observer.current)
             observer.current = new IntersectionObserver(intersectionHandler, intersectionOptions);
 
-        return () => observer.current?.disconnect();;
+        return () => observer.current?.disconnect();
         // eslint-disable-next-line react-hooks/exhaustive-deps -- #FIXME exhaustive deps
     }, []);
 
@@ -151,7 +160,10 @@ export default function CreateSlides({ pollTitle }: CreateSlidesProps) {
     };
     return (
         <div className='relative flex min-h-screen justify-center'>
-            <FinishPopup open={finish} onClose={() => setFinish(false)}></FinishPopup>
+            <FinishPopup
+                open={finish}
+                onClose={() => setFinish(false)}
+                onFinish={handleFinish}></FinishPopup>
 
             <div className='flex absolute top-0 left-0 right-0 justify-between p-8 pb-0'>
                 <div className='inline-flex'>
