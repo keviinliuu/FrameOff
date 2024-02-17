@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import CreatePoll from './pages/CreatePoll';
 import ViewPoll from './pages/ViewPoll';
 import SharePoll from './pages/SharePoll';
-import Error from './components/Error';
+import Error from './components/misc/Error';
 import axios from 'axios';
 import './index.css';
 
@@ -26,9 +26,9 @@ const router = createBrowserRouter([
         element: <ViewPoll />,
     },
     {
-        path:'share',
+        path: 'share',
         element: <SharePoll />,
-    }
+    },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(<RouterProvider router={router} />);
