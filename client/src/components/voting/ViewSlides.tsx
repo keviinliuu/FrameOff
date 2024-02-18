@@ -1,14 +1,10 @@
-import { useSlideStore } from '../stores/useSlideStore';
+import { useSlideStore } from '../../stores/useSlideStore.ts';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import SlideView from '../components/slide/SlideView.tsx';
-import { useParams } from 'react-router-dom';
-import Logo from '../components/elements/Logo.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
-export interface ViewPollProps {
-    _id: string;
-    title: string;
-}
+
+import SlideView from '../slide/SlideView.tsx';
+import Logo from '../elements/Logo.tsx';
 
 const intersectionOptions = {
     root: null,
@@ -17,8 +13,6 @@ const intersectionOptions = {
 };
 
 export default function ViewPoll() {
-    const { _id } = useParams<{ _id: string }>();
-    const loadSlides = useSlideStore(state => state.loadSlides);
     const slides = useSlideStore(state => state.slides);
     const pollTitle = useSlideStore(state => state.pollTitle);
     const [activeIndex, setActiveIndex] = useState(0);
@@ -29,10 +23,13 @@ export default function ViewPoll() {
     const slideRefs = useRef<HTMLDivElement[]>([]);
     const observer = useRef<IntersectionObserver | null>(null);
     const addNode = useCallback((node: HTMLDivElement) => {
-        slideRefs.current.push(node);
-        observer.current?.observe(node);
-        setActiveCount(getSlideCount());
+        if (node) {
+            slideRefs.current.push(node);
+            observer.current?.observe(node);
+            setActiveCount(getSlideCount());
+        }
     }, []);
+    
     const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
         const entry = entries[entries.length - 1];
         if (entry.intersectionRatio >= 1.0) {
@@ -49,11 +46,7 @@ export default function ViewPoll() {
         }
     };
     useEffect(() => {
-        console.log(`${_id}`);
-        if (_id !== undefined) {
-            loadSlides(_id);
-            setActiveCount(slides.length);
-        }
+        setActiveCount(slides.length);
         if (!observer.current)
             observer.current = new IntersectionObserver(intersectionHandler, intersectionOptions);
         return () => observer.current?.disconnect();

@@ -1,13 +1,9 @@
 import { useSlideStore } from '../../stores/useSlideStore';
 import { SlideData } from '../../data/types';
-import SlideEdit from '../slide/SlideEdit';
-import FinishPopup from '../elements/FinishPopup';
 import { CE } from '../../data/types';
 import { v4 as uuidv4 } from 'uuid';
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import Logo from '../../assets/frameoff-logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCheck,
@@ -16,6 +12,10 @@ import {
     faCirclePlus,
     faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
+
+import SlideEdit from '../slide/SlideEdit';
+import FinishPopup from '../elements/FinishPopup';
+import Logo from '../../assets/frameoff-logo.svg';
 
 interface CreateSlidesProps {
     pollTitle: string;

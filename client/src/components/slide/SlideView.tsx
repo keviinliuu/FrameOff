@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { ImageData, VotedEnum } from '../../data/types';
+
 import Slide from './Slide';
 import VoteImage from '../images/VoteImage';
 import ExpandedImage from '../elements/ExpandedImage';

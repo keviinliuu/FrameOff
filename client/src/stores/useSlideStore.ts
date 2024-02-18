@@ -14,7 +14,7 @@ export type State = {
 export type Action = {
     addSlide: (slide: SlideData) => void;
     editSlide: (id: string, property: Partial<SlideData>) => void;
-    loadSlides: (id: string) => void;
+    loadPoll: (id: string) => void;
     getSlide: (id: string) => SlideData | undefined;
     getSlideCount: () => number;
     getSlideFromIndex: (i: number) => SlideData | undefined;
@@ -47,7 +47,7 @@ export const useSlideStore = create<State & Action>()(
                 ),
             }));
         },
-        loadSlides: id => {
+        loadPoll: id => {
             axios.get(`/${id}`).then(res => {
                 res.data.slides.forEach((slide: SlideData) => get().addSlide(slide));
                 set({

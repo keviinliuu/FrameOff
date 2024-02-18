@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import ViewPoll from '../pages/ViewPoll';
+import ViewPoll from '../components/voting/ViewSlides';
 
 const meta: Meta<typeof ViewPoll> = {
     component: ViewPoll,

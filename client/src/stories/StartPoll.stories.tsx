@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import StartPoll from '../pages/StartPoll';
+import StartPoll from '../components/voting/StartPoll';
 
 const meta: Meta<typeof StartPoll> = {
     component: StartPoll,
