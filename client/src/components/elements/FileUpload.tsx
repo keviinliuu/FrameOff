@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { useState, DragEvent } from 'react';
 
 export interface FileUploadProps {
     image?: File | string;
@@ -7,8 +8,43 @@ export interface FileUploadProps {
 }
 
 export default function FileUpload({ image, onChange }: FileUploadProps) {
+    const [_, setIsDragOver] = useState(false);
+
+    const handleDragOver = (e: DragEvent<HTMLLabelElement>) => {
+        e.preventDefault();
+        setIsDragOver(true);
+    };
+
+    const handleDragEnter = (e: DragEvent<HTMLLabelElement>) => {
+        e.preventDefault();
+        setIsDragOver(true);
+    };
+
+    const handleDragLeave = (e: DragEvent<HTMLLabelElement>) => {
+        e.preventDefault();
+        setIsDragOver(false);
+    };
+
+    const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
+        e.preventDefault();
+        setIsDragOver(false);
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            const file = e.dataTransfer.files[0];
+            if (file.type === 'image/png' || file.type === 'image/jpeg') {
+                onChange(file);
+            } else {
+                alert('Only PNG or JPEG files are allowed!');
+            }
+        }
+    };
+
     return (
-        <label className='flex flex-col gap-y-4 items-center justify-center border-dashed border-blush border-2 h-full text-blush cursor-pointer p-4 bg-nocturne rounded-lg'>
+        <label
+            className='flex flex-col gap-y-4 items-center justify-center border-dashed border-blush border-2 h-full text-blush cursor-pointer p-4 bg-nocturne rounded-lg'
+            onDragOver={handleDragOver}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}>
             {image ? (
                 <img
                     className='max-w-full aspect-square object-cover'
@@ -17,7 +53,6 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
             ) : (
                 <>
                     <FontAwesomeIcon icon={faArrowUpFromBracket} size='2x' />
-                    {/* <div>Click to upload files</div> */}
                 </>
             )}
             <input
@@ -25,7 +60,7 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
                 type='file'
                 hidden
                 accept='image/png,image/jpeg'
-                onChange={e => onChange(e.target.files![0])}
+                onChange={e => e.target.files && onChange(e.target.files![0])}
             />
         </label>
     );

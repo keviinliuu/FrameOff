@@ -22,6 +22,7 @@ export default function CreatePoll() {
                 "Are you sure you want to leave? Your changes won't be saved!");
         };
 
+        // FIXME: not the correct condition
         if (!finishInfo) {
             window.addEventListener('beforeunload', handleBeforeUnload);
         }
