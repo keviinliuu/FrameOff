@@ -9,6 +9,7 @@ export type State = {
     pollTitle: string | null;
     pollDescription: string | null;
     pollId: string | null;
+    error: boolean;
 };
 
 export type Action = {
@@ -34,6 +35,7 @@ export const useSlideStore = create<State & Action>()(
         pollTitle: null,
         pollDescription: null,
         pollId: null,
+        error: false,
         setTitleAndDesc: (title: string, description: string) => set({ pollTitle: title, pollDescription: description }),
         addSlide: (slide: SlideData) => {
             set(state => ({
@@ -49,11 +51,17 @@ export const useSlideStore = create<State & Action>()(
         },
         loadPoll: id => {
             axios.get(`/${id}`).then(res => {
+                console.log(res.status);
                 res.data.slides.forEach((slide: SlideData) => get().addSlide(slide));
                 set({
                     pollTitle: res.data.title,
                     pollDescription: res.data.description,
                 });
+            }).catch(error => {
+                if(error.response && error.response.status === 404) {
+                    console.error("Error getting poll: ", error);
+                    set({ error: true });
+                }
             });
         },
         getSlide: id => get().slides.find(slide => slide._id === id),
