@@ -8,6 +8,7 @@ export default function CreatePoll() {
     const [pollTitle, setPollTitle] = useState('');
     const [pollDescription, setPollDescription] = useState('');
     const [finishInfo, setFinishInfo] = useState(false);
+    const [finishPoll, setFinishPoll] = useState(false);
 
     const handleFinish = (title: string, description: string, finish: boolean) => {
         setPollTitle(title);
@@ -22,8 +23,7 @@ export default function CreatePoll() {
                 "Are you sure you want to leave? Your changes won't be saved!");
         };
 
-        // FIXME: not the correct condition
-        if (!finishInfo) {
+        if (!finishPoll) {
             window.addEventListener('beforeunload', handleBeforeUnload);
         }
 
@@ -34,7 +34,13 @@ export default function CreatePoll() {
         <div className='flex flex-col items-center snap-y snap-mandatory h-screen w-screen overflow-x-hidden'>
             <Logo />
             <PollInfo handleFinish={handleFinish} />
-            {finishInfo && <CreateSlides pollTitle={pollTitle} pollDescription={pollDescription} />}
+            {finishInfo && (
+                <CreateSlides
+                    pollTitle={pollTitle}
+                    pollDescription={pollDescription}
+                    setFinishPoll={setFinishPoll}
+                />
+            )}
         </div>
     );
 }

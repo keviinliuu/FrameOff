@@ -20,6 +20,7 @@ import Logo from '../../assets/frameoff-logo.svg';
 interface CreateSlidesProps {
     pollTitle: string;
     pollDescription: string;
+    setFinishPoll: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const intersectionOptions = {
@@ -28,7 +29,11 @@ const intersectionOptions = {
     threshold: 1.0,
 };
 
-export default function CreateSlides({ pollTitle, pollDescription }: CreateSlidesProps) {
+export default function CreateSlides({
+    pollTitle,
+    pollDescription,
+    setFinishPoll,
+}: CreateSlidesProps) {
     // VARIABLES FOR SLIDE CREATION
     const [slidesDisplay, setSlidesDisplay] = useState<JSX.Element[]>([]);
     const setTitleAndDesc = useSlideStore(state => state.setTitleAndDesc);
@@ -77,6 +82,7 @@ export default function CreateSlides({ pollTitle, pollDescription }: CreateSlide
         }
     };
     const handleFinish = async () => {
+        setFinishPoll(true);
         await generateSlideImages();
         await uploadPoll();
         navigate('/share');
