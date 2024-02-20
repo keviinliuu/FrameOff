@@ -1,6 +1,6 @@
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 interface FinishPopupProps {
     open: boolean;
@@ -9,6 +9,8 @@ interface FinishPopupProps {
 }
 
 export default function FinishPopup({ open, onClose, onFinish }: FinishPopupProps) {
+    const [isLoading, setIsLoading] = useState(false);
+
     return (
         <div
             className={`fixed inset-0 flex justify-center items-center transition-colors ${
@@ -35,9 +37,19 @@ export default function FinishPopup({ open, onClose, onFinish }: FinishPopupProp
 
                 <div className='flex justify-between mt-6 h-auto flex-grow text-2xl'>
                     <button
-                        onClick={onFinish}
+                        onClick={(e) => {
+                            setIsLoading(true);
+                            onFinish(e);
+                        }}
+                        disabled={isLoading}
                         className='transition ease-in-out delay-150 duration-300 hover:scale-105 bg-blush text-midnight rounded w-1/2 mr-2 pt-1'>
-                        I'm done!
+                        {isLoading ? (
+                            <div className='animate-spin w-auto h-[1.6rem]'>
+                                <FontAwesomeIcon icon={faCircleNotch} />
+                            </div>
+                        ) : (
+                            "I'm done!"
+                        )}
                     </button>
 
                     <button
