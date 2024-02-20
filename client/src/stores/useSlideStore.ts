@@ -113,18 +113,25 @@ export const useSlideStore = create<State & Action>()(
             });
         },
         uploadPoll: () => {
-            axios
-                .post('/createduel', {
+            return new Promise((resolve, reject) => {
+                axios.post('/createduel', {
                     title: get().pollTitle,
                     description: get().pollDescription,
                     slides: get().slides,
                 })
                 .then(res => {
                     const pollId = res.data._id;
-                    console.log("Poll ID: ", pollId);
-                    set({ pollId: pollId });
+                    const pollTitle = res.data.title;
+                    localStorage.setItem('pollId', pollId);
+                    localStorage.setItem('pollTitle', pollTitle);
+                    set({ pollId: pollId, pollTitle: pollTitle });
+                    resolve(pollId);
                 })
-                .catch(error => console.error("Error uploading poll: ", error));
+                .catch(error => {
+                    console.error("Error uploading poll: ", error);
+                    reject(error);
+                });
+            });
         },
         clearSlides: () => set({ slides: [] }),
         deleteSlideByIndex: i =>

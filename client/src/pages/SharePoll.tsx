@@ -1,5 +1,7 @@
 import { useSlideStore } from '../stores/useSlideStore';
 import { SlCopyButton } from '@shoelace-style/shoelace/dist/react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import ShareButton from '../components/elements/ShareButton';
 import Heading from '../components/elements/Heading';
@@ -7,10 +9,34 @@ import Logo from '../components/elements/Logo';
 import '../index.css';
 
 export default function SharePoll() {
-    const pollId = useSlideStore(state => state.pollId);
-    const pollTitle = useSlideStore(state => state.pollTitle);
-    const pollUrl = `https://frameoff.me/${pollId}`;
+    const storePollId = useSlideStore(state => state.pollId);
+    const [pollId, setPollId] = useState(storePollId);
+    const storePollTitle = useSlideStore(state => state.pollTitle)
+    const [pollTitle, setPollTitle] = useState(storePollTitle);
+    const pollUrl = 'https://frameoff.me/';
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        const localPollId = localStorage.getItem('pollId');
+        const localPollTitle = localStorage.getItem('pollTitle');
+        if(!storePollId) {
+            if(!localPollId) {
+                navigate('/');
+                return;
+            }
+            else {
+                setPollId(localPollId);
+                setPollTitle(localPollTitle);
+            }
+        }
+        else {
+            setPollId(storePollId);
+            setPollTitle(storePollTitle);
+            localStorage.setItem('pollId', storePollId);
+            localStorage.setItem('pollTitle', storePollTitle!);
+        }
+    }, [storePollId, storePollTitle, navigate])
+    
     return (
         <div className='flex flex-col justify-center items-center min-h-screen w-screen'>
             <div className='flex'>
@@ -32,7 +58,7 @@ export default function SharePoll() {
 
                 <div className='flex h-12 flex-row rounded border-2 border-blush'>
                     <Heading textColor='text-candy' fontSize='text-2xl' padding='pt-2 pl-4'>
-                        {pollUrl}
+                        {`${pollUrl}${pollId}`}
                     </Heading>
 
                     <div className='ml-auto  text-blush pt-0.5 text-2xl'>
@@ -58,7 +84,7 @@ export default function SharePoll() {
                     bgColor='bg-[#4267B2]'
                     onClick={() => {
                         window.open(
-                            'https://www.facebook.com/sharer/sharer.php?u=' + pollUrl,
+                            `https://www.facebook.com/sharer/sharer.php?u=${pollUrl}${pollId}`,
                             '_blank',
                         );
                     }}>
@@ -69,7 +95,7 @@ export default function SharePoll() {
                     bgColor='bg-[#1DA1F2]'
                     onClick={() => {
                         window.open(
-                            'https://www.twitter.com/share?text=' + pollTitle + '&url=' + pollUrl,
+                            `https://www.twitter.com/share?text=${pollTitle} -&url=${pollUrl}${pollId}`,
                             '_blank',
                         );
                     }}>
@@ -80,11 +106,7 @@ export default function SharePoll() {
                     bgColor='bg-[#FF4500]'
                     onClick={() => {
                         window.open(
-                            'https://reddit.com/submit?url=' +
-                                pollUrl +
-                                '&title=' +
-                                pollTitle +
-                                ' - FrameOff',
+                            `https://reddit.com/submit?url=${pollUrl}${pollId}&title=${pollTitle} - FrameOff`,
                             '_blank',
                         );
                     }}>
@@ -95,7 +117,7 @@ export default function SharePoll() {
                     bgColor='bg-[#25D366]'
                     onClick={() => {
                         window.open(
-                            'https://api.whatsapp.com/send?text=' + pollTitle + ' - ' + pollUrl,
+                            `https://api.whatsapp.com/send?text=${pollTitle} - ${pollUrl}${pollId}`,
                             '_blank',
                         );
                     }}>
