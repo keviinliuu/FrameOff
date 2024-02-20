@@ -18,7 +18,8 @@ export default function CreatePoll() {
     useEffect(() => {
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
             event.preventDefault();
-            return event.returnValue = "Are you sure you want to leave? Your changes won't be saved!"
+            return (event.returnValue =
+                "Are you sure you want to leave? Your changes won't be saved!");
         };
 
         if (!finishInfo) {

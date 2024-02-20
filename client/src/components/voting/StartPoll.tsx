@@ -4,8 +4,8 @@ import Heading from '../elements/Heading';
 import '../../index.css';
 
 export default function StartPoll() {
-    const pollTitle = useSlideStore(state => state.pollTitle)
-    const pollDescription = useSlideStore(state => state.pollDescription)
+    const pollTitle = useSlideStore(state => state.pollTitle);
+    const pollDescription = useSlideStore(state => state.pollDescription);
 
     return (
         <div className='relative flex flex-col snap-always snap-start min-h-screen w-fit py-20'>

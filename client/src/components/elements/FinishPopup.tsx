@@ -37,7 +37,7 @@ export default function FinishPopup({ open, onClose, onFinish }: FinishPopupProp
 
                 <div className='flex justify-between mt-6 h-auto flex-grow text-2xl'>
                     <button
-                        onClick={(e) => {
+                        onClick={e => {
                             setIsLoading(true);
                             onFinish(e);
                         }}

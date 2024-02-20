@@ -1,6 +1,6 @@
 import { VotedEnum } from '../../data/types';
 import { useState, useRef } from 'react';
-import anime from 'animejs'
+import anime from 'animejs';
 export interface VoteImageProps {
     imgUrl: string | undefined;
     voteEnum: VotedEnum;

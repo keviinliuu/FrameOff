@@ -83,8 +83,8 @@ export default function CreateSlides({ pollTitle, pollDescription }: CreateSlide
     };
 
     useLayoutEffect(() => {
-        slidesDisplay.forEach(
-            slide => observer.current?.observe(document.getElementById(slide.key as string)!),
+        slidesDisplay.forEach(slide =>
+            observer.current?.observe(document.getElementById(slide.key as string)!),
         );
     }, [slidesDisplay]);
 

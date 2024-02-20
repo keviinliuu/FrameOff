@@ -11,7 +11,7 @@ import '../index.css';
 export default function SharePoll() {
     const storePollId = useSlideStore(state => state.pollId);
     const [pollId, setPollId] = useState(storePollId);
-    const storePollTitle = useSlideStore(state => state.pollTitle)
+    const storePollTitle = useSlideStore(state => state.pollTitle);
     const [pollTitle, setPollTitle] = useState(storePollTitle);
     const pollUrl = 'https://frameoff.me/';
     const navigate = useNavigate();
@@ -19,24 +19,22 @@ export default function SharePoll() {
     useEffect(() => {
         const localPollId = localStorage.getItem('pollId');
         const localPollTitle = localStorage.getItem('pollTitle');
-        if(!storePollId) {
-            if(!localPollId) {
+        if (!storePollId) {
+            if (!localPollId) {
                 navigate('/');
                 return;
-            }
-            else {
+            } else {
                 setPollId(localPollId);
                 setPollTitle(localPollTitle);
             }
-        }
-        else {
+        } else {
             setPollId(storePollId);
             setPollTitle(storePollTitle);
             localStorage.setItem('pollId', storePollId);
             localStorage.setItem('pollTitle', storePollTitle!);
         }
-    }, [storePollId, storePollTitle, navigate])
-    
+    }, [storePollId, storePollTitle, navigate]);
+
     return (
         <div className='flex flex-col justify-center items-center min-h-screen w-screen'>
             <div className='flex'>

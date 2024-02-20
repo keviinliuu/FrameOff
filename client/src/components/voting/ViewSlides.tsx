@@ -29,7 +29,7 @@ export default function ViewPoll() {
             setActiveCount(getSlideCount());
         }
     }, []);
-    
+
     const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
         const entry = entries[entries.length - 1];
         if (entry.intersectionRatio >= 1.0) {
