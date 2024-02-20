@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CreateSlides from '../components/creation/CreateSlides';
 import PollInfo from '../components/creation/PollInfo';
@@ -15,10 +15,23 @@ export default function CreatePoll() {
         setFinishInfo(finish);
     };
 
+    useEffect(() => {
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            event.preventDefault();
+            return event.returnValue = "Are you sure you want to leave? Your changes won't be saved!"
+        };
+
+        if (!finishInfo) {
+            window.addEventListener('beforeunload', handleBeforeUnload);
+        }
+
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [finishInfo]);
+
     return (
         <div className='flex flex-col items-center snap-y snap-mandatory h-screen w-screen overflow-x-hidden'>
             <Logo />
-            <PollInfo handleFinish={handleFinish}/>
+            <PollInfo handleFinish={handleFinish} />
             {finishInfo && <CreateSlides pollTitle={pollTitle} pollDescription={pollDescription} />}
         </div>
     );
