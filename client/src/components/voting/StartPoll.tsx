@@ -3,7 +3,11 @@ import { useSlideStore } from '../../stores/useSlideStore.ts';
 import Heading from '../elements/Heading';
 import '../../index.css';
 
-export default function StartPoll() {
+interface StartPollProps {
+    onStart: () => void;
+}
+
+export default function StartPoll({ onStart }: StartPollProps) {
     const pollTitle = useSlideStore(state => state.pollTitle);
     const pollDescription = useSlideStore(state => state.pollDescription);
 
@@ -25,7 +29,7 @@ export default function StartPoll() {
                 </Heading>
             </div>
             <div className='flex justify-center pt-12 mt-5'>
-                <button className='rounded-md border-2 border-blush text-blush text-3xl w-32 h-12 pt-0.5 hover:bg-blush hover:text-midnight transition-colors'>
+                <button className='rounded-md border-2 border-blush text-blush text-3xl w-32 h-12 pt-0.5 hover:bg-blush hover:text-midnight transition-colors' onClick={onStart}>
                     Start
                 </button>
             </div>
