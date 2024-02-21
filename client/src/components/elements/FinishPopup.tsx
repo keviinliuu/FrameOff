@@ -17,7 +17,7 @@ export default function FinishPopup({ open, onClose, onFinish }: FinishPopupProp
                 open ? 'visible bg-black/80' : 'invisible'
             } z-50`}>
             <div
-                className={`flex flex-col m-auto w-1/3 h-1/3 bg-midnight rounded-lg border-blush border p-4 transition-all ${
+                className={`flex flex-col w-[35rem] h-[19rem] bg-midnight rounded-lg border-blush border p-4 transition-all ${
                     open ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
                 }`}>
                 <button
@@ -26,16 +26,16 @@ export default function FinishPopup({ open, onClose, onFinish }: FinishPopupProp
                     <FontAwesomeIcon icon={faXmark} size='xl' />
                 </button>
 
-                <div className='md:text-3xl lg:text-4xl text-center text-blush font-main mt-1 mb-4'>
+                <div className='text-4xl text-center text-blush font-main mt-1 mb-4'>
                     Finished?
                 </div>
 
-                <div className='text-2xl text-center text-white font-main px-20'>
+                <div className='text-2xl text-center text-white font-main px-16'>
                     NOTE: Once you create this poll, you won't be able to go back and make any more
                     changes!
                 </div>
 
-                <div className='flex justify-between mt-6 h-auto flex-grow text-2xl'>
+                <div className='flex justify-between mt-6 h-20 text-2xl'>
                     <button
                         onClick={e => {
                             setIsLoading(true);
