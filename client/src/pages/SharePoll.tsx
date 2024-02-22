@@ -61,7 +61,7 @@ export default function SharePoll() {
 
                     <div className='ml-auto  text-blush pt-0.5 text-2xl'>
                         <SlCopyButton
-                            value={pollUrl}
+                            value={`${pollUrl}${pollId}`}
                             copy-label='Click to copy'
                             success-label='Copied!'
                             error-label="Whoops, your browser doesn't support this!"
