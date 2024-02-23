@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom';
 import Logo from '../components/elements/Logo';
 import { useRef } from 'react';
-import anime from 'animejs';
+import anime, { AnimeInstance } from 'animejs';
 
 export default function Home() {
     const createPollUnderline = useRef(null);
     const createPollBtn = useRef(null);
-
+    const currentAnim = useRef<AnimeInstance | null>(null);
     const mouseOverCreatePoll = () => {
-        anime({
+        currentAnim.current?.pause();
+        currentAnim.current = anime({
             targets: createPollUnderline.current,
             duration: 200,
             width: `100%`,
@@ -18,9 +19,10 @@ export default function Home() {
     };
 
     const mouseExitCreatePoll = () => {
-        anime({
+        currentAnim.current?.pause();
+        currentAnim.current = anime({
             targets: createPollUnderline.current,
-            duration: 50,
+            duration: 100,
             width: 0,
             height: 0,
             easing: 'easeInOutSine',
