@@ -60,6 +60,14 @@ export default function SlideView({
     const borderRef2 = useRef(null);
     const borderBotRefL2 = useRef(null);
     const borderBotRefR2 = useRef(null);
+
+    const mountedStyle = {
+        animation: 'inAnimation 250ms ease-in',
+    };
+    const unmountedStyle = {
+        animation: 'outAnimation 100ms ease-out',
+    };
+
     useEffect(() => {
         if (voteStatus != null && voted == false) {
             didVote(true);
@@ -180,8 +188,8 @@ export default function SlideView({
 
     async function onVote(imageEnum: VotedEnum) {
         setVote(imageEnum);
-        console.log(totalSlideCount)
-        console.log(slideIndex)
+        console.log(totalSlideCount);
+        console.log(slideIndex);
 
         try {
             const res = await axios.patch('/voteslide', {
@@ -445,13 +453,13 @@ export default function SlideView({
                 </div>
             </div>
 
-            {voted && slideIndex + 1 !== totalSlideCount && (
-                <div className='text-blush pt-10 text-5xl animate-bounce'>
-                    <button onClick={scrollDown}>
+            <div className='text-blush pt-10 text-5xl animate-bounce'>
+                {voted && slideIndex + 1 !== totalSlideCount && (
+                    <button onClick={scrollDown} style={voted ? mountedStyle : unmountedStyle}>
                         <FontAwesomeIcon icon={faChevronDown} />
                     </button>
-                </div>
-            )}
+                )}
+            </div>
         </Slide>
     );
 }
