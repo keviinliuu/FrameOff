@@ -188,8 +188,6 @@ export default function SlideView({
 
     async function onVote(imageEnum: VotedEnum) {
         setVote(imageEnum);
-        console.log(totalSlideCount);
-        console.log(slideIndex);
 
         try {
             const res = await axios.patch('/voteslide', {
