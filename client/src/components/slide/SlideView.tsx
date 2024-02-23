@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { ImageData, VotedEnum } from '../../data/types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 import Slide from './Slide';
 import VoteImage from '../images/VoteImage';
@@ -13,9 +15,21 @@ export interface SlideViewProps {
     imageOne: ImageData;
     imageTwo: ImageData;
     _id: string | undefined;
+    scrollDown: () => void;
+    slideIndex: number;
+    totalSlideCount: number;
 }
 
-export default function SlideView({ title, description, imageOne, imageTwo, _id }: SlideViewProps) {
+export default function SlideView({
+    title,
+    description,
+    imageOne,
+    imageTwo,
+    _id,
+    scrollDown,
+    slideIndex,
+    totalSlideCount,
+}: SlideViewProps) {
     const [expand, setExpand] = useState(false);
     const [expandedImage, setExpandedImage] = useState<ImageData | null>(null);
 
@@ -166,6 +180,8 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
 
     async function onVote(imageEnum: VotedEnum) {
         setVote(imageEnum);
+        console.log(totalSlideCount)
+        console.log(slideIndex)
 
         try {
             const res = await axios.patch('/voteslide', {
@@ -428,6 +444,14 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                     )}
                 </div>
             </div>
+
+            {voted && slideIndex + 1 !== totalSlideCount && (
+                <div className='text-blush pt-10 text-5xl animate-bounce'>
+                    <button onClick={scrollDown}>
+                        <FontAwesomeIcon icon={faChevronDown} />
+                    </button>
+                </div>
+            )}
         </Slide>
     );
 }

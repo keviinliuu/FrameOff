@@ -59,7 +59,7 @@ export default function ViewPoll() {
                 <div className='text-5xl text-blush'>{pollTitle}</div>
             </div>
             <div className='snap-start snap-y flex flex-col snap-mandatory h-screen w-screen overflow-x-hidden scrollbar-none scroll-smooth'>
-                {slides.map(slide => (
+                {slides.map((slide, index) => (
                     <div
                         className='snap-start snap-always grid min-h-full w-screen place-items-center'
                         ref={addNode}
@@ -72,6 +72,9 @@ export default function ViewPoll() {
                             imageOne={slide.image1}
                             imageTwo={slide.image2}
                             _id={slide._id}
+                            scrollDown={() => scrollTo(activeIndex + 1)}
+                            slideIndex={index}
+                            totalSlideCount={activeCount}
                         />
                     </div>
                 ))}
