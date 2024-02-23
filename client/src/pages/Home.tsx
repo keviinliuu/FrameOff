@@ -1,7 +1,32 @@
 import { Link } from 'react-router-dom';
 import Logo from '../components/elements/Logo';
+import { useRef } from 'react';
+import anime from 'animejs';
 
 export default function Home() {
+    const createPollUnderline = useRef(null);
+    const createPollBtn = useRef(null);
+
+    const mouseOverCreatePoll = () => {
+        anime({
+            targets: createPollUnderline.current,
+            duration: 200,
+            width: `100%`,
+            height: 0,
+            easing: 'easeInOutSine',
+        });
+    };
+
+    const mouseExitCreatePoll = () => {
+        anime({
+            targets: createPollUnderline.current,
+            duration: 50,
+            width: 0,
+            height: 0,
+            easing: 'easeInOutSine',
+        });
+    };
+
     return (
         <div className='flex flex-col items-center gap-y-10 justify-start h-screen w-screen overflow-x-hidden'>
             <Logo />
@@ -35,8 +60,14 @@ export default function Home() {
                     picture is worth a thousand words.a picture is worth a thousand words.a picture
                     is worth a thousand words.a picture is worth a thousand words.
                 </p>
-                <div className='top-[25%] absolute text-blush'>
-                    <Link to='create'>create poll</Link>
+                <div
+                    className='flex flex-col top-[25%] absolute text-blush bg-midnight'
+                    onMouseEnter={mouseOverCreatePoll}
+                    onMouseOut={mouseExitCreatePoll}>
+                    <Link ref={createPollBtn} to='create'>
+                        create poll
+                    </Link>
+                    <div className='w-0 border-b-4 border-blush' ref={createPollUnderline}></div>
                 </div>
             </div>
         </div>
