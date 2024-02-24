@@ -11,7 +11,6 @@ import anime from 'animejs';
 
 export interface SlideViewProps {
     title: string | undefined;
-    description: string | undefined;
     imageOne: ImageData;
     imageTwo: ImageData;
     _id: string | undefined;
@@ -22,7 +21,6 @@ export interface SlideViewProps {
 
 export default function SlideView({
     title,
-    description,
     imageOne,
     imageTwo,
     _id,
@@ -225,7 +223,6 @@ export default function SlideView({
             </ExpandedImage>
 
             {title && <div className='text-3xl text-raspberry'>{title}</div>}
-            {description && <div className='text-sm text-blush'>{description}</div>}
             <div className='flex w-full items-center justify-center gap-x-16'>
                 <div className='flex flex-col items-center gap-y-8' style={{ width: `30%` }}>
                     <div className='relative flex w-full flex-row gap-x-4'>

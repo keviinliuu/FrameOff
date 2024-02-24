@@ -68,7 +68,6 @@ export default function ViewPoll() {
                         <SlideView
                             key={slide._id}
                             title={slide.slideTitle}
-                            description={slide.slideDescription}
                             imageOne={slide.image1}
                             imageTwo={slide.image2}
                             _id={slide._id}

@@ -103,7 +103,6 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             index: 0,
             _id: uuidv4(),
             slideTitle: '',
-            slideDescription: '',
             image1: {
                 url: null,
                 caption: '',
@@ -123,9 +122,6 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                     _id={newSlide._id}
                     handleTitle={(e: CE) =>
                         editSlide(newSlide._id!, { slideTitle: e.target.value })
-                    }
-                    handleDescription={(e: CE) =>
-                        editSlide(newSlide._id!, { slideDescription: e.target.value })
                     }
                     handleImageOne={(image: File) => {
                         // TODO: Implement a better way of only updating "url" key.

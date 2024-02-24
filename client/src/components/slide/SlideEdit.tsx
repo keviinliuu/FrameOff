@@ -8,7 +8,6 @@ import FileUpload from '../elements/FileUpload';
 export interface SlideEditProps {
     _id?: string;
     handleTitle: (e: CE) => void;
-    handleDescription: (e: CE) => void;
     handleImageOne: (image: File) => void;
     handleImageOneCaption: (e: CE) => void;
     handleImageTwo: (image: File) => void;
