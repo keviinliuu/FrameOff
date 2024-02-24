@@ -253,19 +253,19 @@ export default function SlideView({
                                         }`}>
                                         {votedFor == VotedEnum.IMAGE1 && (
                                             <div
-                                                className='absolute self-start rounded-lg border-t-4 border-l-4 border-r-4 border-fushcia'
+                                                className='absolute self-start rounded-lg border-t-4 border-l-4 border-r-4 border-fuchsia'
                                                 ref={borderRef1}
                                             />
                                         )}
                                         {votedFor == VotedEnum.IMAGE1 && (
                                             <div
-                                                className='absolute w-0 left-0 rounded-lg border-b-4 border-fushcia'
+                                                className='absolute w-0 left-0 rounded-lg border-b-4 border-fuchsia'
                                                 ref={borderBotRefL1}
                                             />
                                         )}
                                         {votedFor == VotedEnum.IMAGE1 && (
                                             <div
-                                                className='absolute w-0 right-0 rounded-lg border-b-4 border-fushcia'
+                                                className='absolute w-0 right-0 rounded-lg border-b-4 border-fuchsia'
                                                 ref={borderBotRefR1}
                                             />
                                         )}
@@ -276,7 +276,7 @@ export default function SlideView({
                                             <div className='opacity-1 h-3/4'>
                                                 {votedFor == VotedEnum.IMAGE1 ? (
                                                     <svg
-                                                        className='stroke-fushcia h-full'
+                                                        className='stroke-fuchsia h-full'
                                                         viewBox='0 0 456 512'
                                                         fill='none'>
                                                         <path
@@ -310,7 +310,7 @@ export default function SlideView({
                                                 <p
                                                     className={`text-main text-center text-7xl opacity-0 ${
                                                         votedFor == VotedEnum.IMAGE1
-                                                            ? 'text-fushcia'
+                                                            ? 'text-fuchsia'
                                                             : 'text-charcoal'
                                                     }`}
                                                     ref={percentRef1}>
@@ -326,7 +326,7 @@ export default function SlideView({
                         <div className='flex flex-col justify-end'>
                             <div
                                 className={`w-8 ${
-                                    votedFor == VotedEnum.IMAGE1 ? 'bg-fushcia' : 'bg-charcoal'
+                                    votedFor == VotedEnum.IMAGE1 ? 'bg-fuchsia' : 'bg-charcoal'
                                 }`}
                                 ref={barRef1}
                                 style={{ height: `${votesPercent1}%` }}></div>
@@ -344,7 +344,7 @@ export default function SlideView({
                         <div className='flex flex-col justify-end'>
                             <div
                                 className={`w-8 ${
-                                    votedFor == VotedEnum.IMAGE2 ? 'bg-fushcia' : 'bg-charcoal'
+                                    votedFor == VotedEnum.IMAGE2 ? 'bg-fuchsia' : 'bg-charcoal'
                                 }`}
                                 ref={barRef2}
                                 style={{ height: `${votesPercent2}%` }}></div>
@@ -374,19 +374,19 @@ export default function SlideView({
                                         }`}>
                                         {votedFor == VotedEnum.IMAGE2 && (
                                             <div
-                                                className='absolute self-start rounded-lg border-t-4 border-l-4 border-r-4 border-fushcia'
+                                                className='absolute self-start rounded-lg border-t-4 border-l-4 border-r-4 border-fuchsia'
                                                 ref={borderRef2}
                                             />
                                         )}
                                         {votedFor == VotedEnum.IMAGE2 && (
                                             <div
-                                                className='absolute w-1/2 left-0 rounded-lg border-b-4 border-fushcia'
+                                                className='absolute w-1/2 left-0 rounded-lg border-b-4 border-fuchsia'
                                                 ref={borderBotRefL2}
                                             />
                                         )}
                                         {votedFor == VotedEnum.IMAGE2 && (
                                             <div
-                                                className='absolute w-1/2 right-0 rounded-lg border-b-4 border-fushcia'
+                                                className='absolute w-1/2 right-0 rounded-lg border-b-4 border-fuchsia'
                                                 ref={borderBotRefR2}
                                             />
                                         )}
@@ -403,7 +403,7 @@ export default function SlideView({
                                                 <p
                                                     className={`text-main text-center text-7xl opacity-0 ${
                                                         votedFor == VotedEnum.IMAGE2
-                                                            ? 'text-fushcia'
+                                                            ? 'text-fuchsia'
                                                             : 'text-charcoal'
                                                     }`}
                                                     ref={percentRef2}>
@@ -413,7 +413,7 @@ export default function SlideView({
                                             <div className='opacity-1 h-3/4'>
                                                 {votedFor == VotedEnum.IMAGE2 ? (
                                                     <svg
-                                                        className='stroke-fushcia h-full'
+                                                        className='stroke-fuchsia h-full'
                                                         viewBox='0 0 456 512'
                                                         fill='none'>
                                                         <path
