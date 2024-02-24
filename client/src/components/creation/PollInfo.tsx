@@ -4,16 +4,16 @@ import { useState } from 'react';
 import '../../index.css';
 
 export interface PollInfoProps {
-    handleFinish: (title: string, description: string, finish: boolean) => void;
+    setTitle: (title: string) => void;
+    setDescription: (description: string) => void;
+    onContinue: () => void;
 }
 
-export default function PollInfo({ handleFinish }: PollInfoProps) {
+export default function PollInfo({ setTitle, setDescription, onContinue }: PollInfoProps) {
     const maxTitleChars = 60;
     const maxDescChars = 180;
 
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    
+    const [existsTitle, setExistsTitle] = useState(false);
     const [titleAtMax, setTitleAtMax] = useState(false);
     const [descAtMax, setDescAtMax] = useState(false);
 
@@ -21,6 +21,7 @@ export default function PollInfo({ handleFinish }: PollInfoProps) {
         const value = e.target.value;
         setTitle(value);
         setTitleAtMax(value.length >= maxTitleChars);
+        setExistsTitle(value.length > 0);
     };
 
     const handleDescChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -37,7 +38,7 @@ export default function PollInfo({ handleFinish }: PollInfoProps) {
     };
 
     return (
-        <div className='relative flex flex-col justify-center items-center gap-y-4 min-h-screen w-fit bg-midnight snap-start'>
+        <div className='relative flex flex-col justify-center items-center gap-y-4 min-h-screen w-fit bg-midnight snap-start snap-always'>
             <div className='text-white text-2xl'>Give your duel a title!</div>
 
             <input
@@ -54,7 +55,7 @@ export default function PollInfo({ handleFinish }: PollInfoProps) {
                 maxLength={180}
                 rows={1}
                 onChange={handleDescChange}
-                style={{minHeight: '60px'}}
+                style={{ minHeight: '60px' }}
                 onInput={e => {
                     const target = e.target as HTMLTextAreaElement;
                     target.style.height = 'auto';
@@ -62,12 +63,10 @@ export default function PollInfo({ handleFinish }: PollInfoProps) {
                 }}></textarea>
 
             <div className='absolute bottom-6'>
-                {title && (
+                {existsTitle && (
                     <button
-                        style={title.length !== 0 ? mountedStyle : unmountedStyle}
-                        onClick={() => {
-                            handleFinish(title, description, true);
-                        }}>
+                        style={existsTitle ? mountedStyle : unmountedStyle}
+                        onClick={onContinue}>
                         <FontAwesomeIcon
                             icon={faArrowDown}
                             className='cursor-pointer text-blush fa-3x animate-bounce'

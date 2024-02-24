@@ -19,7 +19,6 @@ import Logo from '../../assets/frameoff-logo.svg';
 
 interface CreateSlidesProps {
     pollTitle: string;
-    pollDescription: string;
     setFinishPoll: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -29,14 +28,9 @@ const intersectionOptions = {
     threshold: 1.0,
 };
 
-export default function CreateSlides({
-    pollTitle,
-    pollDescription,
-    setFinishPoll,
-}: CreateSlidesProps) {
+export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesProps) {
     // VARIABLES FOR SLIDE CREATION
     const [slidesDisplay, setSlidesDisplay] = useState<JSX.Element[]>([]);
-    const setTitleAndDesc = useSlideStore(state => state.setTitleAndDesc);
     const slidesAreValid = useSlideStore(state => state.slidesAreValid);
     const addSlide = useSlideStore(state => state.addSlide);
     const editSlide = useSlideStore(state => state.editSlide);
@@ -95,7 +89,6 @@ export default function CreateSlides({
     }, [slidesDisplay]);
 
     useEffect(() => {
-        setTitleAndDesc(pollTitle, pollDescription);
         clearSlides();
         handleCreateSlide();
         if (!observer.current)

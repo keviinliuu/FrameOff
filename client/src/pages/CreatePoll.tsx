@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSlideStore } from '../stores/useSlideStore';
 
 import CreateSlides from '../components/creation/CreateSlides';
 import PollInfo from '../components/creation/PollInfo';
@@ -7,16 +8,11 @@ import Logo from '../components/elements/Logo';
 export default function CreatePoll() {
     const [pollTitle, setPollTitle] = useState('');
     const [pollDescription, setPollDescription] = useState('');
-    const [finishInfo, setFinishInfo] = useState(false);
+    const setTitleAndDesc = useSlideStore(state => state.setTitleAndDesc);
     const [finishPoll, setFinishPoll] = useState(false);
 
-    const handleFinish = (title: string, description: string, finish: boolean) => {
-        setPollTitle(title);
-        setPollDescription(description);
-        setFinishInfo(finish);
-    };
-
     useEffect(() => {
+        setTitleAndDesc(pollTitle, pollDescription);
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
             event.preventDefault();
             return (event.returnValue =
@@ -28,19 +24,25 @@ export default function CreatePoll() {
         }
 
         return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-    }, [finishInfo]);
+    }, [pollTitle, pollDescription]);
+
+    const scrollToCreateSlides = () => {
+        document.getElementById('CreateSlides')!.scrollIntoView({ behavior: 'smooth' });
+    };
 
     return (
         <div className='flex flex-col items-center snap-y snap-mandatory h-screen w-screen overflow-x-hidden'>
             <Logo />
-            <PollInfo handleFinish={handleFinish} />
-            {finishInfo && (
-                <CreateSlides
-                    pollTitle={pollTitle}
-                    pollDescription={pollDescription}
-                    setFinishPoll={setFinishPoll}
-                />
-            )}
+            <PollInfo
+                setTitle={setPollTitle}
+                setDescription={setPollDescription}
+                onContinue={scrollToCreateSlides}
+            />
+            {
+                <div hidden={!pollTitle} id='CreateSlides'>
+                    <CreateSlides pollTitle={pollTitle} setFinishPoll={setFinishPoll} />
+                </div>
+            }
         </div>
     );
 }
