@@ -21,9 +21,8 @@ const router = createBrowserRouter([
         element: <CreatePoll />,
     },
     {
-        path: ':_id',
+        path: 'poll/:_id',
         element: <VotePoll />,
-        errorElement: <Error />,
     },
     {
         path: 'share',
@@ -31,6 +30,10 @@ const router = createBrowserRouter([
     },
     {
         path: 'error',
+        element: <Error />,
+    },
+    {
+        path: '*',
         element: <Error />,
     }
 ]);
