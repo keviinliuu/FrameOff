@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../components/elements/Logo';
 import { useRef } from 'react';
 import anime, { AnimeInstance } from 'animejs';
+import RandomizedFrame from '../components/home/RandomizedFrame';
 
 export default function Home() {
     const createPollUnderline = useRef(null);
@@ -41,29 +42,19 @@ export default function Home() {
                         slide, vote, repeat. no signup required.
                     </p>
                 </div>
-                <div className='flex h-[90%]'>
-                    <svg
-                        className='flex h-full'
-                        viewBox='0 0 240 288'
-                        fill='none'
-                        xmlns='http://www.w3.org/2000/svg'>
-                        <path
-                            fillRule='evenodd'
-                            clipRule='evenodd'
-                            d='M240 0H0V288H240V0ZM226.286 13.7144H13.7148V226.286H226.286V13.7144Z'
-                            fill='#FFADE7'
-                        />
-                    </svg>
+                <div className='flex flex-col h-[90%]'>
+                    <RandomizedFrame />
                 </div>
             </div>
-            <div className='relative flex flex-col items-center select-none text-7xl font-extrabold leading-[0.75] tracking-tighter'>
-                <p className='text-nocturne self-start w-[110%]'>
-                    a picture is worth a thousand words.a picture is worth a thousand words.a
-                    picture is worth a thousand words.a picture is worth a thousand words.a picture
-                    is worth a thousand words.a picture is worth a thousand words.
+            <div className='relative flex flex-col items-center select-none text-7xl font-extrabold leading-[0.75] tracking-[-0.05em]'>
+                <p className='text-nocturne self-start break-all w-[102%]'>
+                    a picture is worth a thousand words. a picture is worth a thousand words. a
+                    picture is worth a thousand words. a picture is worth a thousand words. a
+                    picture is worth a thousand words. a picture is worth a thousand words. a
+                    picture is worth a thousand words. a pictu
                 </p>
                 <div
-                    className='flex flex-col top-[25%] absolute text-blush bg-midnight'
+                    className='flex flex-col top-[40%] absolute text-blush bg-midnight'
                     onMouseEnter={mouseOverCreatePoll}
                     onMouseOut={mouseExitCreatePoll}>
                     <Link ref={createPollBtn} to='create'>
