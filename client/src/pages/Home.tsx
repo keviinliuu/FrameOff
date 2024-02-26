@@ -46,14 +46,15 @@ export default function Home() {
                     <RandomizedFrame />
                 </div>
             </div>
-            <div className='relative flex flex-col items-center select-none text-7xl font-extrabold leading-[0.75] tracking-tighter'>
-                <p className='text-nocturne self-start w-[110%]'>
-                    a picture is worth a thousand words.a picture is worth a thousand words.a
-                    picture is worth a thousand words.a picture is worth a thousand words.a picture
-                    is worth a thousand words.a picture is worth a thousand words.
+            <div className='relative flex flex-col items-center select-none text-7xl font-extrabold leading-[0.75] tracking-[-0.05em]'>
+                <p className='text-nocturne self-start break-all w-[102%]'>
+                    a picture is worth a thousand words. a picture is worth a thousand words. a
+                    picture is worth a thousand words. a picture is worth a thousand words. a
+                    picture is worth a thousand words. a picture is worth a thousand words. a
+                    picture is worth a thousand words. a pictu
                 </p>
                 <div
-                    className='flex flex-col top-[25%] absolute text-blush bg-midnight'
+                    className='flex flex-col top-[40%] absolute text-blush bg-midnight'
                     onMouseEnter={mouseOverCreatePoll}
                     onMouseOut={mouseExitCreatePoll}>
                     <Link ref={createPollBtn} to='create'>
