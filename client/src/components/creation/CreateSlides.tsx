@@ -17,7 +17,6 @@ import SlideEdit from '../slide/SlideEdit';
 import FinishPopup from '../elements/FinishPopup';
 interface CreateSlidesProps {
     pollTitle: string;
-    pollDescription: string;
     setFinishPoll: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -27,14 +26,9 @@ const intersectionOptions = {
     threshold: 1.0,
 };
 
-export default function CreateSlides({
-    pollTitle,
-    pollDescription,
-    setFinishPoll,
-}: CreateSlidesProps) {
+export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesProps) {
     // VARIABLES FOR SLIDE CREATION
     const [slidesDisplay, setSlidesDisplay] = useState<JSX.Element[]>([]);
-    const setTitleAndDesc = useSlideStore(state => state.setTitleAndDesc);
     const slidesAreValid = useSlideStore(state => state.slidesAreValid);
     const addSlide = useSlideStore(state => state.addSlide);
     const editSlide = useSlideStore(state => state.editSlide);
@@ -93,7 +87,6 @@ export default function CreateSlides({
     }, [slidesDisplay]);
 
     useEffect(() => {
-        setTitleAndDesc(pollTitle, pollDescription);
         clearSlides();
         handleCreateSlide();
         if (!observer.current)
@@ -108,7 +101,6 @@ export default function CreateSlides({
             index: 0,
             _id: uuidv4(),
             slideTitle: '',
-            slideDescription: '',
             image1: {
                 url: null,
                 caption: '',
@@ -128,9 +120,6 @@ export default function CreateSlides({
                     _id={newSlide._id}
                     handleTitle={(e: CE) =>
                         editSlide(newSlide._id!, { slideTitle: e.target.value })
-                    }
-                    handleDescription={(e: CE) =>
-                        editSlide(newSlide._id!, { slideDescription: e.target.value })
                     }
                     handleImageOne={(image: File) => {
                         // TODO: Implement a better way of only updating "url" key.

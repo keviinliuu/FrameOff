@@ -38,7 +38,7 @@ export default function Home() {
                     <p className='text-8xl text-blush font-extrabold'>
                         image polls—made<br></br>quick and simple.
                     </p>
-                    <p className='text-6xl text-fushcia font-bold'>
+                    <p className='text-6xl text-fuchsia font-bold'>
                         slide, vote, repeat. no signup required.
                     </p>
                 </div>

@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { ImageData, VotedEnum } from '../../data/types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 import Slide from './Slide';
 import VoteImage from '../images/VoteImage';
@@ -9,13 +11,23 @@ import anime from 'animejs';
 
 export interface SlideViewProps {
     title: string | undefined;
-    description: string | undefined;
     imageOne: ImageData;
     imageTwo: ImageData;
     _id: string | undefined;
+    scrollDown: () => void;
+    slideIndex: number;
+    totalSlideCount: number;
 }
 
-export default function SlideView({ title, description, imageOne, imageTwo, _id }: SlideViewProps) {
+export default function SlideView({
+    title,
+    imageOne,
+    imageTwo,
+    _id,
+    scrollDown,
+    slideIndex,
+    totalSlideCount,
+}: SlideViewProps) {
     const [expand, setExpand] = useState(false);
     const [expandedImage, setExpandedImage] = useState<ImageData | null>(null);
 
@@ -46,6 +58,14 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
     const borderRef2 = useRef(null);
     const borderBotRefL2 = useRef(null);
     const borderBotRefR2 = useRef(null);
+
+    const mountedStyle = {
+        animation: 'inAnimation 250ms ease-in',
+    };
+    const unmountedStyle = {
+        animation: 'outAnimation 100ms ease-out',
+    };
+
     useEffect(() => {
         if (voteStatus != null && voted == false) {
             didVote(true);
@@ -203,7 +223,6 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
             </ExpandedImage>
 
             {title && <div className='text-3xl text-raspberry'>{title}</div>}
-            {description && <div className='text-sm text-blush'>{description}</div>}
             <div className='flex w-full items-center justify-center gap-x-16'>
                 <div className='flex flex-col items-center gap-y-8' style={{ width: `30%` }}>
                     <div className='relative flex w-full flex-row gap-x-4'>
@@ -231,19 +250,19 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                                         }`}>
                                         {votedFor == VotedEnum.IMAGE1 && (
                                             <div
-                                                className='absolute self-start rounded-lg border-t-4 border-l-4 border-r-4 border-fushcia'
+                                                className='absolute self-start rounded-lg border-t-4 border-l-4 border-r-4 border-fuchsia'
                                                 ref={borderRef1}
                                             />
                                         )}
                                         {votedFor == VotedEnum.IMAGE1 && (
                                             <div
-                                                className='absolute w-0 left-0 rounded-lg border-b-4 border-fushcia'
+                                                className='absolute w-0 left-0 rounded-lg border-b-4 border-fuchsia'
                                                 ref={borderBotRefL1}
                                             />
                                         )}
                                         {votedFor == VotedEnum.IMAGE1 && (
                                             <div
-                                                className='absolute w-0 right-0 rounded-lg border-b-4 border-fushcia'
+                                                className='absolute w-0 right-0 rounded-lg border-b-4 border-fuchsia'
                                                 ref={borderBotRefR1}
                                             />
                                         )}
@@ -254,7 +273,7 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                                             <div className='opacity-1 h-3/4'>
                                                 {votedFor == VotedEnum.IMAGE1 ? (
                                                     <svg
-                                                        className='stroke-fushcia h-full'
+                                                        className='stroke-fuchsia h-full'
                                                         viewBox='0 0 456 512'
                                                         fill='none'>
                                                         <path
@@ -288,7 +307,7 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                                                 <p
                                                     className={`text-main text-center text-7xl opacity-0 ${
                                                         votedFor == VotedEnum.IMAGE1
-                                                            ? 'text-fushcia'
+                                                            ? 'text-fuchsia'
                                                             : 'text-charcoal'
                                                     }`}
                                                     ref={percentRef1}>
@@ -304,7 +323,7 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                         <div className='flex flex-col justify-end'>
                             <div
                                 className={`w-8 ${
-                                    votedFor == VotedEnum.IMAGE1 ? 'bg-fushcia' : 'bg-charcoal'
+                                    votedFor == VotedEnum.IMAGE1 ? 'bg-fuchsia' : 'bg-charcoal'
                                 }`}
                                 ref={barRef1}
                                 style={{ height: `${votesPercent1}%` }}></div>
@@ -322,7 +341,7 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                         <div className='flex flex-col justify-end'>
                             <div
                                 className={`w-8 ${
-                                    votedFor == VotedEnum.IMAGE2 ? 'bg-fushcia' : 'bg-charcoal'
+                                    votedFor == VotedEnum.IMAGE2 ? 'bg-fuchsia' : 'bg-charcoal'
                                 }`}
                                 ref={barRef2}
                                 style={{ height: `${votesPercent2}%` }}></div>
@@ -352,19 +371,19 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                                         }`}>
                                         {votedFor == VotedEnum.IMAGE2 && (
                                             <div
-                                                className='absolute self-start rounded-lg border-t-4 border-l-4 border-r-4 border-fushcia'
+                                                className='absolute self-start rounded-lg border-t-4 border-l-4 border-r-4 border-fuchsia'
                                                 ref={borderRef2}
                                             />
                                         )}
                                         {votedFor == VotedEnum.IMAGE2 && (
                                             <div
-                                                className='absolute w-1/2 left-0 rounded-lg border-b-4 border-fushcia'
+                                                className='absolute w-1/2 left-0 rounded-lg border-b-4 border-fuchsia'
                                                 ref={borderBotRefL2}
                                             />
                                         )}
                                         {votedFor == VotedEnum.IMAGE2 && (
                                             <div
-                                                className='absolute w-1/2 right-0 rounded-lg border-b-4 border-fushcia'
+                                                className='absolute w-1/2 right-0 rounded-lg border-b-4 border-fuchsia'
                                                 ref={borderBotRefR2}
                                             />
                                         )}
@@ -381,7 +400,7 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                                                 <p
                                                     className={`text-main text-center text-7xl opacity-0 ${
                                                         votedFor == VotedEnum.IMAGE2
-                                                            ? 'text-fushcia'
+                                                            ? 'text-fuchsia'
                                                             : 'text-charcoal'
                                                     }`}
                                                     ref={percentRef2}>
@@ -391,7 +410,7 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                                             <div className='opacity-1 h-3/4'>
                                                 {votedFor == VotedEnum.IMAGE2 ? (
                                                     <svg
-                                                        className='stroke-fushcia h-full'
+                                                        className='stroke-fuchsia h-full'
                                                         viewBox='0 0 456 512'
                                                         fill='none'>
                                                         <path
@@ -427,6 +446,14 @@ export default function SlideView({ title, description, imageOne, imageTwo, _id 
                         <div className='text-3xl text-blush'>{imageTwo.caption}</div>
                     )}
                 </div>
+            </div>
+
+            <div className='text-blush pt-10 text-5xl animate-bounce'>
+                {voted && slideIndex + 1 !== totalSlideCount && (
+                    <button onClick={scrollDown} style={voted ? mountedStyle : unmountedStyle}>
+                        <FontAwesomeIcon icon={faChevronDown} />
+                    </button>
+                )}
             </div>
         </Slide>
     );

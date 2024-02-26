@@ -17,7 +17,7 @@ export default {
                 candy: '#ffd4f3',
                 plum: '#6b385c',
                 raspberry: '#be4f9d',
-                fushcia: '#e41b9f',
+                fuchsia: '#e41b9f',
             },
             fontFamily: {
                 main: ['League Spartan'],

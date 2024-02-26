@@ -56,12 +56,12 @@ export default function SharePoll() {
 
                 <div className='flex h-12 flex-row rounded border-2 border-blush'>
                     <Heading textColor='text-candy' fontSize='text-2xl' padding='pt-2 pl-4'>
-                        {`${pollUrl}${pollId}`}
+                        {`${pollUrl}poll/${pollId}`}
                     </Heading>
 
                     <div className='ml-auto  text-blush pt-0.5 text-2xl'>
                         <SlCopyButton
-                            value={`${pollUrl}${pollId}`}
+                            value={`${pollUrl}poll/${pollId}`}
                             copy-label='Click to copy'
                             success-label='Copied!'
                             error-label="Whoops, your browser doesn't support this!"
