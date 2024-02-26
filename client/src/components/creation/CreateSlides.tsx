@@ -15,8 +15,6 @@ import {
 
 import SlideEdit from '../slide/SlideEdit';
 import FinishPopup from '../elements/FinishPopup';
-import Logo from '../../assets/frameoff-logo.svg';
-
 interface CreateSlidesProps {
     pollTitle: string;
     pollDescription: string;
@@ -171,10 +169,10 @@ export default function CreateSlides({
                 onClose={() => setFinish(false)}
                 onFinish={handleFinish}></FinishPopup>
 
-            <div className='flex absolute top-0 left-0 right-0 justify-between p-8 pb-0'>
-                <div className='inline-flex'>
+            <div className='absolute flex flex-row w-full top-0 left-0 right-0 justify-center items-center p-8 pb-0'>
+                {/* <div className='relative inline-flex'>
                     <img className='h-10 aspect-{25/6}' src={Logo} />
-                </div>
+                </div> */}
                 <div className='flex flex-col gap-y-4 items-center'>
                     <div className='text-moonbeam text-xl'>Cooking up</div>
                     <div className='text-5xl text-blush'>{pollTitle}</div>
@@ -183,7 +181,7 @@ export default function CreateSlides({
                     onClick={() => {
                         setFinish(true);
                     }}
-                    className='transition ease-in-out delay-150 duration-300 enabled:hover:scale-105 flex h-12 p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg disabled:opacity-30 select-none'
+                    className='absolute right-10 transition ease-in-out delay-150 duration-300 enabled:hover:scale-105 flex h-12 p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg disabled:opacity-30 select-none'
                     disabled={!slidesAreValid}>
                     <FontAwesomeIcon icon={faCheck} size='xl' className='self-center' />
                     <p className='flex items-center text-2xl align-middle translate-y-0.5'>
