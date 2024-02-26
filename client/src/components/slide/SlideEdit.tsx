@@ -37,27 +37,29 @@ export default function SlideEdit({
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleTitle(e);
         setTitleAtMax(e.target.value.length >= maxTitleChars);
-    }
+    };
 
     const handleCapOneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleImageOneCaption(e);
         setCaptionOneAtMax(e.target.value.length >= maxCaptionChars);
-    }
+    };
 
     const handleCapTwoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleImageTwoCaption(e);
         setCaptionTwoAtMax(e.target.value.length >= maxCaptionChars);
-    }
+    };
 
     useEffect(
         () =>
             useSlideStore.subscribe(
                 state => state.slides.find(slide => slide._id === _id),
                 newState => {
-                    const newURLOne = newState!.image1.url;
-                    const newURLTwo = newState!.image2.url;
-                    if (imageOne !== newURLOne) setImageOne(newURLOne!);
-                    if (imageTwo !== newURLTwo) setImageTwo(newURLTwo!);
+                    if (newState) {
+                        const newURLOne = newState!.image1.url;
+                        const newURLTwo = newState!.image2.url;
+                        if (imageOne !== newURLOne) setImageOne(newURLOne!);
+                        if (imageTwo !== newURLTwo) setImageTwo(newURLTwo!);
+                    }
                 },
             ),
         // eslint-disable-next-line react-hooks/exhaustive-deps -- #FIX ME: exhaustive deps

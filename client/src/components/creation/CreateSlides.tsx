@@ -55,7 +55,6 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             }
             if (entry.intersectionRatio >= 1.0) {
                 setActiveIndex(getSlide(entry.target.id)?.index ?? 0);
-                setActiveCount(getSlideCount());
             }
         });
     };
@@ -73,6 +72,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             setSlidesDisplay(slidesDisplay.filter(slide => slide.key !== target.id));
             deleteSlideByIndex(i);
             setActiveIndex(i === 0 ? i + 1 : i - 1);
+            setActiveCount(getSlideCount())
         }
     };
     const handleFinish = async () => {
@@ -113,6 +113,8 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             },
         };
         addSlide(newSlide);
+        setActiveCount(getSlideCount())
+        setActiveIndex(activeIndex + 1)
         const display: JSX.Element = (
             <div
                 key={newSlide._id}
@@ -231,14 +233,25 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                 </div>
             </div>
             <div className='flex absolute bottom-0 left-0 p-8'>
-                <FontAwesomeIcon
-                    className={`text-blush ${activeCount > 1 ? 'cursor-pointer' : 'opacity-30'}`}
-                    icon={faTrashCan}
-                    size='3x'
-                    onClick={() => {
-                        if (activeCount > 1) handleDeleteSlide(activeIndex);
-                    }}
-                />
+                <button disabled={activeCount <= 1}>
+                    <FontAwesomeIcon
+                        className={`text-blush ${activeCount > 1 ? 'cursor-pointer' : 'opacity-30'}`}
+                        icon={faTrashCan}
+                        size='3x'
+                        onClick={() => {
+                            if(activeIndex != 0) {
+                                document.getElementById(getSlideFromIndex(activeIndex - 1)?._id!)?.scrollIntoView();
+                            }
+                            else {
+                                document.getElementById(getSlideFromIndex(activeIndex + 1)?._id!)?.scrollIntoView();
+                            }
+
+                            setTimeout(() => {
+                                if (activeCount >= 1) handleDeleteSlide(activeIndex);
+                            }, 400);
+                        }}
+                    />
+                </button>
             </div>
         </div>
     );
