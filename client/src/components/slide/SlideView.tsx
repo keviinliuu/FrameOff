@@ -245,7 +245,7 @@ export default function SlideView({
                                 />
                                 {voted && (
                                     <div
-                                        className={`absolute flex aspect-square h-full items-end justify-center rounded-lg bg-opacity-50 ${
+                                        className={`absolute flex aspect-square h-full w-full items-end justify-center rounded-lg bg-opacity-50 ${
                                             votedFor == VotedEnum.IMAGE1 ? 'bg-plum' : 'bg-midnight'
                                         }`}>
                                         {votedFor == VotedEnum.IMAGE1 && (
@@ -366,7 +366,7 @@ export default function SlideView({
                                 />
                                 {voted && (
                                     <div
-                                        className={`absolute flex aspect-square h-full items-end justify-center rounded-lg bg-opacity-50 ${
+                                        className={`absolute flex aspect-square h-full w-full items-end justify-center rounded-lg bg-opacity-50 ${
                                             votedFor == VotedEnum.IMAGE2 ? 'bg-plum' : 'bg-midnight'
                                         }`}>
                                         {votedFor == VotedEnum.IMAGE2 && (
