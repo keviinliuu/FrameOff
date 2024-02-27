@@ -25,14 +25,14 @@ export default function VotePoll() {
     }, [error, navigate]);
 
     const scrollToViewSlides = () => {
-        document.getElementById('ViewSlides')!.scrollIntoView({ behavior: 'smooth'})
-    }
+        document.getElementById('ViewSlides')!.scrollIntoView({ behavior: 'smooth' });
+    };
 
     return (
         <div className='flex flex-col items-center snap-y snap-mandatory h-screen w-screen overflow-x-hidden'>
             <Logo />
-            <StartPoll onStart={scrollToViewSlides}/>
-            <div id="ViewSlides">
+            <StartPoll onStart={scrollToViewSlides} />
+            <div id='ViewSlides'>
                 <ViewSlides />
             </div>
         </div>
