@@ -1,10 +1,9 @@
 import { useSlideStore } from '../../stores/useSlideStore.ts';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 import SlideView from '../slide/SlideView.tsx';
 import Logo from '../elements/Logo.tsx';
+import SlidePicker from './SlidePicker.tsx';
 
 const intersectionOptions = {
     root: null,
@@ -78,33 +77,7 @@ export default function ViewPoll() {
                     </div>
                 ))}
             </div>
-            <div className='flex flex-col fixed top-1/2 left-0 items-center -translate-y-1/2'>
-                <div className='flex flex-col gap-y-3 items-center p-24'>
-                    <FontAwesomeIcon
-                        className='text-neutral-400 cursor-pointer'
-                        icon={faChevronUp}
-                        size='2xl'
-                        onClick={() => scrollTo(activeIndex - 1)}
-                    />
-
-                    <div className='flex text-blush text-3xl space-x-2 w-12'>
-                        <div className='flex-none w-3'>
-                            <span className={`${activeIndex > 8 ? 'ml-[-10px]' : ''}`}>
-                                {activeIndex + 1}
-                            </span>
-                        </div>
-                        <div className='flex justify-center w-3'>/</div>
-                        <div className='flex-none w-3'>{activeCount}</div>
-                    </div>
-
-                    <FontAwesomeIcon
-                        className='text-neutral-400 cursor-pointer'
-                        icon={faChevronDown}
-                        size='2xl'
-                        onClick={() => scrollTo(activeIndex + 1)}
-                    />
-                </div>
-            </div>
+            <SlidePicker activeIndex={activeIndex} activeCount={activeCount} scrollTo={scrollTo} />
         </div>
     );
 }

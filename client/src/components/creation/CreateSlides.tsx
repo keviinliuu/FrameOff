@@ -5,16 +5,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faCheck,
-    faChevronUp,
-    faChevronDown,
-    faCirclePlus,
-    faTrashCan,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCirclePlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 import SlideEdit from '../slide/SlideEdit';
 import FinishPopup from '../elements/FinishPopup';
+import SlidePicker from '../voting/SlidePicker';
 interface CreateSlidesProps {
     pollTitle: string;
     setFinishPoll: React.Dispatch<React.SetStateAction<boolean>>;
@@ -53,6 +48,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             }
             if (entry.intersectionRatio >= 1.0) {
                 setActiveIndex(getSlide(entry.target.id)?.index ?? 0);
+                setActiveCount(getSlideCount());
             }
         });
     };
@@ -70,7 +66,6 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             setSlidesDisplay(slidesDisplay.filter(slide => slide.key !== target.id));
             deleteSlideByIndex(i);
             setActiveIndex(i === 0 ? i + 1 : i - 1);
-            setActiveCount(getSlideCount())
         }
     };
     const handleFinish = async () => {
@@ -111,8 +106,6 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             },
         };
         addSlide(newSlide);
-        setActiveCount(getSlideCount())
-        setActiveIndex(activeIndex + 1)
         const display: JSX.Element = (
             <div
                 key={newSlide._id}
@@ -161,9 +154,6 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                 onFinish={handleFinish}></FinishPopup>
 
             <div className='absolute flex flex-row w-full top-0 left-0 right-0 justify-center items-center p-8 pb-0'>
-                {/* <div className='relative inline-flex'>
-                    <img className='h-10 aspect-{25/6}' src={Logo} />
-                </div> */}
                 <div className='flex flex-col gap-y-4 items-center'>
                     <div className='text-moonbeam text-xl'>Cooking up</div>
                     <div className='text-5xl text-blush'>{pollTitle}</div>
@@ -195,61 +185,16 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                     onClick={handleCreateSlide}
                 />
             </div>
-            <div className='flex flex-col absolute top-1/2 left-0 items-center -translate-y-1/2 select-none'>
-                <div className='flex flex-col gap-y-3 items-center p-24'>
-                    <FontAwesomeIcon
-                        className={`text-neutral-400 ${
-                            activeIndex >= 1 ? 'cursor-pointer' : 'opacity-30'
-                        }`}
-                        icon={faChevronUp}
-                        size='2xl'
-                        onClick={() => {
-                            if (activeIndex >= 1) scrollTo(activeIndex - 1);
-                        }}
-                    />
-
-                    <div className='flex text-blush text-3xl space-x-2 w-12'>
-                        <div className='flex-none w-3'>
-                            <span className={`${activeIndex > 8 ? 'ml-[-10px]' : ''}`}>
-                                {activeIndex + 1}
-                            </span>
-                        </div>
-                        <div className='flex justify-center w-3'>/</div>
-                        <div className='flex-none w-3'>{activeCount}</div>
-                    </div>
-
-                    <FontAwesomeIcon
-                        className={`text-neutral-400 cursor-pointer ${
-                            activeIndex < activeCount - 1 ? 'cursor-pointer' : 'opacity-30'
-                        }`}
-                        icon={faChevronDown}
-                        size='2xl'
-                        onClick={() => {
-                            if (activeIndex < activeCount - 1) scrollTo(activeIndex + 1);
-                        }}
-                    />
-                </div>
-            </div>
+            <SlidePicker activeIndex={activeIndex} activeCount={activeCount} scrollTo={scrollTo} />
             <div className='flex absolute bottom-0 left-0 p-8'>
-                <button disabled={activeCount <= 1}>
-                    <FontAwesomeIcon
-                        className={`text-blush ${activeCount > 1 ? 'cursor-pointer' : 'opacity-30'}`}
-                        icon={faTrashCan}
-                        size='3x'
-                        onClick={() => {
-                            if(activeIndex != 0) {
-                                document.getElementById(getSlideFromIndex(activeIndex - 1)?._id!)?.scrollIntoView();
-                            }
-                            else {
-                                document.getElementById(getSlideFromIndex(activeIndex + 1)?._id!)?.scrollIntoView();
-                            }
-
-                            setTimeout(() => {
-                                if (activeCount >= 1) handleDeleteSlide(activeIndex);
-                            }, 400);
-                        }}
-                    />
-                </button>
+                <FontAwesomeIcon
+                    className={`text-blush ${activeCount > 1 ? 'cursor-pointer' : 'opacity-30'}`}
+                    icon={faTrashCan}
+                    size='3x'
+                    onClick={() => {
+                        if (activeCount > 1) handleDeleteSlide(activeIndex);
+                    }}
+                />
             </div>
         </div>
     );
