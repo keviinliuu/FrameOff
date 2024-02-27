@@ -2,7 +2,6 @@ import { useSlideStore } from '../../stores/useSlideStore.ts';
 import { useRef, useState, useEffect, useCallback } from 'react';
 
 import SlideView from '../slide/SlideView.tsx';
-import Logo from '../elements/Logo.tsx';
 import SlidePicker from './SlidePicker.tsx';
 
 const intersectionOptions = {
@@ -21,13 +20,16 @@ export default function ViewPoll() {
     const getSlideFromIndex = useSlideStore(state => state.getSlideFromIndex);
     const slideRefs = useRef<HTMLDivElement[]>([]);
     const observer = useRef<IntersectionObserver | null>(null);
-    const addNode = useCallback((node: HTMLDivElement) => {
-        if (node) {
-            slideRefs.current.push(node);
-            observer.current?.observe(node);
-            setActiveCount(getSlideCount());
-        }
-    }, []);
+    const addNode = useCallback(
+        (node: HTMLDivElement) => {
+            if (node) {
+                slideRefs.current.push(node);
+                observer.current?.observe(node);
+                setActiveCount(getSlideCount());
+            }
+        },
+        [getSlideCount],
+    );
 
     const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
         const entry = entries[entries.length - 1];
@@ -52,15 +54,14 @@ export default function ViewPoll() {
         // eslint-disable-next-line react-hooks/exhaustive-deps -- only execute once on mount
     }, []);
     return (
-        <div className='flex h-full justify-center'>
-            <Logo />
+        <div className='relative flex h-full justify-center'>
             <div className='p-8 flex flex-col w-screen positon: absolute gap-y-4 items-center object-center'>
                 <div className='text-5xl text-blush'>{pollTitle}</div>
             </div>
             <div className='snap-start snap-y flex flex-col snap-mandatory h-screen w-screen overflow-x-hidden scrollbar-none scroll-smooth'>
                 {slides.map((slide, index) => (
                     <div
-                        className='snap-start snap-always grid min-h-full w-screen place-items-center'
+                        className='relative snap-start snap-always grid min-h-full w-screen place-items-center'
                         ref={addNode}
                         key={slide._id}
                         id={slide._id}>
@@ -76,8 +77,12 @@ export default function ViewPoll() {
                         />
                     </div>
                 ))}
+                <SlidePicker
+                    activeIndex={activeIndex}
+                    activeCount={activeCount}
+                    scrollTo={scrollTo}
+                />
             </div>
-            <SlidePicker activeIndex={activeIndex} activeCount={activeCount} scrollTo={scrollTo} />
         </div>
     );
 }
