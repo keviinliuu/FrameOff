@@ -37,6 +37,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
     const deleteSlideByIndex = useSlideStore(state => state.deleteSlideByIndex);
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeCount, setActiveCount] = useState(1);
+    const [deleting, setDeleting] = useState(false);
     const [finish, setFinish] = useState(false);
     const navigate = useNavigate();
 
@@ -48,7 +49,6 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             }
             if (entry.intersectionRatio >= 1.0) {
                 setActiveIndex(getSlide(entry.target.id)?.index ?? 0);
-                setActiveCount(getSlideCount());
             }
         });
     };
@@ -60,14 +60,36 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
         }
     };
     const handleDeleteSlide = (i: number) => {
-        const target = document.getElementById(getSlideFromIndex(i)!._id);
-        if (target) {
-            observer.current?.unobserve(target);
-            setSlidesDisplay(slidesDisplay.filter(slide => slide.key !== target.id));
-            deleteSlideByIndex(i);
-            setActiveIndex(i === 0 ? i + 1 : i - 1);
-        }
+        return new Promise((resolve) => {
+            const target = document.getElementById(getSlideFromIndex(i)!._id);
+            if (activeIndex != 0) {
+                document.getElementById(getSlideFromIndex(activeIndex - 1)?._id!)?.scrollIntoView();
+                setActiveIndex(i - 1);
+            } else {
+                document.getElementById(getSlideFromIndex(activeIndex + 1)?._id!)?.scrollIntoView();
+            }
+    
+            if (target) {
+                deleteSlideByIndex(i);
+                setActiveCount(getSlideCount());
+            }
+    
+            setTimeout(() => {
+                if (target) {
+                    observer.current?.unobserve(target);
+                    setSlidesDisplay(slidesDisplay.filter(slide => slide.key !== target.id));
+                }
+            }, 400);
+            resolve(true);
+        })
     };
+    const onDeleteClick = async () => {
+        if(activeCount > 1) {
+            setDeleting(true);
+            await handleDeleteSlide(activeIndex);
+            setDeleting(false);
+        }
+    }
     const handleFinish = async () => {
         setFinishPoll(true);
         await generateSlideImages();
@@ -106,6 +128,8 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             },
         };
         addSlide(newSlide);
+        setActiveCount(getSlideCount());
+        setActiveIndex(activeIndex + 1);
         const display: JSX.Element = (
             <div
                 key={newSlide._id}
@@ -187,14 +211,13 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             </div>
             <SlidePicker activeIndex={activeIndex} activeCount={activeCount} scrollTo={scrollTo} />
             <div className='flex absolute bottom-0 left-0 p-8'>
-                <FontAwesomeIcon
-                    className={`text-blush ${activeCount > 1 ? 'cursor-pointer' : 'opacity-30'}`}
-                    icon={faTrashCan}
-                    size='3x'
-                    onClick={() => {
-                        if (activeCount > 1) handleDeleteSlide(activeIndex);
-                    }}
-                />
+                <button disabled={deleting} onClick={onDeleteClick}>
+                    <FontAwesomeIcon
+                        className={`text-blush ${activeCount > 1 ? 'cursor-pointer' : 'opacity-30'}`}
+                        icon={faTrashCan}
+                        size='3x'
+                    />
+                </button>
             </div>
         </div>
     );
