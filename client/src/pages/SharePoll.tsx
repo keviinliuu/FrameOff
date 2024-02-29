@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import ShareButton from '../components/elements/ShareButton';
-import FrameOffLogo from '../assets/frameoff-logo.svg';
 import '../index.css';
+import Logo from '../components/elements/Logo';
 
 export default function SharePoll() {
     const storePollId = useSlideStore(state => state.pollId);
@@ -37,11 +37,7 @@ export default function SharePoll() {
     return (
         <div className='flex flex-col items-center justify-evenly min-h-screen w-full bg-midnight md:pb-20 overflow-y-hidden'>
             <div>
-                <div className='p-8 absolute top-0 left-0'>
-                    <a href='https://www.frameoff.com'>
-                        <img className='h-7 md:h-10 aspect-{25/6}' src={FrameOffLogo} />
-                    </a>
-                </div>
+                <Logo />
             </div>
 
             <div className='flex flex-col items-center px-4'>

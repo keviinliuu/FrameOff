@@ -11,21 +11,21 @@ export default function StartPoll({ onStart }: StartPollProps) {
     const pollDescription = useSlideStore(state => state.pollDescription);
 
     return (
-        <div className='relative flex flex-col snap-always snap-start min-h-screen w-fit py-20'>
-            <div className='flex flex-col items-center pt-28 text-moonbeam text-2xl text-center'>
+        <div className='relative flex flex-col snap-always snap-start min-h-screen w-fit justify-center gap-y-8 md:gap-y-0'>
+            <div className='flex flex-col items-center text-moonbeam md:text-2xl text-center'>
                 Time to vote on...
             </div>
-            <div className='flex flex-col items-center py-10 mt-10 px-10'>
-                <div className='text-blush text-8xl text-center px-4 break-words w-fit'>
+            <div className='flex flex-col items-center md:py-10 md:mt-10 px-14'>
+                <div className='text-blush text-4xl md:text-8xl text-center px-1 break-words w-fit'>
                     {pollTitle}
                 </div>
             </div>
-            <div className='flex flex-col items-center py-5 mt-10 text-raspberry text-3xl text-center'>
+            <div className='flex flex-col items-center py-3 md:py-5 md:mt-10 text-raspberry text-xl md:text-3xl text-center px-5 md:px-20'>
                 {pollDescription}
             </div>
-            <div className='flex justify-center pt-12 mt-5'>
+            <div className='flex justify-center md:pt-12 mt-5'>
                 <button
-                    className='rounded-md border-2 border-blush text-blush text-3xl w-32 h-12 pt-0.5 hover:bg-blush hover:text-midnight transition-colors'
+                    className='rounded-md border-2 border-blush text-blush text-2xl md:text-3xl w-32 h-12 pt-0.5 hover:bg-blush hover:text-midnight transition-colors'
                     onClick={onStart}>
                     Start
                 </button>

@@ -223,7 +223,7 @@ export default function SlideView({
             </ExpandedImage>
 
             {title && <div className='text-4xl text-raspberry'>{title}</div>}
-            <div className='flex w-full items-center justify-center gap-x-16'>
+            <div className='flex w-full flex-col md:flex-row items-center justify-center gap-x-16'>
                 <div className='flex flex-col items-center gap-y-8' style={{ width: `30%` }}>
                     <div className='relative flex w-full flex-row gap-x-4'>
                         <div className='relative flex w-full flex-col items-center'>

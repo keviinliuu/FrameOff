@@ -31,7 +31,7 @@ export default function CreatePoll() {
     };
 
     return (
-        <div className='flex flex-col items-center snap-y snap-mandatory h-screen w-screen overflow-x-hidden overflow-y-hidden'>
+        <div className='flex flex-col items-center snap-y snap-mandatory h-screen w-screen overflow-x-hidden'>
             <Logo />
             <PollInfo
                 setTitle={setPollTitle}
