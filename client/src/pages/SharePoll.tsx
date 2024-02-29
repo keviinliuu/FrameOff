@@ -35,7 +35,7 @@ export default function SharePoll() {
     }, [storePollId, storePollTitle, navigate]);
 
     return (
-        <div className='flex flex-col justify-center items-center min-h-screen w-full bg-midnight'>
+        <div className='flex flex-col items-center justify-evenly min-h-screen w-full bg-midnight md:pb-20 overflow-y-hidden'>
             <div>
                 <div className='p-8 absolute top-0 left-0'>
                     <a href='https://www.frameoff.com'>
@@ -44,23 +44,23 @@ export default function SharePoll() {
                 </div>
             </div>
 
-            <div className='flex flex-col items-center pb-20 pt-2 md:pb-24 md:pt-4 px-4'>
-                <div className='text-moonbeam text-2xl pt-20 md:text-3xl md:pt-0 font-main text-center'>
+            <div className='flex flex-col items-center px-4'>
+                <div className='text-moonbeam text-2xl md:text-3xl font-main text-center'>
                     Thanks for using FrameOff! Now go share your poll with the world 🌎
                 </div>
             </div>
 
-            <div className='flex flex-col pb-5 md:pb-10 w-screen px-5 md:w-[28rem] md:px-0'>
+            <div className='flex flex-col w-screen px-5 md:w-[28rem] md:px-0'>
                 <div className=''>
                     <div className='text-2xl md:text-3xl text-blush'>Share via link</div>
                 </div>
 
                 <div className='flex h-12 flex-row rounded border-2 border-blush'>
-                    <div className='text-candy text-xl md:text-2xl pt-2 pl-4'>
+                    <div className='text-candy text-xl md:text-2xl pt-2.5 md:pt-2 pl-2 md:pl-4'>
                         {`${pollUrl}poll/${pollId}`}
                     </div>
 
-                    <div className='ml-auto text-blush pt-0.5 text-2xl'>
+                    <div className='ml-auto text-blush pt-1 md:pt-0.5 text-xl md:text-2xl'>
                         <SlCopyButton
                             value={`${pollUrl}poll/${pollId}`}
                             copy-label='Click to copy'
@@ -71,7 +71,7 @@ export default function SharePoll() {
                 </div>
             </div>
 
-            <div className='flex flex-col space-y-1.5 pt-20 w-screen px-5 md:w-[28rem] md:px-0 pb-5'>
+            <div className='flex flex-col space-y-1.5 w-screen px-5 md:w-[28rem] md:px-0'>
                 <div>
                     <div className='text-blush text-2xl md:text-3xl'>
                         Share on social media
