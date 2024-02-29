@@ -51,7 +51,7 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
         });
         anime({
             targets: bgRef.current,
-            duration: 150,
+            duration: 50,
             backgroundColor: 'rgba(228, 27, 159, .2)',
             easing: 'easeOutCubic',
         });
