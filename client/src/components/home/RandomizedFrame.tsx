@@ -54,9 +54,9 @@ export default function RandomizedFrame() {
     }, []);
 
     return (
-        <div className='relative justify-center flex flex-col h-full'>
+        <div className='relative justify-center flex flex-col h-32 md:h-64'>
             <svg
-                className='relative flex flex-col h-full'
+                className='relative flex flex-col h-32 md:h-64'
                 viewBox='0 0 240 288'
                 fill='none'
                 xmlns='http://www.w3.org/2000/svg'>
