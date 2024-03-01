@@ -56,7 +56,7 @@ export default function ViewPoll() {
     return (
         <div className='relative flex h-full justify-center'>
             <div className='p-8 flex flex-col w-screen positon: absolute gap-y-4 items-center object-center'>
-                <div className='text-5xl text-blush'>{pollTitle}</div>
+                <div className='pt-10 text-3xl md:text-5xl text-blush text-center'>{pollTitle}</div>
             </div>
             <div className='snap-start snap-y flex flex-col snap-mandatory h-screen w-screen overflow-x-hidden scrollbar-none scroll-smooth'>
                 {slides.map((slide, index) => (

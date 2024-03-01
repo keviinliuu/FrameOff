@@ -33,12 +33,12 @@ export default function Home() {
     return (
         <div className='flex flex-col items-center gap-y-10 justify-start h-screen w-screen overflow-x-hidden'>
             <Logo />
-            <div className='flex flex-row items-center justify-between w-[85%] mt-24'>
+            <div className='flex flex-row items-center justify-between w-[85%] mt-32'>
                 <div className='flex flex-col'>
-                    <p className='text-8xl text-blush font-extrabold'>
+                    <p className='text-4xl md:text-8xl text-blush font-extrabold'>
                         image polls—made<br></br>quick and simple.
                     </p>
-                    <p className='text-6xl text-fuchsia font-bold'>
+                    <p className='text-2xl md:text-6xl text-fuchsia font-bold'>
                         slide, vote, repeat. no signup required.
                     </p>
                 </div>
@@ -46,7 +46,7 @@ export default function Home() {
                     <RandomizedFrame />
                 </div>
             </div>
-            <div className='relative flex flex-col items-center select-none text-7xl font-extrabold leading-[0.75] tracking-[-0.05em]'>
+            <div className='relative flex flex-col items-center select-none text-3xl md:text-7xl font-extrabold leading-[0.75] tracking-[-0.05em]'>
                 <p className='text-nocturne self-start break-all w-[102%]'>
                     a picture is worth a thousand words. a picture is worth a thousand words. a
                     picture is worth a thousand words. a picture is worth a thousand words. a

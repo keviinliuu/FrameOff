@@ -38,19 +38,21 @@ export default function PollInfo({ setTitle, setDescription, onContinue }: PollI
     };
 
     return (
-        <div className='relative flex flex-col justify-center items-center gap-y-4 min-h-screen w-fit bg-midnight snap-start snap-always'>
-            <div className='text-white text-2xl'>Give your duel a title!</div>
+        <div className='relative flex flex-col justify-center items-center gap-y-4 min-h-screen bg-midnight snap-start snap-always'>
+            <div className='text-white text-xl md:text-2xl'>Give your duel a title!</div>
 
             <input
-                className={`w-[180%] placeholder:text-2xl text-2xl rounded-lg border-2 border-plum bg-nocturne py-3 text-center text-blush placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0 transition ease-in-out ${titleAtMax ? 'wobble' : ''}`}
+                className={`w-screen md:w-[180%] placeholder:text-xl md:placeholder:text-2xl text-xl md:text-2xl rounded-lg border-2 border-plum bg-nocturne py-3 text-center text-blush placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0 transition ease-in-out ${titleAtMax ? 'wobble' : ''}`}
                 placeholder='Enter title...'
                 maxLength={maxTitleChars}
                 onChange={handleTitleChange}
             />
 
-            <div className='text-white text-2xl pt-20'>and a description too! (if you want...)</div>
+            <div className='text-white text-xl md:text-2xl pt-20'>
+                and a description too! (if you want...)
+            </div>
             <textarea
-                className={`w-[180%] placeholder:text-2xl text-2xl rounded-lg border-2 border-plum bg-nocturne py-3 px-2 text-center text-blush placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0 transition ease-in-out resize-none ${descAtMax ? 'wobble' : ''}`}
+                className={`w-screen md:w-[180%] placeholder:text-xl md:placeholder:text-2xl text-xl md:text-2xl rounded-lg border-2 border-plum bg-nocturne py-3 px-2 text-center text-blush placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0 transition ease-in-out resize-none ${descAtMax ? 'wobble' : ''}`}
                 placeholder='Enter description... (optional)'
                 maxLength={180}
                 rows={1}
@@ -69,7 +71,7 @@ export default function PollInfo({ setTitle, setDescription, onContinue }: PollI
                         onClick={onContinue}>
                         <FontAwesomeIcon
                             icon={faArrowDown}
-                            className='cursor-pointer text-blush fa-3x animate-bounce'
+                            className='cursor-pointer text-blush text-4xl md:text-5xl animate-bounce'
                         />
                     </button>
                 )}
