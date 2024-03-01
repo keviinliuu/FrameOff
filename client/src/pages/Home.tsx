@@ -46,15 +46,31 @@ export default function Home() {
                     <RandomizedFrame />
                 </div>
             </div>
-            <div className='relative flex flex-col items-center select-none text-3xl md:text-7xl font-extrabold leading-[0.75] tracking-[-0.05em]'>
-                <p className='text-nocturne self-start break-all w-[102%]'>
-                    a picture is worth a thousand words. a picture is worth a thousand words. a
-                    picture is worth a thousand words. a picture is worth a thousand words. a
-                    picture is worth a thousand words. a picture is worth a thousand words. a
-                    picture is worth a thousand words. a pictu
-                </p>
+            <div className='relative flex flex-col items-center select-none text-3xl md:text-7xl font-extrabold leading-[0.75] tracking-[-0.05em] text-nocturne'>
+                <div className="marquee">
+                    <div className='track1'>
+                        a picture is worth a thousand words. a picture is worth a thousand words. a
+                        picture is worth a thousand words. a picture is worth a thousand words. a
+                        picture is worth a thousand words.{' '}
+                    </div>
+                    <div className='track2'>
+                        a thousand words. a picture is worth a thousand words. a picture is worth a
+                        thousand words. a picture is worth a thousand words. a picture is worth a
+                        thousand words. a picture is worth{' '}
+                    </div>
+                    <div className='track1'>
+                        words. a picture is worth a thousand words. a picture is worth a thousand words.
+                        a picture is worth a thousand words. a picture is worth a thousand words. a
+                        picture is worth a thousand{' '}
+                    </div>
+                    <div className='track2'>
+                        is worth a thousand words. a picture is worth a thousand words. a picture is
+                        worth a thousand words. a picture is worth a thousand words. a picture is worth
+                        a thousand words. a picture{' '}
+                    </div>
+                </div>
                 <div
-                    className='flex flex-col top-[40%] absolute text-blush bg-midnight'
+                    className='flex flex-col top-[25%] absolute text-blush bg-midnight'
                     onMouseEnter={mouseOverCreatePoll}
                     onMouseOut={mouseExitCreatePoll}>
                     <Link ref={createPollBtn} to='create'>

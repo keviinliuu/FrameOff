@@ -50,3 +50,32 @@
     animation: wobble 0.3s ease-in-out;
   }
   
+  .marquee {
+    position: relative;
+    width: 100vw;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .track1 {
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee1 25s linear infinite;
+  }
+
+  .track2 {
+    white-space: nowrap;
+    will-change: transform;
+    animation: marquee2 25s linear infinite;
+  }
+  
+  @keyframes marquee1 {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+
+  @keyframes marquee2 {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
