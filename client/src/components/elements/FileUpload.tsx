@@ -16,66 +16,92 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
     const outlineRRef = useRef(null);
     const containerRef = useRef(null);
     const borderTL = useRef<AnimeTimelineInstance | null>(null);
+    const [roundFirst, setRoundFirst] = useState(true);
+    const [roundSecond, setRoundSecond] = useState(false);
 
     const [isDragOver, setIsDragOver] = useState(false);
 
     useEffect(() => {
         const tl = anime.timeline({
             loop: true,
-            easing: 'easeOutCubic',
-            duration: 250,
+            easing: 'easeInOutCubic',
+            duration: 500,
             delay: 0,
+            loopBegin: () => {
+                setRoundFirst(true);
+                setRoundSecond(false);
+            },
+            loopComplete: () => {
+                setRoundFirst(true);
+                setRoundSecond(false);
+            },
+        });
+        tl.add({
+            targets: outlineTRef.current,
+            width: ['3%', '100%'],
+            marginLeft: [0, 0],
+            change: anim => {
+                if (anim.progress > 82) {
+                    setRoundSecond(true);
+                }
+            },
         });
         tl.add(
             {
-                targets: outlineTRef.current,
-                width: [0, '100%'],
-                marginLeft: [0, 0],
+                targets: outlineBRef.current,
+                marginLeft: ['97%', 0],
+                width: ['3%', '100%'],
             },
-            '-=250',
+            '-=500',
         );
-        tl.add({
-            targets: outlineBRef.current,
-            marginLeft: ['100%', 0],
-            width: [0, '100%'],
-        });
         tl.add(
             {
                 targets: outlineRRef.current,
                 marginTop: [0, 0],
-                height: [0, '100%'],
+                height: ['3%', '100%'],
             },
-            '-=250',
+            '-=500',
+        );
+        tl.add(
+            {
+                targets: outlineLRef.current,
+                marginTop: ['97%', 0],
+                height: ['3%', '100%'],
+            },
+            '-=500',
         );
         tl.add({
-            targets: outlineLRef.current,
-            marginTop: ['100%', 0],
-            height: [0, '100%'],
+            targets: outlineTRef.current,
+            width: '3%',
+            marginLeft: '97%',
+            change: anim => {
+                if (anim.progress > 10) {
+                    setRoundFirst(false);
+                }
+            },
         });
         tl.add(
             {
-                targets: outlineTRef.current,
-                width: 0,
-                marginLeft: '100%',
+                targets: outlineBRef.current,
+                width: '3%',
             },
-            '-=250',
+            '-=500',
         );
-        tl.add({
-            targets: outlineBRef.current,
-            width: 0,
-        });
         tl.add(
             {
                 targets: outlineRRef.current,
-                marginTop: [0, '100%'],
-                height: 0,
+                marginTop: [0, '97%'],
+                height: '3%',
             },
-            '-=250',
+            '-=500',
         );
-        tl.add({
-            targets: outlineLRef.current,
-            height: 0,
-        });
+        tl.add(
+            {
+                targets: outlineLRef.current,
+                height: '3%',
+            },
+            '-=500',
+        );
         tl.pause();
         borderTL.current = tl;
     }, []);
@@ -89,14 +115,14 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
         e.preventDefault();
         setIsDragOver(true);
         borderTL.current?.restart();
-        console.log('drag enter');
+        handleMouseEnter();
     };
 
     const handleDragLeave = (e: DragEvent<HTMLLabelElement>) => {
         e.preventDefault();
         setIsDragOver(false);
         borderTL.current?.pause();
-        console.log('drag leave');
+        handleMouseLeave();
     };
 
     const handleDrop = (e: DragEvent<HTMLLabelElement>) => {
@@ -146,26 +172,26 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
 
     return (
         <div className='relative flex w-full h-full' ref={containerRef}>
-            <div className={`absolute flex w-full h-full ${isDragOver ? '' : 'hidden'}`}>
+            <div className={`absolute flex w-full h-full ${isDragOver ? '' : 'hidden'} `}>
                 <div
-                    className='absolute w-full h-full rounded-lg border-blush border-t-2'
+                    className={`absolute w-full h-full border-blush border-t-2 bg-transparent ${roundFirst ? 'rounded-tl-lg' : ''} ${roundSecond ? 'rounded-tr-lg' : ''}`}
                     ref={outlineTRef}
                 />
                 <div
-                    className='absolute self-end w-full h-full rounded-lg border-blush border-b-2'
+                    className={`absolute self-end w-full h-full border-blush border-b-2 ${roundFirst ? 'rounded-br-lg' : ''} ${roundSecond ? 'rounded-bl-lg' : ''}`}
                     ref={outlineBRef}
                 />
                 <div
-                    className='absolute w-full h-full rounded-lg border-blush border-l-2'
+                    className={`absolute w-full h-full border-blush border-l-2 ${roundFirst ? 'rounded-bl-lg' : ''} ${roundSecond ? 'rounded-tl-lg' : ''}`}
                     ref={outlineLRef}
                 />
                 <div
-                    className='absolute w-full h-full rounded-lg border-blush border-r-2'
+                    className={`absolute w-full h-full border-blush border-r-2 ${roundFirst ? 'rounded-tr-lg' : ''} ${roundSecond ? 'rounded-br-lg' : ''}`}
                     ref={outlineRRef}
                 />
             </div>
             <label
-                className='flex flex-col z-10 gap-y-4 items-center justify-center box-border border-dashed border-blush border-2 w-full h-full text-blush cursor-pointer p-4 bg-transparent rounded-lg'
+                className='flex flex-col z-10 bg-clip-padding gap-y-4 items-center justify-center border-dashed border-blush border-2 w-full h-full text-blush cursor-pointer p-4 bg-transparent rounded-lg'
                 onDragOver={handleDragOver}
                 onDragEnter={handleDragEnter}
                 onDragLeave={handleDragLeave}
@@ -179,7 +205,7 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
                         src={image instanceof File ? URL.createObjectURL(image as File) : image}
                     />
                 ) : (
-                    <div className='z-0 w-[40px] h-[40px]' ref={iconRef}>
+                    <div className='z-0 w-[40px] h-[40px] pointer-events-none' ref={iconRef}>
                         <FontAwesomeIcon className='w-full h-full' icon={faArrowUpFromBracket} />
                     </div>
                 )}
