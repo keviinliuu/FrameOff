@@ -15,8 +15,8 @@ export default function StartPoll({ onStart }: StartPollProps) {
             <div className='flex flex-col items-center text-moonbeam md:text-2xl text-center'>
                 Time to vote on...
             </div>
-            <div className='flex flex-col items-center md:py-10 md:mt-10 px-14'>
-                <div className='text-blush text-4xl md:text-8xl text-center px-1 break-words w-fit'>
+            <div className='flex flex-col items-center md:py-10 md:mt-10 px-2 md:px-14'>
+                <div className='text-blush text-5xl md:text-8xl text-center px-1 break-words w-fit'>
                     {pollTitle}
                 </div>
             </div>

@@ -18,7 +18,7 @@ export default function VoteImage({ imgUrl, voteEnum, onVote }: VoteImageProps) 
     });
     return (
         <div
-            className='flex h-full flex-col items-center gap-y-4'
+            className='flex flex-col items-center'
             onMouseOver={() => {
                 setMouseOver(true);
             }}

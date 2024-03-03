@@ -2,6 +2,8 @@ import { useSlideStore } from '../../stores/useSlideStore.ts';
 import { useRef, useState, useEffect, useCallback } from 'react';
 
 import SlideView from '../slide/SlideView.tsx';
+import SlideViewArchive from '../slide/SlideViewArchive.tsx';
+
 import SlidePicker from './SlidePicker.tsx';
 
 const intersectionOptions = {
@@ -65,7 +67,7 @@ export default function ViewPoll() {
                         ref={addNode}
                         key={slide._id}
                         id={slide._id}>
-                        <SlideView
+                        <SlideViewArchive
                             key={slide._id}
                             title={slide.slideTitle}
                             imageOne={slide.image1}
