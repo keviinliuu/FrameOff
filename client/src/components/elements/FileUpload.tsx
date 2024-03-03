@@ -191,7 +191,7 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
                 />
             </div>
             <label
-                className='flex flex-col z-10 bg-clip-padding gap-y-4 items-center justify-center border-dashed border-blush border-2 w-full h-full text-blush cursor-pointer p-4 bg-transparent rounded-lg'
+                className={`flex flex-col z-10 bg-clip-padding gap-y-4 items-center justify-center border-blush border-2 w-full h-full text-blush cursor-pointer p-4 bg-transparent rounded-lg ${image && !isDragOver ? '' : 'border-dashed'}`}
                 onDragOver={handleDragOver}
                 onDragEnter={handleDragEnter}
                 onDragLeave={handleDragLeave}
@@ -201,7 +201,7 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
                 ref={bgRef}>
                 {image ? (
                     <img
-                        className='max-w-full aspect-square object-cover'
+                        className='max-w-full w-full aspect-square object-cover'
                         src={image instanceof File ? URL.createObjectURL(image as File) : image}
                     />
                 ) : (
