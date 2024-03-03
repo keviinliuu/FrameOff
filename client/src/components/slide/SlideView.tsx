@@ -355,14 +355,7 @@ export default function SlideView({
                             </button>
                         </div>
 
-                        <div className='flex flex-row gap-x-6 h-[14.8rem] md:h-[31.7rem] border items-end'>
-                            <div
-                                className={`border text-blush w-8 md:w-12 justify-end ${
-                                    votedFor == VotedEnum.IMAGE2 ? 'bg-fuchsia' : 'bg-charcoal'
-                                }`}
-                                // ref={barRef1}
-                                style={{ height: `${votesPercent2}%` }}></div>
-
+                        <div className='flex flex-row md:flex-row-reverse gap-x-6 h-[14.8rem] md:h-[31.7rem] border items-end'>
                             <div className='relative flex w-full items-center'>
                                 <VoteImage
                                     imgUrl={imageTwo.url as string}
@@ -444,6 +437,13 @@ export default function SlideView({
                                     </div>
                                 )}
                             </div>
+
+                            <div
+                                className={`border text-blush w-8 md:w-12 justify-end ${
+                                    votedFor == VotedEnum.IMAGE2 ? 'bg-fuchsia' : 'bg-charcoal'
+                                }`}
+                                // ref={barRef1}
+                                style={{ height: `${votesPercent2}%` }}></div>
                         </div>
 
                         <div className='flex flex-col border w-[14.5rem] md:w-[31.5rem] items-center'>
