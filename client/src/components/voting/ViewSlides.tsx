@@ -67,7 +67,7 @@ export default function ViewPoll() {
                         ref={addNode}
                         key={slide._id}
                         id={slide._id}>
-                        <SlideViewArchive
+                        <SlideView
                             key={slide._id}
                             title={slide.slideTitle}
                             imageOne={slide.image1}
