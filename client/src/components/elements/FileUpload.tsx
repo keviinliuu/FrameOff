@@ -201,7 +201,7 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
                 ref={bgRef}>
                 {image ? (
                     <img
-                        className='max-w-full aspect-square object-cover'
+                        className='max-w-full w-full aspect-square object-cover'
                         src={image instanceof File ? URL.createObjectURL(image as File) : image}
                     />
                 ) : (
