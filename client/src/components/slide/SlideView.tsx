@@ -218,8 +218,8 @@ export default function SlideView({
             <ExpandedImage open={expand} onClose={() => setExpand(false)}>
                 <img
                     src={expandedImage?.url as string}
-                    className='m-auto max-w-full max-h-full rounded-lg object-contain'
-                    style={{ maxHeight: '90vh', maxWidth: '95vh' }}></img>
+                    className='m-auto max-w-[40vh] md:max-w-[90vh] max-h-[95vh] rounded-lg object-contain'
+                    ></img>
             </ExpandedImage>
 
             <div className='flex flex-col w-full justify-start items-center gap-y-2 md:justify-evenly translate-y-6'>
@@ -302,11 +302,11 @@ export default function SlideView({
                                                     </svg>
                                                 )}
                                             </div>
-                                            <div className='px-3 mt-2 flex flex-col items-center justify-center gap-0 md:gap-2'>
+                                            <div className='px-4 mt-2 flex flex-col items-center justify-center gap-0 md:gap-2'>
                                                 <p
                                                     className='text-main text-center text-sm md:text-xl text-moonbeam'
                                                     ref={votesRef1}>
-                                                    {`${votesImage1} votes`}
+                                                    {`${votesImage1} vote${votesImage1 !== 1 ? 's' : ''}`}
                                                 </p>
                                                 <p
                                                     className={`text-main text-center text-3xl md:text-7xl opacity-0 ${
@@ -390,22 +390,6 @@ export default function SlideView({
                                             className='m-4 px-12 flex w-5/6 max-w-5/6 flex-row items-center justify-around rounded-lg bg-midnight'
                                             style={{ height: '30%' }}
                                             ref={boxRef2}>
-                                            <div className='px-3 mt-2 flex flex-col items-center justify-center gap-0 md:gap-2'>
-                                                <p
-                                                    className='text-main text-center text-sm md:text-xl text-moonbeam'
-                                                    ref={votesRef2}>
-                                                    {`${votesImage2} votes`}
-                                                </p>
-                                                <p
-                                                    className={`text-main text-center text-3xl md:text-7xl opacity-0 ${
-                                                        votedFor == VotedEnum.IMAGE2
-                                                            ? 'text-fuchsia'
-                                                            : 'text-charcoal'
-                                                    }`}
-                                                    ref={percentRef2}>
-                                                    {`${votesPercent2}%`}
-                                                </p>
-                                            </div>
                                             <div className='opacity-1 h-3/4'>
                                                 {votedFor == VotedEnum.IMAGE2 ? (
                                                     <svg
@@ -433,6 +417,22 @@ export default function SlideView({
                                                         />
                                                     </svg>
                                                 )}
+                                            </div>
+                                            <div className='px-4 mt-2 flex flex-col items-center justify-center gap-0 md:gap-2'>
+                                                <p
+                                                    className='text-main text-center text-sm md:text-xl text-moonbeam'
+                                                    ref={votesRef2}>
+                                                    {`${votesImage2} vote${votesImage2 !== 1 ? 's' : ''}`}
+                                                </p>
+                                                <p
+                                                    className={`text-main text-center text-3xl md:text-7xl opacity-0 ${
+                                                        votedFor == VotedEnum.IMAGE2
+                                                            ? 'text-fuchsia'
+                                                            : 'text-charcoal'
+                                                    }`}
+                                                    ref={percentRef2}>
+                                                    {`${votesPercent2}%`}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
