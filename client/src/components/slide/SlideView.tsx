@@ -222,14 +222,14 @@ export default function SlideView({
                     style={{ maxHeight: '90vh', maxWidth: '95vh' }}></img>
             </ExpandedImage>
 
-            <div className='flex flex-col w-full justify-start items-center gap-y-2 md:gap-y-4 translate-y-6'>
+            <div className='flex flex-col w-full justify-start items-center gap-y-2 md:justify-evenly translate-y-6'>
                 {title && (
                     <div className='text-2xl md:text-4xl text-raspberry text-center'>{title}</div>
                 )}
 
-                <div className='flex flex-col md:flex-row w-full justify-center items-center gap-y-2 md:gap-x-10 translate-x-4 md:translate-x-0'>
-                    <div className='flex flex-col border w-[18rem] md:w-[32rem]'>
-                        <div className='flex flex-col border w-[15rem] md:w-[28rem] items-center'>
+                <div className='flex flex-col md:flex-row w-full justify-center items-center gap-y-2 md:justify-evenly md:px-14 translate-x-4 md:translate-x-0'>
+                    <div className='flex flex-col w-[18rem] md:w-[32rem]'>
+                        <div className='flex flex-col w-[15rem] md:w-[28rem] items-center'>
                             <button
                                 onClick={() => {
                                     setExpand(true);
@@ -240,7 +240,7 @@ export default function SlideView({
                             </button>
                         </div>
 
-                        <div className='flex flex-row gap-x-4 h-[15.1rem] md:h-[28.5rem] border items-end'>
+                        <div className='flex flex-row gap-x-4 h-[15.1rem] md:h-[28.5rem] items-end'>
                             <div className='relative flex w-full items-center'>
                                 <VoteImage
                                     imgUrl={imageOne.url as string}
@@ -324,14 +324,14 @@ export default function SlideView({
                             </div>
 
                             <div
-                                className={`border text-blush w-8 md:w-10 justify-end ${
+                                className={`text-blush w-8 md:w-10 justify-end ${
                                     votedFor == VotedEnum.IMAGE1 ? 'bg-fuchsia' : 'bg-charcoal'
                                 }`}
                                 ref={barRef1}
                                 style={{ height: `${votesPercent1}%` }}></div>
                         </div>
 
-                        <div className='flex flex-col border w-[15rem] md:w-[28rem] items-center'>
+                        <div className='flex flex-col w-[15rem] md:w-[28rem] items-center'>
                             {imageOne.caption && (
                                 <div className='text-xl md:text-3xl text-blush pt-1 md:pt-5'>
                                     {imageOne.caption}
@@ -344,8 +344,8 @@ export default function SlideView({
                         VS
                     </div>
 
-                    <div className='flex flex-col md:items-end border w-[18rem] md:w-[32rem]'>
-                        <div className='flex flex-col border w-[15rem] md:w-[28rem] items-center'>
+                    <div className='flex flex-col md:items-end w-[18rem] md:w-[32rem]'>
+                        <div className='flex flex-col w-[15rem] md:w-[28rem] items-center'>
                             <button
                                 onClick={() => {
                                     setExpand(true);
@@ -356,7 +356,7 @@ export default function SlideView({
                             </button>
                         </div>
 
-                        <div className='flex flex-row md:flex-row-reverse gap-x-4 h-[15.1rem] md:h-[28.5rem] border items-end'>
+                        <div className='flex flex-row md:flex-row-reverse gap-x-4 h-[15.1rem] md:h-[28.5rem] items-end'>
                             <div className='relative flex w-full items-center'>
                                 <VoteImage
                                     imgUrl={imageTwo.url as string}
@@ -440,14 +440,14 @@ export default function SlideView({
                             </div>
 
                             <div
-                                className={`border text-blush w-8 md:w-10 justify-end ${
+                                className={`text-blush w-8 md:w-10 justify-end ${
                                     votedFor == VotedEnum.IMAGE2 ? 'bg-fuchsia' : 'bg-charcoal'
                                 }`}
                                 ref={barRef2}
                                 style={{ height: `${votesPercent2}%` }}></div>
                         </div>
 
-                        <div className='flex flex-col border w-[15rem] md:w-[28rem] items-center'>
+                        <div className='flex flex-col w-[15rem] md:w-[28rem] items-center'>
                             {imageTwo.caption && (
                                 <div className='text-xl md:text-3xl text-blush pt-1 md:pt-5'>
                                     {imageTwo.caption}
