@@ -2,7 +2,6 @@ import { useSlideStore } from '../../stores/useSlideStore.ts';
 import { useRef, useState, useEffect, useCallback } from 'react';
 
 import SlideView from '../slide/SlideView.tsx';
-import SlideViewArchive from '../slide/SlideViewArchive.tsx';
 
 import SlidePicker from './SlidePicker.tsx';
 

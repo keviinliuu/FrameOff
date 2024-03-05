@@ -222,15 +222,14 @@ export default function SlideView({
                     style={{ maxHeight: '90vh', maxWidth: '95vh' }}></img>
             </ExpandedImage>
 
-            <div className='flex flex-col w-full justify-start items-center'>
+            <div className='flex flex-col w-full justify-start items-center gap-y-2 md:gap-y-4 translate-y-6'>
                 {title && (
                     <div className='text-2xl md:text-4xl text-raspberry text-center'>{title}</div>
                 )}
 
-                <div className='flex flex-col md:flex-row w-full justify-center items-center gap-y-10 md:gap-x-20'>
-                    {/* OUTER BOX */}
-                    <div className='flex flex-col border w-[18rem] md:w-[36rem]'>
-                        <div className='flex flex-col border w-[14.5rem] md:w-[31.5rem] items-center'>
+                <div className='flex flex-col md:flex-row w-full justify-center items-center gap-y-2 md:gap-x-10 translate-x-4 md:translate-x-0'>
+                    <div className='flex flex-col border w-[18rem] md:w-[32rem]'>
+                        <div className='flex flex-col border w-[15rem] md:w-[28rem] items-center'>
                             <button
                                 onClick={() => {
                                     setExpand(true);
@@ -241,7 +240,7 @@ export default function SlideView({
                             </button>
                         </div>
 
-                        <div className='flex flex-row gap-x-6 h-[14.8rem] md:h-[31.7rem] border items-end'>
+                        <div className='flex flex-row gap-x-4 h-[15.1rem] md:h-[28.5rem] border items-end'>
                             <div className='relative flex w-full items-center'>
                                 <VoteImage
                                     imgUrl={imageOne.url as string}
@@ -325,14 +324,14 @@ export default function SlideView({
                             </div>
 
                             <div
-                                className={`border text-blush w-8 md:w-12 justify-end ${
+                                className={`border text-blush w-8 md:w-10 justify-end ${
                                     votedFor == VotedEnum.IMAGE1 ? 'bg-fuchsia' : 'bg-charcoal'
                                 }`}
-                                // ref={barRef1}
+                                ref={barRef1}
                                 style={{ height: `${votesPercent1}%` }}></div>
                         </div>
 
-                        <div className='flex flex-col border w-[14.5rem] md:w-[31.5rem] items-center'>
+                        <div className='flex flex-col border w-[15rem] md:w-[28rem] items-center'>
                             {imageOne.caption && (
                                 <div className='text-xl md:text-3xl text-blush pt-1 md:pt-5'>
                                     {imageOne.caption}
@@ -341,10 +340,12 @@ export default function SlideView({
                         </div>
                     </div>
 
-                    <div className='flex items-center text-xl md:text-3xl text-blush'>VS</div>
+                    <div className='flex items-center text-xl md:text-3xl text-blush -translate-x-6 md:translate-x-0'>
+                        VS
+                    </div>
 
-                    <div className='flex flex-col items-end border w-[18rem] md:w-[36rem]'>
-                        <div className='flex flex-col border w-[14.5rem] md:w-[31.5rem] items-center'>
+                    <div className='flex flex-col md:items-end border w-[18rem] md:w-[32rem]'>
+                        <div className='flex flex-col border w-[15rem] md:w-[28rem] items-center'>
                             <button
                                 onClick={() => {
                                     setExpand(true);
@@ -355,7 +356,7 @@ export default function SlideView({
                             </button>
                         </div>
 
-                        <div className='flex flex-row md:flex-row-reverse gap-x-6 h-[14.8rem] md:h-[31.7rem] border items-end'>
+                        <div className='flex flex-row md:flex-row-reverse gap-x-4 h-[15.1rem] md:h-[28.5rem] border items-end'>
                             <div className='relative flex w-full items-center'>
                                 <VoteImage
                                     imgUrl={imageTwo.url as string}
@@ -439,14 +440,14 @@ export default function SlideView({
                             </div>
 
                             <div
-                                className={`border text-blush w-8 md:w-12 justify-end ${
+                                className={`border text-blush w-8 md:w-10 justify-end ${
                                     votedFor == VotedEnum.IMAGE2 ? 'bg-fuchsia' : 'bg-charcoal'
                                 }`}
-                                // ref={barRef1}
+                                ref={barRef2}
                                 style={{ height: `${votesPercent2}%` }}></div>
                         </div>
 
-                        <div className='flex flex-col border w-[14.5rem] md:w-[31.5rem] items-center'>
+                        <div className='flex flex-col border w-[15rem] md:w-[28rem] items-center'>
                             {imageTwo.caption && (
                                 <div className='text-xl md:text-3xl text-blush pt-1 md:pt-5'>
                                     {imageTwo.caption}
@@ -456,238 +457,14 @@ export default function SlideView({
                     </div>
                 </div>
             </div>
-            {/* <div className='flex w-full flex-col md:flex-row items-center justify-center gap-x-16'>
-                <div className='flex flex-col items-center gap-y-8' style={{ width: `30%` }}>
-                    <div className='relative flex w-full flex-row gap-x-4'>
-                        <div className='relative flex w-full flex-col items-center'>
-                            <div>
-                                <button
-                                    onClick={() => {
-                                        setExpand(true);
-                                        setExpandedImage(imageOne);
-                                    }}
-                                    className='font-main text-graphite hover:text-slate duration-150'>
-                                    Expand
-                                </button>
-                            </div>
-                            <div className='relative flex w-full flex-col items-center'>
-                                <VoteImage
-                                    imgUrl={imageOne.url as string}
-                                    voteEnum={VotedEnum.IMAGE1}
-                                    onVote={onVote}
-                                />
-                                {voted && (
-                                    <div
-                                        className={`absolute flex aspect-square h-full w-full items-end justify-center rounded-lg bg-opacity-50 ${
-                                            votedFor == VotedEnum.IMAGE1 ? 'bg-plum' : 'bg-midnight'
-                                        }`}>
-                                        {votedFor == VotedEnum.IMAGE1 && (
-                                            <div
-                                                className='absolute self-start rounded-lg border-t-4 border-l-4 border-r-4 border-fuchsia'
-                                                ref={borderRef1}
-                                            />
-                                        )}
-                                        {votedFor == VotedEnum.IMAGE1 && (
-                                            <div
-                                                className='absolute w-0 left-0 rounded-lg border-b-4 border-fuchsia'
-                                                ref={borderBotRefL1}
-                                            />
-                                        )}
-                                        {votedFor == VotedEnum.IMAGE1 && (
-                                            <div
-                                                className='absolute w-0 right-0 rounded-lg border-b-4 border-fuchsia'
-                                                ref={borderBotRefR1}
-                                            />
-                                        )}
-                                        <div
-                                            className='m-4 px-12 flex w-5/6 max-w-5/6 flex-row items-center justify-around rounded-lg bg-midnight'
-                                            style={{ height: '30%' }}
-                                            ref={boxRef1}>
-                                            <div className='opacity-1 h-3/4'>
-                                                {votedFor == VotedEnum.IMAGE1 ? (
-                                                    <svg
-                                                        className='stroke-fuchsia h-full'
-                                                        viewBox='0 0 456 512'
-                                                        fill='none'>
-                                                        <path
-                                                            ref={pathRef1}
-                                                            d='M35.9492 256.051L163.949 384.051L419.949 128.051'
-                                                            strokeWidth='64'
-                                                            strokeLinecap='round'
-                                                        />
-                                                    </svg>
-                                                ) : (
-                                                    <svg
-                                                        className='stroke-charcoal h-full'
-                                                        viewBox='0 0 512 512'
-                                                        fill='none'
-                                                        xmlns='http://www.w3.org/2000/svg'>
-                                                        <path
-                                                            ref={pathRef1}
-                                                            d='M24 256C24 127.87 127.87 24 256 24C384.13 24 488 127.87 488 256C488 384.13 384.13 488 256 488C127.87 488 24 384.13 24 256Z'
-                                                            strokeWidth='49.7143'
-                                                            strokeLinecap='round'
-                                                        />
-                                                    </svg>
-                                                )}
-                                            </div>
-                                            <div className='mt-2 w-1/2 flex flex-col items-center justify-center gap-2'>
-                                                <p
-                                                    className='text-main text-center text-xl text-moonbeam'
-                                                    ref={votesRef1}>
-                                                    {`${votesImage1} votes`}
-                                                </p>
-                                                <p
-                                                    className={`text-main text-center text-7xl opacity-0 ${
-                                                        votedFor == VotedEnum.IMAGE1
-                                                            ? 'text-fuchsia'
-                                                            : 'text-charcoal'
-                                                    }`}
-                                                    ref={percentRef1}>
-                                                    {`${votesPercent1}%`}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
 
-                        <div className='flex flex-col justify-end'>
-                            <div
-                                className={`w-8 ${
-                                    votedFor == VotedEnum.IMAGE1 ? 'bg-fuchsia' : 'bg-charcoal'
-                                }`}
-                                ref={barRef1}
-                                style={{ height: `${votesPercent1}%` }}></div>
-                        </div>
-                    </div>
-                    {imageOne.caption && (
-                        <div className='text-3xl text-blush'>{imageOne.caption}</div>
-                    )}
-                </div>
-                <div className='flex flex-col items-center gap-y-4'>
-                    <div className='flex items-center text-3xl text-blush'>VS</div>
-                </div>
-                <div className='flex w-1/4 flex-col items-center gap-y-8' style={{ width: `30%` }}>
-                    <div className='relative flex flex-row gap-x-4'>
-                        <div className='flex flex-col justify-end'>
-                            <div
-                                className={`w-8 ${
-                                    votedFor == VotedEnum.IMAGE2 ? 'bg-fuchsia' : 'bg-charcoal'
-                                }`}
-                                ref={barRef2}
-                                style={{ height: `${votesPercent2}%` }}></div>
-                        </div>
-
-                        <div className='relative flex w-full flex-col items-center'>
-                            <div>
-                                <button
-                                    onClick={() => {
-                                        setExpand(true);
-                                        setExpandedImage(imageTwo);
-                                    }}
-                                    className='font-main text-graphite hover:text-slate duration-150'>
-                                    Expand
-                                </button>
-                            </div>
-                            <div className='relative flex w-full flex-col items-center'>
-                                <VoteImage
-                                    imgUrl={imageTwo.url as string}
-                                    voteEnum={VotedEnum.IMAGE2}
-                                    onVote={onVote}
-                                />
-                                {voted && (
-                                    <div
-                                        className={`absolute flex aspect-square h-full w-full items-end justify-center rounded-lg bg-opacity-50 ${
-                                            votedFor == VotedEnum.IMAGE2 ? 'bg-plum' : 'bg-midnight'
-                                        }`}>
-                                        {votedFor == VotedEnum.IMAGE2 && (
-                                            <div
-                                                className='absolute self-start rounded-lg border-t-4 border-l-4 border-r-4 border-fuchsia'
-                                                ref={borderRef2}
-                                            />
-                                        )}
-                                        {votedFor == VotedEnum.IMAGE2 && (
-                                            <div
-                                                className='absolute w-1/2 left-0 rounded-lg border-b-4 border-fuchsia'
-                                                ref={borderBotRefL2}
-                                            />
-                                        )}
-                                        {votedFor == VotedEnum.IMAGE2 && (
-                                            <div
-                                                className='absolute w-1/2 right-0 rounded-lg border-b-4 border-fuchsia'
-                                                ref={borderBotRefR2}
-                                            />
-                                        )}
-                                        <div
-                                            className='m-4 px-12 flex w-5/6 max-w-5/6 flex-row items-center justify-around rounded-lg bg-midnight'
-                                            style={{ height: '30%' }}
-                                            ref={boxRef2}>
-                                            <div className='mt-2 w-1/2 flex flex-col items-center justify-center gap-2'>
-                                                <p
-                                                    className='text-main text-center text-xl text-moonbeam'
-                                                    ref={votesRef2}>
-                                                    {`${votesImage2} votes`}
-                                                </p>
-                                                <p
-                                                    className={`text-main text-center text-7xl opacity-0 ${
-                                                        votedFor == VotedEnum.IMAGE2
-                                                            ? 'text-fuchsia'
-                                                            : 'text-charcoal'
-                                                    }`}
-                                                    ref={percentRef2}>
-                                                    {`${votesPercent2}%`}
-                                                </p>
-                                            </div>
-                                            <div className='opacity-1 h-3/4'>
-                                                {votedFor == VotedEnum.IMAGE2 ? (
-                                                    <svg
-                                                        className='stroke-fuchsia h-full'
-                                                        viewBox='0 0 456 512'
-                                                        fill='none'>
-                                                        <path
-                                                            ref={pathRef2}
-                                                            d='M35.9492 256.051L163.949 384.051L419.949 128.051'
-                                                            strokeWidth='64'
-                                                            strokeLinecap='round'
-                                                        />
-                                                    </svg>
-                                                ) : (
-                                                    <svg
-                                                        className='stroke-charcoal h-full'
-                                                        viewBox='0 0 512 512'
-                                                        fill='none'
-                                                        xmlns='http://www.w3.org/2000/svg'>
-                                                        <path
-                                                            ref={pathRef2}
-                                                            d='M24 256C24 127.87 127.87 24 256 24C384.13 24 488 127.87 488 256C488 384.13 384.13 488 256 488C127.87 488 24 384.13 24 256Z'
-                                                            strokeWidth='49.7143'
-                                                            strokeLinecap='round'
-                                                        />
-                                                    </svg>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-
-                    {imageTwo.caption && (
-                        <div className='text-3xl text-blush'>{imageTwo.caption}</div>
-                    )}
-                </div>
-            </div> */}
-
-            {/* <div className='text-blush pt-10 text-5xl animate-bounce'>
+            <div className='absolute bottom-1 text-blush pt-10 text-3xl md:text-5xl animate-bounce'>
                 {voted && slideIndex + 1 !== totalSlideCount && (
                     <button onClick={scrollDown} style={voted ? mountedStyle : unmountedStyle}>
                         <FontAwesomeIcon icon={faChevronDown} />
                     </button>
                 )}
-            </div> */}
+            </div>
         </Slide>
     );
 }
