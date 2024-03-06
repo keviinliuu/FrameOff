@@ -180,7 +180,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             <div className='absolute flex flex-row w-full top-0 left-0 right-0 justify-center items-center p-8 pb-0'>
                 <div className='flex flex-col gap-y-1 md:gap-y-4 items-center pt-8 md:pt-4'>
                     <div className='text-moonbeam text-xl'>Cooking up</div>
-                    <div className='text-3xl md:text-5xl text-blush'>{pollTitle}</div>
+                    <div className='text-3xl md:text-5xl text-blush text-center'>{pollTitle}</div>
                 </div>
                 <button
                     onClick={() => {
