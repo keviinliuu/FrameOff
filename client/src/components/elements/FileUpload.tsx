@@ -15,9 +15,15 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
     const outlineLRef = useRef(null);
     const outlineRRef = useRef(null);
     const containerRef = useRef(null);
+    const imageRef = useRef(null);
+
     const borderTL = useRef<AnimeTimelineInstance | null>(null);
+
     const [roundFirst, setRoundFirst] = useState(true);
     const [roundSecond, setRoundSecond] = useState(false);
+    const [dropX, setDropX] = useState(0);
+    const [dropY, setDropY] = useState(0);
+    const [maskRad, setMaskRad] = useState(0);
 
     const [isDragOver, setIsDragOver] = useState(false);
 
@@ -136,6 +142,19 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
                 alert('Only PNG or JPEG files are allowed!');
             }
         }
+        const target = e.target as HTMLElement;
+        const rect = target.getBoundingClientRect();
+        setDropX(e.clientX - rect.left);
+        setDropY(e.clientY - rect.top);
+
+        anime({
+            targets: imageRef,
+            duration: 500,
+            change: anim => {
+                setMaskRad(anim.progress * 2);
+            },
+            easing: 'easeInOutCubic',
+        });
     };
 
     const handleMouseEnter = () => {
@@ -191,7 +210,7 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
                 />
             </div>
             <label
-                className={`flex flex-col z-10 bg-clip-padding gap-y-4 items-center justify-center border-blush border-2 w-full h-full text-blush cursor-pointer p-4 bg-transparent rounded-lg ${image && !isDragOver ? '' : 'border-dashed'}`}
+                className={`flex flex-col z-10 bg-clip-padding gap-y-4 items-center justify-center border-blush border-2 w-full h-full text-blush cursor-pointer bg-transparent rounded-lg ${image && !isDragOver ? '' : 'border-dashed'}`}
                 onDragOver={handleDragOver}
                 onDragEnter={handleDragEnter}
                 onDragLeave={handleDragLeave}
@@ -201,8 +220,10 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
                 ref={bgRef}>
                 {image ? (
                     <img
-                        className='max-w-full w-full aspect-square object-cover'
+                        className='max-w-full w-full aspect-square object-cover rounded-lg'
+                        style={{ clipPath: `Circle(${maskRad}% at ${dropX}px ${dropY}px)` }}
                         src={image instanceof File ? URL.createObjectURL(image as File) : image}
+                        ref={imageRef}
                     />
                 ) : (
                     <div className='z-0 w-[40px] h-[40px] pointer-events-none' ref={iconRef}>
