@@ -38,11 +38,11 @@ export default function PollInfo({ setTitle, setDescription, onContinue }: PollI
     };
 
     return (
-        <div className='relative flex flex-col justify-center items-center gap-y-4 min-h-screen bg-midnight snap-start snap-always'>
+        <div className='relative flex flex-col justify-center items-center gap-y-4 min-h-screen snap-start snap-always'>
             <div className='text-white text-xl md:text-2xl'>Give your duel a title!</div>
 
             <input
-                className={`w-screen md:w-[180%] placeholder:text-xl md:placeholder:text-2xl text-xl md:text-2xl rounded-lg border-2 border-plum bg-nocturne py-3 text-center text-blush placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0 transition ease-in-out ${titleAtMax ? 'wobble' : ''}`}
+                className={`w-[110%] md:w-[180%] placeholder:text-xl md:placeholder:text-2xl text-xl md:text-2xl rounded-lg border-2 border-plum bg-nocturne py-3 text-center text-blush placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0 transition ease-in-out ${titleAtMax ? 'wobble' : ''}`}
                 placeholder='Enter title...'
                 maxLength={maxTitleChars}
                 onChange={handleTitleChange}
@@ -52,7 +52,7 @@ export default function PollInfo({ setTitle, setDescription, onContinue }: PollI
                 and a description too! (if you want...)
             </div>
             <textarea
-                className={`w-screen md:w-[180%] placeholder:text-xl md:placeholder:text-2xl text-xl md:text-2xl rounded-lg border-2 border-plum bg-nocturne py-3 px-2 text-center text-blush placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0 transition ease-in-out resize-none ${descAtMax ? 'wobble' : ''}`}
+                className={`w-[110%] md:w-[180%] max-h-64 placeholder:text-xl md:placeholder:text-2xl text-xl md:text-2xl rounded-lg border-2 border-plum bg-nocturne py-4 md:py-3 px-2 text-center text-blush placeholder:text-plum focus:border-blush focus:outline-none focus:ring-0 transition ease-in-out resize-none ${descAtMax ? 'wobble' : ''}`}
                 placeholder='Enter description... (optional)'
                 maxLength={180}
                 rows={1}

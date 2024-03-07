@@ -178,18 +178,18 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                 onFinish={handleFinish}></FinishPopup>
 
             <div className='absolute flex flex-row w-full top-0 left-0 right-0 justify-center items-center p-8 pb-0'>
-                <div className='flex flex-col gap-y-4 items-center'>
+                <div className='flex flex-col gap-y-1 md:gap-y-4 items-center pt-8 md:pt-4'>
                     <div className='text-moonbeam text-xl'>Cooking up</div>
-                    <div className='text-5xl text-blush'>{pollTitle}</div>
+                    <div className='text-3xl md:text-5xl text-blush text-center'>{pollTitle}</div>
                 </div>
                 <button
                     onClick={() => {
                         setFinish(true);
                     }}
-                    className='absolute right-10 transition ease-in-out delay-150 duration-300 enabled:hover:scale-105 flex h-12 p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg disabled:opacity-30 select-none'
+                    className='absolute right-4 md:right-10 transition ease-in-out delay-150 duration-300 enabled:hover:scale-105 flex h-10 md:h-12 p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg disabled:opacity-30 select-none'
                     disabled={!slidesAreValid}>
                     <FontAwesomeIcon icon={faCheck} size='xl' className='self-center' />
-                    <p className='flex items-center text-2xl align-middle translate-y-0.5'>
+                    <p className='hidden md:flex items-center text-md md:text-2xl align-middle translate-y-0.5'>
                         Finish
                     </p>
                 </button>
@@ -201,7 +201,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                     <div>You have no slides! Press the button to create your first slide!</div>
                 )}
             </div>
-            <div className='absolute flex bottom-0 left-0 right-0 justify-center p-8 pt-0'>
+            <div className='absolute flex bottom-0 left-0 right-0 justify-center p-8 pt-0 text-xs md:text-lg'>
                 <FontAwesomeIcon
                     className='text-blush cursor-pointer'
                     icon={faCirclePlus}
@@ -210,12 +210,11 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                 />
             </div>
             <SlidePicker activeIndex={activeIndex} activeCount={activeCount} scrollTo={scrollTo} />
-            <div className='flex absolute bottom-0 left-0 p-8'>
+            <div className='flex absolute bottom-0 left-0 p-8 text-3xl md:text-5xl'>
                 <button disabled={deleting} onClick={onDeleteClick}>
                     <FontAwesomeIcon
                         className={`text-blush ${activeCount > 1 ? 'cursor-pointer' : 'opacity-30'}`}
                         icon={faTrashCan}
-                        size='3x'
                     />
                 </button>
             </div>

@@ -226,7 +226,7 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
                         ref={imageRef}
                     />
                 ) : (
-                    <div className='z-0 w-[40px] h-[40px] pointer-events-none' ref={iconRef}>
+                    <div className='z-0 w-[20px] h-[20px] md:w-[40px] md:h-[40px] pointer-events-none' ref={iconRef}>
                         <FontAwesomeIcon className='w-full h-full' icon={faArrowUpFromBracket} />
                     </div>
                 )}
