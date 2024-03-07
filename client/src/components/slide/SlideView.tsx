@@ -218,8 +218,7 @@ export default function SlideView({
             <ExpandedImage open={expand} onClose={() => setExpand(false)}>
                 <img
                     src={expandedImage?.url as string}
-                    className='m-auto max-w-[40vh] md:max-w-[90vh] max-h-[95vh] rounded-lg object-contain'
-                    ></img>
+                    className='m-auto max-w-[40vh] md:max-w-[90vh] max-h-[95vh] rounded-lg object-contain'></img>
             </ExpandedImage>
 
             <div className='flex flex-col w-full justify-start items-center gap-y-2 md:justify-evenly translate-y-6'>

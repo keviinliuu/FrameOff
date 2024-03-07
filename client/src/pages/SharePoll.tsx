@@ -69,9 +69,7 @@ export default function SharePoll() {
 
             <div className='flex flex-col space-y-1.5 w-screen px-5 md:w-[28rem] md:px-0'>
                 <div>
-                    <div className='text-blush text-2xl md:text-3xl'>
-                        Share on social media
-                    </div>
+                    <div className='text-blush text-2xl md:text-3xl'>Share on social media</div>
                 </div>
 
                 <ShareButton

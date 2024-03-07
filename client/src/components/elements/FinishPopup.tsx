@@ -26,9 +26,7 @@ export default function FinishPopup({ open, onClose, onFinish }: FinishPopupProp
                     <FontAwesomeIcon icon={faXmark} size='xl' />
                 </button>
 
-                <div className='text-4xl text-center text-blush font-main mt-1 mb-4'>
-                    Finished?
-                </div>
+                <div className='text-4xl text-center text-blush font-main mt-1 mb-4'>Finished?</div>
 
                 <div className='text-2xl text-center text-white font-main px-16'>
                     NOTE: Once you create this poll, you won't be able to go back and make any more

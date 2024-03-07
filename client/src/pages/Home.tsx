@@ -47,7 +47,7 @@ export default function Home() {
                 </div>
             </div>
             <div className='relative flex flex-col items-center select-none text-3xl md:text-7xl font-extrabold leading-[0.75] tracking-[-0.05em] text-nocturne'>
-                <div className="marquee">
+                <div className='marquee'>
                     <div className='track1'>
                         a picture is worth a thousand words. a picture is worth a thousand words. a
                         picture is worth a thousand words. a picture is worth a thousand words. a
@@ -59,14 +59,14 @@ export default function Home() {
                         thousand words. a picture is worth{' '}
                     </div>
                     <div className='track1'>
-                        words. a picture is worth a thousand words. a picture is worth a thousand words.
-                        a picture is worth a thousand words. a picture is worth a thousand words. a
-                        picture is worth a thousand{' '}
+                        words. a picture is worth a thousand words. a picture is worth a thousand
+                        words. a picture is worth a thousand words. a picture is worth a thousand
+                        words. a picture is worth a thousand{' '}
                     </div>
                     <div className='track2'>
                         is worth a thousand words. a picture is worth a thousand words. a picture is
-                        worth a thousand words. a picture is worth a thousand words. a picture is worth
-                        a thousand words. a picture{' '}
+                        worth a thousand words. a picture is worth a thousand words. a picture is
+                        worth a thousand words. a picture{' '}
                     </div>
                 </div>
                 <div

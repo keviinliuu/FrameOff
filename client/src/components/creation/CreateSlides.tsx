@@ -60,7 +60,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
         }
     };
     const handleDeleteSlide = (i: number) => {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             const target = document.getElementById(getSlideFromIndex(i)!._id);
             if (activeIndex != 0) {
                 document.getElementById(getSlideFromIndex(activeIndex - 1)?._id!)?.scrollIntoView();
@@ -68,12 +68,12 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             } else {
                 document.getElementById(getSlideFromIndex(activeIndex + 1)?._id!)?.scrollIntoView();
             }
-    
+
             if (target) {
                 deleteSlideByIndex(i);
                 setActiveCount(getSlideCount());
             }
-    
+
             setTimeout(() => {
                 if (target) {
                     observer.current?.unobserve(target);
@@ -81,15 +81,15 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                 }
             }, 400);
             resolve(true);
-        })
+        });
     };
     const onDeleteClick = async () => {
-        if(activeCount > 1) {
+        if (activeCount > 1) {
             setDeleting(true);
             await handleDeleteSlide(activeIndex);
             setDeleting(false);
         }
-    }
+    };
     const handleFinish = async () => {
         setFinishPoll(true);
         await generateSlideImages();
