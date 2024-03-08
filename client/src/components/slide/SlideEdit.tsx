@@ -68,34 +68,34 @@ export default function SlideEdit({
     return (
         <Slide>
             <input
-                className={`text-raspberry w-2/3 md:w-1/3 ${commonInputClass} ${titleAtMax ? 'wobble' : ''}`}
+                className={`text-raspberry w-2/3 md:w-1/3 sm:translate-y-2 placeholder:text-xl text-xl md:placeholder:text-3xl md:text-3xl ${commonInputClass} ${titleAtMax ? 'wobble' : ''}`}
                 onChange={handleTitleChange}
-                placeholder='Enter title... (optional)'
+                placeholder='Enter title'
                 maxLength={maxTitleChars}
             />
             <div className='flex flex-col md:flex-row w-full gap-y-2 md:gap-x-36 justify-center items-center'>
-                <div className='flex h-1/4 md:w-1/4 flex-col gap-y-1 md:gap-y-8 items-center'>
+                <div className='flex w-3/5 md:w-1/4 flex-col gap-y-1 md:gap-y-8 items-center'>
                     <div className='aspect-square w-full'>
                         <FileUpload image={imageOne} onChange={handleImageOne} />
                     </div>
                     <input
-                        className={`placeholder:text-base md:placeholder:text-2xl w-54 md:w-96 text-sm' ${commonInputClass} ${captionOneAtMax ? 'wobble' : ''}`}
+                        className={`placeholder:text-base text-base md:placeholder:text-2xl w-56 md:w-96' ${commonInputClass} ${captionOneAtMax ? 'wobble' : ''}`}
                         onChange={handleCapOneChange}
-                        placeholder='Enter caption... (optional)'
+                        placeholder='Enter caption'
                         maxLength={maxCaptionChars}
                     />
                 </div>
                 <div className='flex flex-col gap-y-4 items-center'>
-                    <div className='flex text-xl md:text-3xl items-center text-blush'>VS</div>
+                    <div className='flex text-xl md:text-3xl items-center text-blush pb-4'>VS</div>
                 </div>
-                <div className='flex h-1/4 md:w-1/4 flex-col gap-y-1 md:gap-y-8 items-center'>
+                <div className='flex w-3/5 md:w-1/4 flex-col gap-y-1 md:gap-y-8 items-center'>
                     <div className='aspect-square w-full'>
                         <FileUpload image={imageTwo} onChange={handleImageTwo} />
                     </div>
                     <input
-                        className={`placeholder:text-base md:placeholder:text-2xl w-54 md:w-96 text-sm' ${commonInputClass} ${captionTwoAtMax ? 'wobble' : ''}`}
+                        className={`placeholder:text-base text-base md:placeholder:text-2xl w-56 md:w-96' ${commonInputClass} ${captionTwoAtMax ? 'wobble' : ''}`}
                         onChange={handleCapTwoChange}
-                        placeholder='Enter caption... (optional)'
+                        placeholder='Enter caption'
                         maxLength={maxCaptionChars}
                     />
                 </div>

@@ -228,7 +228,7 @@ export default function SlideView({
 
                 <div className='flex flex-col md:flex-row w-full justify-center items-center gap-y-2 md:justify-evenly md:px-14 translate-x-4 md:translate-x-0'>
                     <div className='flex flex-col w-[18rem] md:w-[32rem]'>
-                        <div className='flex flex-col w-[15rem] md:w-[28rem] items-center'>
+                        <div className='flex flex-col w-[15rem] md:w-[28rem] items-center pb-1'>
                             <button
                                 onClick={() => {
                                     setExpand(true);
@@ -350,7 +350,7 @@ export default function SlideView({
                                     setExpand(true);
                                     setExpandedImage(imageTwo);
                                 }}
-                                className='font-main text-graphite hover:text-slate duration-150 text-sm md:text-lg'>
+                                className='font-main text-graphite hover:text-slate duration-150 text-sm md:text-lg pb-1'>
                                 Expand
                             </button>
                         </div>

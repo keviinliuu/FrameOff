@@ -79,7 +79,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                     observer.current?.unobserve(target);
                     setSlidesDisplay(slidesDisplay.filter(slide => slide.key !== target.id));
                 }
-            }, 400);
+            }, 1000);
             resolve(true);
         });
     };
@@ -178,15 +178,15 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                 onFinish={handleFinish}></FinishPopup>
 
             <div className='absolute flex flex-row w-full top-0 left-0 right-0 justify-center items-center p-8 pb-0'>
-                <div className='flex flex-col gap-y-1 md:gap-y-4 items-center pt-8 md:pt-4'>
-                    <div className='text-moonbeam text-xl'>Cooking up</div>
-                    <div className='text-3xl md:text-5xl text-blush text-center'>{pollTitle}</div>
+                <div className='flex flex-col gap-x-2 md:gap-x-0 gap-y-1 md:gap-y-4 items-center pt-8 md:pt-4'>
+                    <div className='sm:hidden text-moonbeam text-xl'>Cooking up</div>
+                    <div className='text-2xl md:text-5xl text-blush text-center'>{pollTitle}</div>
                 </div>
                 <button
                     onClick={() => {
                         setFinish(true);
                     }}
-                    className='absolute right-4 md:right-10 transition ease-in-out delay-150 duration-300 enabled:hover:scale-105 flex h-10 md:h-12 p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg disabled:opacity-30 select-none'
+                    className='absolute right-4 sm:top-6 md:translate-y-0 md:right-10 transition ease-in-out delay-150 duration-300 enabled:hover:scale-105 flex h-10 md:h-12 p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg disabled:opacity-30 select-none'
                     disabled={!slidesAreValid}>
                     <FontAwesomeIcon icon={faCheck} size='xl' className='self-center' />
                     <p className='hidden md:flex items-center text-md md:text-2xl align-middle translate-y-0.5'>

@@ -9,10 +9,10 @@ interface SlidePickerProps {
 
 export default function SlidePicker({ activeIndex, activeCount, scrollTo }: SlidePickerProps) {
     return (
-        <div className='flex flex-col absolute top-1/2 items-center justify-center left-8 md:left-16 translate-y-[-50%] select-none'>
-            <div className='flex flex-col gap-y-3 w-full translate-x-[-50%] text-xl md:text-3xl'>
+        <div className='flex flex-col absolute bottom-8 md:top-1/2 items-center justify-center sm:right-8 md:left-16 md:translate-y-[-50%] select-none'>
+            <div className='flex flex-col md:gap-y-3 w-full translate-x-[-50%] text-xl md:text-3xl'>
                 <FontAwesomeIcon
-                    className={`text-neutral-400 ${
+                    className={`text-neutral-400 sm:hidden ${
                         activeIndex >= 1 ? 'cursor-pointer' : 'opacity-30'
                     }`}
                     icon={faChevronUp}
@@ -21,7 +21,7 @@ export default function SlidePicker({ activeIndex, activeCount, scrollTo }: Slid
                     }}
                 />
 
-                <div className='flex flex-row text-blush text-xl md:text-3xl justify-center gap-x-3 items-center w-full'>
+                <div className='flex flex-row text-blush text-xl md:text-3xl justify-center md:gap-x-3 items-center w-full'>
                     <div className='absolute text-right self-end right-[1.25rem] md:right-[2rem]'>
                         {activeIndex + 1}
                     </div>
@@ -32,7 +32,7 @@ export default function SlidePicker({ activeIndex, activeCount, scrollTo }: Slid
                 </div>
 
                 <FontAwesomeIcon
-                    className={`text-neutral-400 cursor-pointer ${
+                    className={`text-neutral-400 cursor-pointer sm:hidden ${
                         activeIndex < activeCount - 1 ? 'cursor-pointer' : 'opacity-30'
                     }`}
                     icon={faChevronDown}
