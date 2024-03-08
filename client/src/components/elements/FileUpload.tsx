@@ -9,7 +9,7 @@ export interface FileUploadProps {
 
 export default function FileUpload({ image, onChange }: FileUploadProps) {
     const iconRef = useRef(null);
-    const bgRef = useRef(null);
+    const bgRef = useRef<HTMLLabelElement>(null);
     const outlineTRef = useRef(null);
     const outlineBRef = useRef(null);
     const outlineLRef = useRef(null);
@@ -235,7 +235,24 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
                     type='file'
                     hidden
                     accept='image/png,image/jpeg'
-                    onChange={e => e.target.files && onChange(e.target.files![0])}
+                    onChange={e => {
+                        if (e.target.files) {
+                            onChange(e.target.files![0]);
+                            const target = bgRef.current as HTMLElement;
+                            const rect = target.getBoundingClientRect();
+                            setDropX(rect.width / 2);
+                            setDropY(rect.height / 2);
+                            console.log(`${rect.left} ${rect.width}`);
+                            anime({
+                                targets: imageRef,
+                                duration: 1000,
+                                change: anim => {
+                                    setMaskRad(anim.progress * 2);
+                                },
+                                easing: 'easeInOutCubic',
+                            });
+                        }
+                    }}
                 />
             </label>
         </div>
