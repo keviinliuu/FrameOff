@@ -9,7 +9,7 @@ interface SlidePickerProps {
 
 export default function SlidePicker({ activeIndex, activeCount, scrollTo }: SlidePickerProps) {
     return (
-        <div className='flex flex-col absolute bottom-8 md:top-1/2 items-center justify-center sm:right-8 md:left-16 md:translate-y-[-50%] select-none'>
+        <div className='flex flex-col absolute bottom-4 md:top-1/2 items-center justify-center sm:right-8 md:left-16 md:translate-y-[-50%] select-none'>
             <div className='flex flex-col md:gap-y-3 w-full translate-x-[-50%] text-xl md:text-3xl'>
                 <FontAwesomeIcon
                     className={`text-neutral-400 sm:hidden ${

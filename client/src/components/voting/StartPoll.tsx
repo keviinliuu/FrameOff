@@ -12,12 +12,15 @@ export default function StartPoll({ onStart }: StartPollProps) {
     const pollDescription = useSlideStore(state => state.pollDescription);
 
     const formatDescriptionForDisplay = (description: string | null) => {
-        return description!.split('\n').map((line, index, array) => (
-            <React.Fragment key={index}>
-                {line}
-                {index !== array.length - 1 && <br />}
-            </React.Fragment>
-        ));
+        if(description != null) {
+            return description.split('\n').map((line, index, array) => (
+                <React.Fragment key={index}>
+                    {line}
+                    {index !== array.length - 1 && <br />}
+                </React.Fragment>
+            ));
+        }
+        return description;
     };
 
     return (

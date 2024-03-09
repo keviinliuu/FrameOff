@@ -201,7 +201,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                     <div>You have no slides! Press the button to create your first slide!</div>
                 )}
             </div>
-            <div className='absolute flex bottom-0 left-0 right-0 justify-center p-8 pt-0 text-xs md:text-lg'>
+            <div className='absolute flex bottom-0 left-0 right-0 justify-center p-4 md:p-8 pt-0 text-xs md:text-lg'>
                 <FontAwesomeIcon
                     className='text-blush cursor-pointer'
                     icon={faCirclePlus}
@@ -210,7 +210,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                 />
             </div>
             <SlidePicker activeIndex={activeIndex} activeCount={activeCount} scrollTo={scrollTo} />
-            <div className='flex absolute bottom-0 left-0 p-8 text-3xl md:text-5xl'>
+            <div className='flex absolute bottom-0 left-0 p-4 md:p-8 text-3xl md:text-5xl'>
                 <button disabled={deleting} onClick={onDeleteClick}>
                     <FontAwesomeIcon
                         className={`text-blush ${activeCount > 1 ? 'cursor-pointer' : 'opacity-30'}`}
