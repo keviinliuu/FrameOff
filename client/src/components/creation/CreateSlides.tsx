@@ -169,10 +169,10 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                 onClose={() => setFinish(false)}
                 onFinish={handleFinish}></FinishPopup>
 
-            <div className='absolute flex flex-row w-full top-0 left-0 right-0 justify-center items-center p-8 pb-0'>
+            <div className='absolute flex flex-row w-full top-0 left-0 right-0 justify-center items-center pt-8'>
                 <div className='flex flex-col gap-x-2 md:gap-x-0 gap-y-1 md:gap-y-4 items-center pt-8 md:pt-4'>
                     <div className='sm:hidden text-moonbeam text-xl'>Cooking up</div>
-                    <div className='text-2xl md:text-5xl text-blush text-center'>{pollTitle}</div>
+                    <div className='text-[5.5vw] md:text-5xl text-blush text-center'>{pollTitle}</div>
                 </div>
                 <button
                     onClick={() => {

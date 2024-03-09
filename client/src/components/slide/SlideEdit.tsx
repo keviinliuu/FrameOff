@@ -68,14 +68,20 @@ export default function SlideEdit({
     return (
         <Slide>
             <input
-                className={`text-raspberry w-2/3 md:w-1/3 sm:translate-y-2 placeholder:text-xl text-xl md:placeholder:text-3xl md:text-3xl ${commonInputClass} ${titleAtMax ? 'wobble' : ''}`}
+                className={`sm:hidden text-raspberry w-1/3 placeholder:text-3xl text-3xl ${commonInputClass} ${titleAtMax ? 'wobble' : ''}`}
                 onChange={handleTitleChange}
                 placeholder='Enter title'
                 maxLength={maxTitleChars}
             />
-            <div className='flex flex-col md:flex-row w-full gap-y-2 md:gap-x-36 justify-center items-center'>
-                <div className='flex w-3/5 md:w-1/4 flex-col gap-y-1 md:gap-y-8 items-center'>
-                    <div className='aspect-square w-full'>
+            <div className='flex sm:justify-between flex-col md:flex-row sm:h-full w-full gap-y-2 md:gap-x-36 justify-center items-center'>
+                <input
+                    className={`md:hidden text-raspberry w-2/3 placeholder:text-xl translate-y-1 text-xl ${commonInputClass} ${titleAtMax ? 'wobble' : ''}`}
+                    onChange={handleTitleChange}
+                    placeholder='Enter title'
+                    maxLength={maxTitleChars}
+                />
+                <div className='flex md:w-1/4 flex-col gap-y-1 md:gap-y-8 items-center'>
+                    <div className='aspect-square w-full sm:h-[25vh] sm:w-[25vh]'>
                         <FileUpload image={imageOne} onChange={handleImageOne} />
                     </div>
                     <input
@@ -89,7 +95,7 @@ export default function SlideEdit({
                     <div className='flex text-xl md:text-3xl items-center text-blush pb-4'>VS</div>
                 </div>
                 <div className='flex w-3/5 md:w-1/4 flex-col gap-y-1 md:gap-y-8 items-center'>
-                    <div className='aspect-square w-full'>
+                    <div className='aspect-square w-full sm:h-[25vh] sm:w-[25vh]'>
                         <FileUpload image={imageTwo} onChange={handleImageTwo} />
                     </div>
                     <input

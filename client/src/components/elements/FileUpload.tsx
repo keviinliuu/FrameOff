@@ -161,8 +161,8 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
         anime({
             targets: iconRef.current,
             duration: 150,
-            width: '20%',
-            height: '20%',
+            width: '15%',
+            height: '15%',
             easing: 'easeOutCubic',
         });
         anime({
@@ -177,8 +177,8 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
         anime({
             targets: iconRef.current,
             duration: 50,
-            width: '15%',
-            height: '15%',
+            width: '10%',
+            height: '10%',
             easing: 'easeOutCubic',
         });
         anime({
@@ -226,7 +226,7 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
                         ref={imageRef}
                     />
                 ) : (
-                    <div className='z-0 w-[15%] h-[15%] pointer-events-none' ref={iconRef}>
+                    <div className='z-0 w-[10%] h-[10%] pointer-events-none' ref={iconRef}>
                         <FontAwesomeIcon className='w-full h-full' icon={faArrowUpFromBracket} />
                     </div>
                 )}
