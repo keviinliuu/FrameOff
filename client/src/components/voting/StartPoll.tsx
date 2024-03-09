@@ -1,6 +1,7 @@
 import { useSlideStore } from '../../stores/useSlideStore.ts';
 
 import '../../index.css';
+import React from 'react';
 
 interface StartPollProps {
     onStart: () => void;
@@ -9,6 +10,15 @@ interface StartPollProps {
 export default function StartPoll({ onStart }: StartPollProps) {
     const pollTitle = useSlideStore(state => state.pollTitle);
     const pollDescription = useSlideStore(state => state.pollDescription);
+
+    const formatDescriptionForDisplay = (description: string | null) => {
+        return description!.split('\n').map((line, index, array) => (
+            <React.Fragment key={index}>
+                {line}
+                {index !== array.length - 1 && <br />}
+            </React.Fragment>
+        ));
+    };
 
     return (
         <div className='relative flex flex-col snap-always snap-start min-h-screen w-fit justify-center gap-y-8 md:gap-y-0'>
@@ -21,7 +31,7 @@ export default function StartPoll({ onStart }: StartPollProps) {
                 </div>
             </div>
             <div className='flex flex-col items-center py-3 md:py-5 md:mt-10 text-raspberry text-xl md:text-3xl text-center px-5 md:px-20'>
-                {pollDescription}
+                {formatDescriptionForDisplay(pollDescription)}
             </div>
             <div className='flex justify-center md:pt-12 mt-5'>
                 <button
