@@ -5,5 +5,9 @@ export interface SlideProps {
 }
 
 export default function Slide({ children }: SlideProps) {
-    return <div className='flex p-6 w-full flex-col gap-y-8 items-center'>{children}</div>;
+    return (
+        <div className='flex p-6 h-[80vh] w-full md:w-[80vw] flex-col gap-y-2 md:gap-y-0 justify-center items-center'>
+            {children}
+        </div>
+    );
 }

@@ -115,19 +115,38 @@ export default function SlideView({
         tl.add({
             targets:
                 animImage == VotedEnum.IMAGE1 ? borderBotRefL1.current : borderBotRefL2.current,
-            duration: 150,
-            width: [`0%`, `50%`],
+            duration: 20,
+            height: [`0%`, `100%`],
+            marginLeftWidth: '4px',
             easing: 'easeInOutSine',
         });
         tl.add(
             {
                 targets:
                     animImage == VotedEnum.IMAGE1 ? borderBotRefR1.current : borderBotRefR2.current,
-                duration: 150,
-                width: [`0%`, `50%`],
+                duration: 20,
+                height: [`0%`, `100%`],
+                marginRightWidth: '4px',
                 easing: 'easeInOutSine',
             },
-            '-=150',
+            '-=20',
+        );
+        tl.add({
+            targets:
+                animImage == VotedEnum.IMAGE1 ? borderBotRefL1.current : borderBotRefL2.current,
+            duration: 300,
+            width: [`0%`, `100%`],
+            easing: 'easeInOutSine',
+        });
+        tl.add(
+            {
+                targets:
+                    animImage == VotedEnum.IMAGE1 ? borderBotRefR1.current : borderBotRefR2.current,
+                duration: 300,
+                width: [`0%`, `100%`],
+                easing: 'easeInOutSine',
+            },
+            '-=300',
         );
         tl.add(
             {
@@ -221,25 +240,25 @@ export default function SlideView({
                     className='m-auto max-w-[40vh] md:max-w-[90vh] max-h-[95vh] rounded-lg object-contain'></img>
             </ExpandedImage>
 
-            <div className='flex flex-col mt-12 justify-start items-center gap-y-2 md:justify-evenly'>
-                {title && (
-                    <div className='text-2xl md:text-4xl text-raspberry text-center'>{title}</div>
-                )}
-                <div className='grid grid-cols-[1fr_max-content_1fr] gap-x-4 justify-items-center items-end md:w-[32rem]'>
-                    <div />
+            {title && (
+                <div className='mt-12 text-2xl md:text-4xl text-raspberry text-center'>{title}</div>
+            )}
+            <div className='flex flex-col md:flex-row w-full justify-between items-center md:gap-4'>
+                <div className='grid grid-cols-[1fr_max-content_1fr] gap-x-4 justify-items-center items-end'>
+                    <div className='hidden md:flex' />
                     <button
                         onClick={() => {
                             setExpand(true);
                             setExpandedImage(imageOne);
                         }}
-                        className='font-main text-graphite hover:text-slate duration-150 text-sm md:text-lg'>
+                        className='hidden md:flex font-main text-graphite hover:text-slate duration-150 text-sm md:text-lg'>
                         Expand
                     </button>
-                    <div />
+                    <div className='hidden md:flex' />
 
                     <div />
-                    <div className='flex flex-row gap-x-4 w-[30vh] md:h-[28.5rem] items-end'>
-                        <div className='relative flex w-full items-center'>
+                    <div className='flex flex-row gap-x-4 w-[25vh] h-[25vh] md:max-w-[50vh] md:max-h-[50vh] md:w-[30vw] md:h-[30vw] items-end'>
+                        <div className='relative flex h-full w-full items-center'>
                             <VoteImage
                                 imgUrl={imageOne.url as string}
                                 voteEnum={VotedEnum.IMAGE1}
@@ -269,8 +288,7 @@ export default function SlideView({
                                         />
                                     )}
                                     <div
-                                        className='m-4 px-12 flex w-5/6 max-w-5/6 flex-row items-center justify-around rounded-lg bg-midnight'
-                                        style={{ height: '30%' }}
+                                        className='m-[5%] h-[30%] flex w-full flex-row items-center justify-evenly rounded-lg bg-midnight'
                                         ref={boxRef1}>
                                         <div className='opacity-1 h-3/4'>
                                             {votedFor == VotedEnum.IMAGE1 ? (
@@ -300,7 +318,7 @@ export default function SlideView({
                                                 </svg>
                                             )}
                                         </div>
-                                        <div className='px-4 mt-2 flex flex-col items-center justify-center gap-0 md:gap-2'>
+                                        <div className='mt-2 flex flex-col items-center justify-center gap-0 md:gap-2'>
                                             <p
                                                 className='text-main text-center text-sm md:text-xl text-moonbeam'
                                                 ref={votesRef1}>
@@ -329,7 +347,7 @@ export default function SlideView({
                         style={{ height: `${votesPercent1}%` }}></div>
 
                     <div />
-                    <div className='flex flex-col md:w-[28rem] items-center'>
+                    <div className='flex flex-col items-center'>
                         {imageOne.caption && (
                             <div className='text-xl md:text-3xl text-blush pt-1 md:pt-5'>
                                 {imageOne.caption}
@@ -340,9 +358,10 @@ export default function SlideView({
 
                 <div className='flex items-center text-xl md:text-3xl text-blush'>VS</div>
 
-                <div className='grid grid-cols-[1fr_max-content_1fr] gap-x-4 justify-items-center items-end md:w-[32rem]'>
-                    <div />
-                    <div className='flex flex-col md:w-[28rem] items-center'>
+                <div className='grid grid-cols-[1fr_max-content_1fr] gap-x-4 justify-items-center items-end'>
+                    {/* hide first row on mobile because we're doing an icon instead */}
+                    <div className='order-1 hidden md:flex' />{' '}
+                    <div className='order-2 hidden md:flex flex-col items-center'>
                         <button
                             onClick={() => {
                                 setExpand(true);
@@ -352,11 +371,10 @@ export default function SlideView({
                             Expand
                         </button>
                     </div>
-                    <div />
-
-                    <div />
-                    <div className='flex flex-row gap-x-4 w-[30vh] md:h-[28.5rem] items-end'>
-                        <div className='relative flex w-full h-full items-center'>
+                    <div className='order-3 hidden md:flex' />
+                    <div className='order-4 md:order-6' />
+                    <div className='order-5 flex flex-row gap-x-4 w-[25vh] h-[25vh] md:max-w-[50vh] md:max-h-[50vh] md:w-[30vw] md:h-[30vw] items-end'>
+                        <div className='relative flex h-full w-full items-center'>
                             <VoteImage
                                 imgUrl={imageTwo.url as string}
                                 voteEnum={VotedEnum.IMAGE2}
@@ -386,8 +404,7 @@ export default function SlideView({
                                         />
                                     )}
                                     <div
-                                        className='m-4 px-12 flex w-5/6 max-w-5/6 flex-row items-center justify-around rounded-lg bg-midnight'
-                                        style={{ height: '30%' }}
+                                        className='m-[5%] h-[30%] flex w-full flex-row items-center justify-evenly rounded-lg bg-midnight'
                                         ref={boxRef2}>
                                         <div className='opacity-1 h-3/4'>
                                             {votedFor == VotedEnum.IMAGE2 ? (
@@ -417,7 +434,7 @@ export default function SlideView({
                                                 </svg>
                                             )}
                                         </div>
-                                        <div className='px-4 mt-2 flex flex-col items-center justify-center gap-0 md:gap-2'>
+                                        <div className='mt-2 flex flex-col items-center justify-center gap-0 md:gap-2'>
                                             <p
                                                 className='text-main text-center text-sm md:text-xl text-moonbeam'
                                                 ref={votesRef2}>
@@ -439,14 +456,13 @@ export default function SlideView({
                         </div>
                     </div>
                     <div
-                        className={`text-blush w-8 md:w-10 justify-end ${
+                        className={`order-6 text-blush w-8 md:w-10 justify-end md:order-4 ${
                             votedFor == VotedEnum.IMAGE2 ? 'bg-fuchsia' : 'bg-charcoal'
                         }`}
                         ref={barRef2}
                         style={{ height: `${votesPercent2}%` }}></div>
-
-                    <div />
-                    <div className='flex flex-col md:w-[28rem] items-center'>
+                    <div className='order-7' />
+                    <div className='order-8 flex flex-col items-center'>
                         {imageTwo.caption && (
                             <div className='text-xl md:text-3xl text-blush pt-1 md:pt-5'>
                                 {imageTwo.caption}

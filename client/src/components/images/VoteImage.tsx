@@ -18,7 +18,7 @@ export default function VoteImage({ imgUrl, voteEnum, onVote }: VoteImageProps) 
     });
     return (
         <div
-            className='flex flex-col items-center'
+            className='h-full w-full flex flex-col items-center'
             onMouseOver={() => {
                 setMouseOver(true);
             }}
@@ -27,13 +27,14 @@ export default function VoteImage({ imgUrl, voteEnum, onVote }: VoteImageProps) 
             }}>
             <img
                 src={imgUrl as VotedEnum}
-                className='m-auto aspect-square max-w-full rounded-lg object-cover'
+                className='aspect-square max-w-full w-full rounded-lg object-cover'
             />
             {mouseOver && (
                 <div
                     className='absolute flex aspect-square h-full items-center justify-center rounded-lg bg-plum bg-opacity-50 opacity-0'
                     ref={highlightRef}
                     onMouseOut={() => {
+                        console.log('testing');
                         anime({
                             targets: highlightRef.current,
                             duration: 100,
