@@ -48,7 +48,6 @@ export default function RandomizedFrame() {
 
         let v = Math.random();
         v *= icons.length;
-        console.log('random num ' + v);
 
         setRandomIcon(icons[Math.floor(v)]);
     }, []);

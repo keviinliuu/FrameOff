@@ -34,7 +34,6 @@ export default function VoteImage({ imgUrl, voteEnum, onVote }: VoteImageProps) 
                     className='absolute flex aspect-square h-full items-center justify-center rounded-lg bg-plum bg-opacity-50 opacity-0'
                     ref={highlightRef}
                     onMouseOut={() => {
-                        console.log('testing');
                         anime({
                             targets: highlightRef.current,
                             duration: 100,
