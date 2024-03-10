@@ -242,7 +242,6 @@ export default function FileUpload({ image, onChange }: FileUploadProps) {
                             const rect = target.getBoundingClientRect();
                             setDropX(rect.width / 2);
                             setDropY(rect.height / 2);
-                            console.log(`${rect.left} ${rect.width}`);
                             anime({
                                 targets: imageRef,
                                 duration: 1000,

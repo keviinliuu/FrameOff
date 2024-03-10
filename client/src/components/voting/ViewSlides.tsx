@@ -35,7 +35,6 @@ export default function ViewPoll() {
     const intersectionHandler = (entries: IntersectionObserverEntry[]) => {
         const entry = entries[entries.length - 1];
         if (entry.intersectionRatio >= 1.0) {
-            console.log(getSlide(entry.target.id)?.index);
             setActiveIndex(getSlide(entry.target.id)?.index ?? 0);
             setActiveCount(getSlideCount());
         }

@@ -59,20 +59,21 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
         }
     };
 
-    const handleDeleteSlide = () => {
-        const curIndex = activeIndex;
-        const target = document.getElementById(getSlideFromIndex(curIndex)!._id);
+    const handleDeleteSlide = (index: number) => {
+        if(activeCount <= 1) return;
+
+        const target = document.getElementById(getSlideFromIndex(index)!._id);
 
         if (target) {
-            deleteSlideByIndex(curIndex);
+            deleteSlideByIndex(index);
             setActiveCount(getSlideCount());
         }
 
-        if (curIndex != 0) {
-            document.getElementById(getSlideFromIndex(curIndex - 1)?._id!)?.scrollIntoView();
-            setActiveIndex(curIndex - 1);
+        if (index != 0) {
+            document.getElementById(getSlideFromIndex(index - 1)?._id!)?.scrollIntoView();
+            setActiveIndex(index - 1);
         } else {
-            document.getElementById(getSlideFromIndex(curIndex)?._id!)?.scrollIntoView();
+            document.getElementById(getSlideFromIndex(index)?._id!)?.scrollIntoView();
         }
 
         setTimeout(() => {
@@ -203,7 +204,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             </div>
             <SlidePicker activeIndex={activeIndex} activeCount={activeCount} scrollTo={scrollTo} />
             <div className='flex absolute bottom-0 left-0 p-4 md:p-8 text-3xl md:text-5xl'>
-                <button onClick={handleDeleteSlide}>
+                <button onClick={() => {handleDeleteSlide(activeIndex)}}>
                     <FontAwesomeIcon
                         className={`text-blush ${activeCount > 1 ? 'cursor-pointer' : 'opacity-30'}`}
                         icon={faTrashCan}
