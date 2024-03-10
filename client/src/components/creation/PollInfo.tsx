@@ -48,7 +48,7 @@ export default function PollInfo({ setTitle, setDescription, onContinue }: PollI
                 onChange={handleTitleChange}
             />
 
-            <div className='text-white text-xl md:text-2xl pt-20'>
+            <div className='text-white text-xl md:text-2xl pt-20 text-center'>
                 and a description too! (if you want...)
             </div>
             <textarea
