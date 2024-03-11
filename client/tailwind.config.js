@@ -9,7 +9,6 @@ export default {
                 slate: '#838383',
                 graphite: '#585457',
                 charcoal: '#554f4f',
-                aqua: '#84e4db',
                 midnight: '#00031d',
                 nocturne: '#0d0324',
                 blush: '#ffade7',

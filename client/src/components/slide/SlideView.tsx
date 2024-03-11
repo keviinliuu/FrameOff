@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { ImageData, VotedEnum } from '../../data/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faExpand } from '@fortawesome/free-solid-svg-icons';
 
 import Slide from './Slide';
 import VoteImage from '../images/VoteImage';
@@ -251,7 +251,7 @@ export default function SlideView({
                             setExpand(true);
                             setExpandedImage(imageOne);
                         }}
-                        className='hidden md:flex font-main text-graphite hover:text-slate duration-150 text-sm md:text-lg'>
+                        className='sm:hidden flex font-main text-graphite hover:text-slate duration-150 text-sm md:text-lg'>
                         Expand
                     </button>
                     <div className='hidden md:flex' />
@@ -259,6 +259,16 @@ export default function SlideView({
                     <div />
                     <div className='flex flex-row gap-x-4 w-[25vh] h-[25vh] md:max-w-[50vh] md:max-h-[50vh] md:w-[30vw] md:h-[30vw] items-end'>
                         <div className='relative flex h-full w-full items-center'>
+                            <div className='md:hidden absolute text-moonbeam active:text-slate duration-150 top-0 m-2 rounded h-5 w-5 text-center z-10 bg-midnight/50'>
+                                <FontAwesomeIcon
+                                    icon={faExpand}
+                                    onClick={() => {
+                                        setExpand(true);
+                                        setExpandedImage(imageOne);
+                                    }}
+                                    className='translate-y-[0.05rem]'
+                                />
+                            </div>
                             <VoteImage
                                 imgUrl={imageOne.url as string}
                                 voteEnum={VotedEnum.IMAGE1}
@@ -360,8 +370,8 @@ export default function SlideView({
 
                 <div className='grid grid-cols-[1fr_max-content_1fr] gap-x-4 justify-items-center items-end'>
                     {/* hide first row on mobile because we're doing an icon instead */}
-                    <div className='order-1 hidden md:flex' />{' '}
-                    <div className='order-2 hidden md:flex flex-col items-center'>
+                    <div className='order-1 sm:hidden flex' />{' '}
+                    <div className='order-2 sm:hidden flex flex-col items-center'>
                         <button
                             onClick={() => {
                                 setExpand(true);
@@ -375,6 +385,16 @@ export default function SlideView({
                     <div className='order-4 md:order-6' />
                     <div className='order-5 flex flex-row gap-x-4 w-[25vh] h-[25vh] md:max-w-[50vh] md:max-h-[50vh] md:w-[30vw] md:h-[30vw] items-end'>
                         <div className='relative flex h-full w-full items-center'>
+                            <div className='md:hidden absolute text-moonbeam active:text-slate duration-150 top-0 m-2 rounded h-5 w-5 text-center z-10 bg-midnight/50'>
+                                <FontAwesomeIcon
+                                    icon={faExpand}
+                                    onClick={() => {
+                                        setExpand(true);
+                                        setExpandedImage(imageTwo);
+                                    }}
+                                    className='translate-y-[0.05rem]'
+                                />
+                            </div>
                             <VoteImage
                                 imgUrl={imageTwo.url as string}
                                 voteEnum={VotedEnum.IMAGE2}
