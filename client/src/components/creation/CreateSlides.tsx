@@ -179,7 +179,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
                     onClick={() => {
                         setFinish(true);
                     }}
-                    className='absolute right-4 sm:top-6 md:translate-y-0 md:right-10 transition ease-in-out delay-150 duration-300 enabled:hover:scale-105 flex h-10 md:h-12 p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg disabled:opacity-30 select-none'
+                    className='absolute right-4 sm:top-6 md:translate-y-0 md:right-10 transition ease-in-out duration-300 enabled:hover:scale-110 flex h-10 md:h-12 p-4 bg-blush text-midnight gap-x-3 items-center rounded-lg disabled:opacity-30 select-none'
                     disabled={!slidesAreValid}>
                     <FontAwesomeIcon icon={faCheck} size='xl' className='self-center' />
                     <p className='hidden md:flex items-center text-md md:text-2xl align-middle translate-y-0.5'>
@@ -196,7 +196,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             </div>
             <div className='absolute flex bottom-0 left-0 right-0 justify-center p-4 md:p-8 pt-0 text-xs md:text-lg'>
                 <FontAwesomeIcon
-                    className='text-blush cursor-pointer'
+                    className='text-blush cursor-pointer hover:scale-110 transition ease-in-out duration-300'
                     icon={faCirclePlus}
                     size='3x'
                     onClick={handleCreateSlide}
@@ -206,7 +206,7 @@ export default function CreateSlides({ pollTitle, setFinishPoll }: CreateSlidesP
             <div className='flex absolute bottom-0 left-0 p-4 md:p-8 text-3xl md:text-5xl'>
                 <button onClick={() => {handleDeleteSlide(activeIndex)}}>
                     <FontAwesomeIcon
-                        className={`text-blush ${activeCount > 1 ? 'cursor-pointer' : 'opacity-30'}`}
+                        className={`text-blush ${activeCount > 1 ? 'cursor-pointer hover:scale-110 transition ease-in-out duration-300' : 'opacity-30'}`}
                         icon={faTrashCan}
                     />
                 </button>
