@@ -68,7 +68,7 @@ export default function SlideEdit({
     return (
         <Slide>
             <input
-                className={`sm:hidden text-raspberry w-1/3 placeholder:text-3xl text-3xl ${commonInputClass} ${titleAtMax ? 'wobble' : ''}`}
+                className={`sm:hidden text-raspberry w-[30vw] placeholder:text-3xl text-3xl md:mb-6 ${commonInputClass} ${titleAtMax ? 'wobble' : ''}`}
                 onChange={handleTitleChange}
                 placeholder='Enter title'
                 maxLength={maxTitleChars}
@@ -80,12 +80,12 @@ export default function SlideEdit({
                     placeholder='Enter title'
                     maxLength={maxTitleChars}
                 />
-                <div className='flex md:w-1/4 flex-col gap-y-1 md:gap-y-8 items-center'>
+                <div className='flex md:w-[25vw] flex-col gap-y-1 md:gap-y-4 items-center'>
                     <div className='aspect-square w-full sm:h-[25vh] sm:w-[25vh]'>
                         <FileUpload image={imageOne} onChange={handleImageOne} />
                     </div>
                     <input
-                        className={`placeholder:text-base text-base md:placeholder:text-2xl w-56 md:w-96' ${commonInputClass} ${captionOneAtMax ? 'wobble' : ''}`}
+                        className={`placeholder:text-base text-base md:placeholder:text-2xl md:text-2xl w-[50vw] md:w-[20vw] ${commonInputClass} ${captionOneAtMax ? 'wobble' : ''}`}
                         onChange={handleCapOneChange}
                         placeholder='Enter caption'
                         maxLength={maxCaptionChars}
@@ -94,12 +94,12 @@ export default function SlideEdit({
                 <div className='flex flex-col gap-y-4 items-center'>
                     <div className='flex text-xl md:text-3xl items-center text-blush pb-4'>VS</div>
                 </div>
-                <div className='flex w-3/5 md:w-1/4 flex-col gap-y-1 md:gap-y-8 items-center'>
+                <div className='flex md:w-[25vw] flex-col gap-y-1 md:gap-y-4 items-center'>
                     <div className='aspect-square w-full sm:h-[25vh] sm:w-[25vh]'>
                         <FileUpload image={imageTwo} onChange={handleImageTwo} />
                     </div>
                     <input
-                        className={`placeholder:text-base text-base md:placeholder:text-2xl w-56 md:w-96' ${commonInputClass} ${captionTwoAtMax ? 'wobble' : ''}`}
+                        className={`placeholder:text-base text-base md:placeholder:text-2xl md:text-2xl w-[50vw] md:w-[20vw] ${commonInputClass} ${captionTwoAtMax ? 'wobble' : ''}`}
                         onChange={handleCapTwoChange}
                         placeholder='Enter caption'
                         maxLength={maxCaptionChars}
