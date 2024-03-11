@@ -240,9 +240,9 @@ export default function SlideView({
                     className='m-auto max-w-[40vh] md:max-w-[90vh] max-h-[95vh] rounded-lg object-contain'></img>
             </ExpandedImage>
 
-            {title && (
-                <div className='mt-12 text-2xl md:text-4xl text-raspberry text-center'>{title}</div>
-            )}
+            <div className='mt-12 text-2xl md:text-4xl text-raspberry text-center'>
+                {title ? title : <br></br>}
+            </div>
             <div className='flex flex-col md:flex-row w-full justify-between items-center md:gap-4'>
                 <div className='grid grid-cols-[1fr_max-content_1fr] gap-x-4 justify-items-center items-end'>
                     <div className='hidden md:flex' />
@@ -358,15 +358,13 @@ export default function SlideView({
 
                     <div />
                     <div className='flex flex-col items-center'>
-                        {imageOne.caption && (
-                            <div className='text-xl md:text-3xl text-blush pt-1 md:pt-5'>
-                                {imageOne.caption}
-                            </div>
-                        )}
+                        <div className='text-xl md:text-3xl text-blush pt-1 md:pt-5'>
+                            {imageOne.caption ? imageOne.caption : <br></br>}
+                        </div>
                     </div>
                 </div>
 
-                <div className='flex items-center text-xl md:text-3xl text-blush'>VS</div>
+                <div className='flex items-center text-xl md:text-3xl text-blush sm:pb-4'>VS</div>
 
                 <div className='grid grid-cols-[1fr_max-content_1fr] gap-x-4 justify-items-center items-end'>
                     {/* hide first row on mobile because we're doing an icon instead */}
@@ -483,11 +481,9 @@ export default function SlideView({
                         style={{ height: `${votesPercent2}%` }}></div>
                     <div className='order-7' />
                     <div className='order-8 flex flex-col items-center'>
-                        {imageTwo.caption && (
-                            <div className='text-xl md:text-3xl text-blush pt-1 md:pt-5'>
-                                {imageTwo.caption}
-                            </div>
-                        )}
+                        <div className='text-xl md:text-3xl text-blush pt-1 md:pt-5'>
+                            {imageTwo.caption ? imageTwo.caption : <br></br>}
+                        </div>
                     </div>
                 </div>
             </div>
