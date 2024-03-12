@@ -10,13 +10,15 @@ export default function VotePoll() {
     const navigate = useNavigate();
     const { _id } = useParams();
     const loadPoll = useSlideStore(state => state.loadPoll);
+    const pollTitle = useSlideStore(state => state.pollTitle);
     const error = useSlideStore(state => state.error);
 
     useEffect(() => {
         if (_id !== undefined) {
             loadPoll(_id);
+            document.title = pollTitle ? `${pollTitle} - FrameOff` : 'Loading...';
         }
-    }, [_id, loadPoll]);
+    }, [_id, loadPoll, pollTitle]);
 
     useEffect(() => {
         if (error) {

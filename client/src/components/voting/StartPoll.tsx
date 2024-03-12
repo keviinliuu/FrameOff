@@ -30,7 +30,7 @@ export default function StartPoll({ onStart }: StartPollProps) {
             </div>
             <div className='flex flex-col items-center md:py-10 md:mt-10 px-2 md:px-14'>
                 <div className='text-blush text-5xl md:text-8xl text-center px-1 break-words w-fit'>
-                    {pollTitle}
+                    {pollTitle ? pollTitle : 'Loading...'}
                 </div>
             </div>
             <div className='flex flex-col items-center py-3 md:py-5 md:mt-10 text-raspberry text-xl md:text-3xl text-center px-5 md:px-20'>
