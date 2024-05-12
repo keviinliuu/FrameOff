@@ -57,7 +57,7 @@ The backend is implemented using:
 - Node.js
 - Express
 - MongoDB
-- AWS for image storage
+- AWS S3 for image storage
 
 The backend features multiple API endpoints. See the backend [doc.md](https://github.com/keviinliuu/FrameOff/blob/integration/backend/doc.md) for more info. 
 
