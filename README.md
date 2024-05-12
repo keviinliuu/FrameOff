@@ -5,11 +5,11 @@
 
 Frameoff is a light-weight image-based polling web service that allows users to create, share, and vote on polls instantly. No form of sign up is required - it's quick and convenient for anybody to generate a poll and share it to the world.
 
-Creation is easy. Give your poll a title and optional description, upload your photos, and create as many comparisons you want. Once you're done, a short link is generated which you can then send to anybody you want.
+Creation is easy. Give your poll a title and optional description, upload your photos, and create as many comparisons you want. Once you're done, a short link is generated which you can then send to anybody.
 
 Voting is just as simple. For each comparison slide, click on the image you prefer or like better. Results are instantly displayed after casting your vote.
 
-FrameOff is designed to be a clean, seamless, experience that simplifies image polling and make it easy for anybody to pick and use, without having to deal with annoying account creation or unnecessary bloat that too many websites feature nowadays. Vote on!
+FrameOff is designed to be a clean, seamless, experience that simplifies image polling and makes it easy for anybody to pick up and use, without having to deal with annoying account creation or unnecessary bloat that too many websites feature nowadays. Vote on!
 
 
 ## Demo
